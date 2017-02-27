@@ -2,6 +2,11 @@
 # OSX
 #
 .DS_Store
+Icon?
+
+# Windows
+ehthumbs.db
+Thumbs.db
 
 ### Node ###
 # Logs
