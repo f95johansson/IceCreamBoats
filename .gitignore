@@ -88,11 +88,23 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
+android/build/
+android/app/build/
 .idea
 .gradle
 local.properties
+*/proguard
 *.iml
+*.apk
+*.ap_
+*.dex
+*.class
+*.navigation/
+android/captures/
+*.jks
+*.externalNativeBuild
+*google-services.json
+*keystore.properties
 
 # node.js
 #

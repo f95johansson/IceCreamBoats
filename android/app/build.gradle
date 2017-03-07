@@ -82,6 +82,13 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+/**
+ * Load secret keys info
+ */
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -106,8 +113,13 @@ android {
     }
     buildTypes {
         release {
+            manifestPlaceholders = [GOOGLE_MAP_KEY:keystoreProperties['GoogleMapKey']]
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+
+        debug {
+            manifestPlaceholders = [GOOGLE_MAP_KEY:keystoreProperties['GoogleMapKey']]
         }
     }
     // applicationVariants are e.g. debug, release
@@ -126,6 +138,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-maps')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
