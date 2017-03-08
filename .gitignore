@@ -129,3 +129,6 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 *.xcuserstate
+
+# vim swap file
+*.swp
