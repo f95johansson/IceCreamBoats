@@ -6,7 +6,7 @@ import {
   Text,
   View
 } from 'react-native';
-import TabBar from './navigation/navigation';
+import TabBar from './navigation/TabBar';
 
 // Initialize Firebase
 var config = {

@@ -1,15 +1,39 @@
 import React, { Component } from 'react';
-import { View, Text, Navigator, TouchableHighlight } from 'react-native';
+import { 
+  View,
+  Text,
+  Navigator,
+  TouchableHighlight,
+  StyleSheet
+} from 'react-native';
 
 function AboutTest(props) {
   return (<Text>{props.text}</Text>);
 }
 
 const routes = [
-    {scene: <AboutTest text='1'/>,title: 'Om oss', index: 0},
+    {scene: <AboutTest text='1'/>, title: 'Om oss', index: 0},
     {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
     {scene: <AboutTest text='3'/>, title: 'Meny', index: 2},
   ];
+
+function NavButton(props) {
+  return (
+    <TouchableHighlight 
+      onPress={() => {
+        if (props.index === 1 && props.route.index !== 1) {
+          props.navigator.popToTop();
+          return;
+        }
+
+        if (props.route.index !== props.index) {
+          props.navigator.push(props.routes[props.index]);
+        }
+      }}>
+      <Text>{props.routes[props.index].title}</Text>
+    </TouchableHighlight>
+  );
+}
 
 export default class TabBar extends Component {
 
@@ -23,27 +47,9 @@ export default class TabBar extends Component {
   bar = (route, navigator) => {
     return (
       <View>
-        <TouchableHighlight onPress={() => {
-            if (route.index !== 0) {
-              navigator.push(routes[0]);
-            }
-          }}>
-          <Text>{routes[0].title}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => {
-            if (route.index !== 1) {
-              navigator.popToTop();
-            }
-          }}>
-          <Text>{routes[1].title}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => {
-            if (route.index !== 2) {
-              navigator.push(routes[2]);
-            }
-          }}>
-          <Text>{routes[2].title}</Text>
-        </TouchableHighlight>
+        <NavButton routes={routes} route={route} navigator={navigator} index={0} />
+        <NavButton routes={routes} route={route} navigator={navigator} index={1} />
+        <NavButton routes={routes} route={route} navigator={navigator} index={2} />
       </View>
       );
   }
@@ -60,3 +66,18 @@ export default class TabBar extends Component {
     );
   }
 }
+
+var styles = StyleSheet.create({
+  TabBar: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  NavButton: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+});
+
