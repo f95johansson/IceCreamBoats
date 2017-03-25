@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Menu from '../scenes/Menu'
-import About from '../scenes/About'
-import Admin from '../scenes/Admin'
+import Menu from '../scenes/Menu';
+import About from '../scenes/About';
+import Admin from '../scenes/Admin';
 import {
   View,
   Text,
@@ -10,15 +10,13 @@ import {
   StyleSheet,
   BackAndroid
 } from 'react-native';
+import MapScene from '../scenes/MapScene';
 
-function AboutTest(props) {
-  return (<Text>{props.text}</Text>);
-}
 
 //Here is where the views goes
 const routes = [
-    {scene: <About text='1'/>, title: 'Om oss', index: 0},
-    {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
+    {scene: <About />, title: 'Om oss', index: 0},
+    {scene: <MapScene />, title: 'Karta', index: 1},
     {scene: <Menu/>, title: 'Meny', index: 2},
     {scene: <Admin/>, title: 'Admin', index: 3},
   ];
@@ -59,10 +57,12 @@ export default class Routing extends Component {
   }
 
   page = (route, navigator) => {
-    return (<View style={styles.app}>
-              <View style={styles.Scene}>{route.scene}</View>
-              <View>{this.bar(route, navigator)}</View>
-            </View>);
+    return (
+      <View style={styles.app}>
+        <View style={styles.Scene}>{route.scene}</View>
+        <View>{this.bar(route, navigator)}</View>
+      </View>
+    );
   }
 
   bar = (route, navigator) => {
@@ -73,7 +73,7 @@ export default class Routing extends Component {
         <NavButton index={2} routes={routes} route={route} navigator={navigator} />
         <NavButton index={3} routes={routes} route={route} navigator={navigator} />
       </View>
-      );
+    );
   }
 
   render() {
@@ -89,27 +89,12 @@ export default class Routing extends Component {
   }
 }
 
-/*
-React.BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (navigator && navigator.getCurrentRoutes().length > 1) {
-        navigator.pop();
-        return true;
-    }
-    return false;
-});
-*/
 
 var styles = StyleSheet.create({
   app: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-  },
-  Routing_old: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   Routing: {
     flexDirection: 'row',
@@ -119,6 +104,6 @@ var styles = StyleSheet.create({
     padding: 20,
   },
   Scene: {
-
+    flex: 1,
   }
 });
