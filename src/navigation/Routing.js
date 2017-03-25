@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Menu from '../scenes/Menu'
 import About from '../scenes/About'
+import Admin from '../scenes/Admin'
 import {
   View,
   Text,
@@ -19,6 +20,7 @@ const routes = [
     {scene: <About text='1'/>, title: 'Om oss', index: 0},
     {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
     {scene: <Menu/>, title: 'Meny', index: 2},
+    {scene: <Admin/>, title: 'Admin', index: 3},
   ];
 
 function NavButton(props) {
@@ -69,6 +71,7 @@ export default class Routing extends Component {
         <NavButton index={0} routes={routes} route={route} navigator={navigator} />
         <NavButton index={1} routes={routes} route={route} navigator={navigator} />
         <NavButton index={2} routes={routes} route={route} navigator={navigator} />
+        <NavButton index={3} routes={routes} route={route} navigator={navigator} />
       </View>
       );
   }
