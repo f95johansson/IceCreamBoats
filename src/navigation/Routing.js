@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Menu from '../scenes/Menu'
+import About from '../scenes/About'
 import {
   View,
   Text,
@@ -15,7 +16,7 @@ function AboutTest(props) {
 
 //Here is where the views goes
 const routes = [
-    {scene: <AboutTest text='1'/>, title: 'Om oss', index: 0},
+    {scene: <About text='1'/>, title: 'Om oss', index: 0},
     {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
     {scene: <Menu/>, title: 'Meny', index: 2},
   ];

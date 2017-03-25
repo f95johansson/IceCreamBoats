@@ -9,13 +9,53 @@ import {
 } from 'react-native';
 
 export default class About extends Component {
+
+  componentWillMount() {
+    this.state = {
+      AboutTitle: "Om oss",
+      AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
+      ContactUsTitle: "Kontakta oss",
+      ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
+    }
+  }
+
   render() {
     return (
       <View>
-        {/*Import ImageViewer Here
-          https://facebook.github.io/react-native/docs/images.html
-          */}
+        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+          style={{width: 400, height: 250}} />
+
+        <Text style={styles.baseText}>
+          {'\n'}{'\n'}
+          <Text style={styles.titleText}>
+            {this.state.AboutTitle}
+          </Text>
+          {'\n'}{'\n'}
+          <Text style={styles.baseText}>
+            {this.state.AboutText}
+          </Text>
+          {'\n'}{'\n'}
+          <Text style={styles.titleText}>
+            {this.state.ContactUsTitle}
+          </Text>
+          {'\n'}{'\n'}
+          <Text style={styles.baseText}>
+            {this.state.ContactUsText}
+
+          </Text>
+
+        </Text>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  baseText: {
+    fontFamily: 'Cochin',
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
