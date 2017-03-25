@@ -23,7 +23,7 @@ export default class About extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{paddingTop: 25}}>
         <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
           style={{width: 400, height: 250}} />
 
@@ -60,6 +60,7 @@ export default class About extends Component {
 const styles = StyleSheet.create({
   baseText: {
     fontFamily: 'Cochin',
+    textAlign: 'center'
   },
   titleText: {
     fontSize: 20,
