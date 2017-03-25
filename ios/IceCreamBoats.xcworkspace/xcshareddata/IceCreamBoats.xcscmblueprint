@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C6C8CBC8FD5D5C8148B7B113F02285A7B9F469EB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C6C8CBC8FD5D5C8148B7B113F02285A7B9F469EB" : 9223372036854775807,
+    "274C4FFC871359E01111DEB4A549DB60542EA060" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "20726867-A480-4291-BA09-6CEAD5B62D69",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C6C8CBC8FD5D5C8148B7B113F02285A7B9F469EB" : "IceCreamBoats\/",
+    "274C4FFC871359E01111DEB4A549DB60542EA060" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "IceCreamBoats",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/IceCreamBoats.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.heroku.com\/shrouded-plateau-50284.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "274C4FFC871359E01111DEB4A549DB60542EA060"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/f95johansson\/IceCreamBoats.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C6C8CBC8FD5D5C8148B7B113F02285A7B9F469EB"
+    }
+  ]
+}
