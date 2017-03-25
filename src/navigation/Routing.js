@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { 
+import {
   View,
   Text,
   Navigator,
@@ -21,7 +21,7 @@ const routes = [
 
 function NavButton(props) {
   return (
-    <TouchableHighlight 
+    <TouchableHighlight
       style={styles.NavButton}
       onPress={() => {
         if (props.index === 1 && props.route.index !== 1) {
@@ -42,7 +42,7 @@ function NavButton(props) {
   );
 }
 
-export default class TabBar extends Component {
+export default class Routing extends Component {
 
   setAndroidBackPressButton(navigator) {
     BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -63,7 +63,7 @@ export default class TabBar extends Component {
 
   bar = (route, navigator) => {
     return (
-      <View style={styles.TabBar}>
+      <View style={styles.Routing}>
         <NavButton index={0} routes={routes} route={route} navigator={navigator} />
         <NavButton index={1} routes={routes} route={route} navigator={navigator} />
         <NavButton index={2} routes={routes} route={route} navigator={navigator} />
@@ -100,13 +100,13 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  TabBar_old: {
+  Routing_old: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  TabBar: {
+  Routing: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -117,4 +117,3 @@ var styles = StyleSheet.create({
 
   }
 });
-

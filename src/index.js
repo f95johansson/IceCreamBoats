@@ -6,7 +6,7 @@ import {
   Text,
   View
 } from 'react-native';
-import TabBar from './navigation/TabBar';
+import Routing from './navigation/Routing';
 
 // Initialize Firebase
 var config = {
@@ -21,36 +21,7 @@ firebase.initializeApp(config);
 export default class IceCreamBoats extends Component {
   render() {
     return (
-      <TabBar />
+      <Routing />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  /*container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },*/
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  container: {
-    // jshint ignore:start
-   ...StyleSheet.absoluteFillObject,
-   justifyContent: 'flex-end',
-   alignItems: 'center',
-   },
-   map: {
-     ...StyleSheet.absoluteFillObject,
-   // jshint ignore:end
-   },
-});
