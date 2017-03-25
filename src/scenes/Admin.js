@@ -14,13 +14,45 @@ import {
 
 export default class Menu extends Component {
 
+  componentWillMount() {
+    this.state = {
+      showTextInput: false,
+      inputText: ''
+    }
+  }
+
+  renderTextInput(){
+    return (
+            <TextInput
+              multiline={true}
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              onChangeText={(inputText) => this.setState({inputText})}
+              value={this.state.inputText}
+              />
+           )
+  }
+
   render() {
     return (
       <View style={{paddingTop: 25}}>
         <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
-        <Button onPress={()=> {}} title="Ändra Om oss text" color="#841584"/>
-        <Button onPress={()=> {}} title="Ladda upp om oss bild" color="#841584"/>
-        <Button onPress={()=> {}} title="Ladda upp meny bild" color="#841584"/>
+
+        {this.state.showTextInput ? this.renderTextInput() : []}
+        {this.state.showTextInput ?
+          <View>
+            <Button
+              onPress={() => {this.setState({showTextInput: false})}}
+              title="Ladda upp text"
+              color="#841584"/>
+            <Button
+              onPress={() => {this.setState({showTextInput: false})}}
+              title="Stäng"
+              color="#841584"/>
+          </View> :
+        <Button
+          onPress={() => {this.setState({showTextInput: true})}}
+          title="Ändra 'Om oss' text"
+          color="#841584"/>}
 
         <AdminLogin/>
 
