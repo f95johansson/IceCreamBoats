@@ -4,7 +4,8 @@ import {
   Text,
   Navigator,
   TouchableHighlight,
-  StyleSheet
+  StyleSheet,
+  BackAndroid
 } from 'react-native';
 
 function AboutTest(props) {
@@ -17,9 +18,11 @@ const routes = [
     {scene: <AboutTest text='3'/>, title: 'Meny', index: 2},
   ];
 
+
 function NavButton(props) {
   return (
     <TouchableHighlight 
+      style={styles.NavButton}
       onPress={() => {
         if (props.index === 1 && props.route.index !== 1) {
           props.navigator.popToTop();
@@ -27,7 +30,11 @@ function NavButton(props) {
         }
 
         if (props.route.index !== props.index) {
-          props.navigator.push(props.routes[props.index]);
+          if (props.navigator.getCurrentRoutes().length > 1) {
+            props.navigator.replace(props.routes[props.index]);
+          } else {
+            props.navigator.push(props.routes[props.index]);
+          }
         }
       }}>
       <Text>{props.routes[props.index].title}</Text>
@@ -37,19 +44,29 @@ function NavButton(props) {
 
 export default class TabBar extends Component {
 
+  setAndroidBackPressButton(navigator) {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      if (navigator && navigator.getCurrentRoutes().length > 1) {
+          navigator.popToTop();
+          return true;
+      }
+      return false;
+    });
+  }
+
   page = (route, navigator) => {
-    return (<View>
-              <View>{route.scene}</View>
+    return (<View style={styles.app}>
+              <View style={styles.Scene}>{route.scene}</View>
               <View>{this.bar(route, navigator)}</View>
             </View>);
   }
 
   bar = (route, navigator) => {
     return (
-      <View>
-        <NavButton routes={routes} route={route} navigator={navigator} index={0} />
-        <NavButton routes={routes} route={route} navigator={navigator} index={1} />
-        <NavButton routes={routes} route={route} navigator={navigator} index={2} />
+      <View style={styles.TabBar}>
+        <NavButton index={0} routes={routes} route={route} navigator={navigator} />
+        <NavButton index={1} routes={routes} route={route} navigator={navigator} />
+        <NavButton index={2} routes={routes} route={route} navigator={navigator} />
       </View>
       );
   }
@@ -61,23 +78,43 @@ export default class TabBar extends Component {
         renderScene={this.page}
         configureScene={(route, routeStack) =>
           Navigator.SceneConfigs.FloatFromBottom}
-        style={{}}
+        ref={this.setAndroidBackPressButton}
       />
     );
   }
 }
 
+/*
+React.BackAndroid.addEventListener('hardwareBackPress', () => {
+    if (navigator && navigator.getCurrentRoutes().length > 1) {
+        navigator.pop();
+        return true;
+    }
+    return false;
+});
+*/
+
 var styles = StyleSheet.create({
-  TabBar: {
+  app: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  TabBar_old: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  NavButton: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  TabBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+  NavButton: {
+    padding: 20,
+  },
+  Scene: {
+
+  }
 });
 
