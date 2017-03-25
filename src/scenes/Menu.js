@@ -14,11 +14,11 @@ export default class Menu extends Component {
       <View>
           <Image
           style={{height:515}}
-          source={{uri: 'http://freshcoast.se/wp-content/uploads/2016/06/meny_2016.jpg'}}
+          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
           enableTranslate = {false}
           //pixels={{width: 3607, height: 2400}}
         />
-       
+
       </View>
     )
   }
