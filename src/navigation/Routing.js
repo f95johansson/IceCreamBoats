@@ -7,6 +7,7 @@ import {
   StyleSheet,
   BackAndroid
 } from 'react-native';
+import MapScene from '../scenes/MapScene';
 
 function AboutTest(props) {
   return (<Text>{props.text}</Text>);
@@ -14,7 +15,7 @@ function AboutTest(props) {
 
 const routes = [
     {scene: <AboutTest text='1'/>, title: 'Om oss', index: 0},
-    {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
+    {scene: <MapScene />, title: 'Karta', index: 1},
     {scene: <AboutTest text='3'/>, title: 'Meny', index: 2},
   ];
 
@@ -55,10 +56,12 @@ export default class Routing extends Component {
   }
 
   page = (route, navigator) => {
-    return (<View style={styles.app}>
-              <View style={styles.Scene}>{route.scene}</View>
-              <View>{this.bar(route, navigator)}</View>
-            </View>);
+    return (
+      <View style={styles.app}>
+        <View style={styles.Scene}>{route.scene}</View>
+        <View>{this.bar(route, navigator)}</View>
+      </View>
+    );
   }
 
   bar = (route, navigator) => {
@@ -68,7 +71,7 @@ export default class Routing extends Component {
         <NavButton index={1} routes={routes} route={route} navigator={navigator} />
         <NavButton index={2} routes={routes} route={route} navigator={navigator} />
       </View>
-      );
+    );
   }
 
   render() {
@@ -84,27 +87,12 @@ export default class Routing extends Component {
   }
 }
 
-/*
-React.BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (navigator && navigator.getCurrentRoutes().length > 1) {
-        navigator.pop();
-        return true;
-    }
-    return false;
-});
-*/
 
 var styles = StyleSheet.create({
   app: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-  },
-  Routing_old: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   Routing: {
     flexDirection: 'row',
@@ -114,6 +102,6 @@ var styles = StyleSheet.create({
     padding: 20,
   },
   Scene: {
-
+    flex: 1,
   }
 });
