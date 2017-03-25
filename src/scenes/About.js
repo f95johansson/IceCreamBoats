@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
+import Communications from 'react-native-communications';
 import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 
 export default class About extends Component {
@@ -41,10 +43,15 @@ export default class About extends Component {
           {'\n'}{'\n'}
           <Text style={styles.baseText}>
             {this.state.ContactUsText}
-
           </Text>
-
         </Text>
+
+        <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
+          <View >
+            <Text>Tryck här för att ringa (infoga bild på telefon)</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
     )
   }
