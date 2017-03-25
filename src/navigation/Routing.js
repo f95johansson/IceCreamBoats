@@ -12,12 +12,12 @@ function AboutTest(props) {
   return (<Text>{props.text}</Text>);
 }
 
+//Here is where the views goes
 const routes = [
     {scene: <AboutTest text='1'/>, title: 'Om oss', index: 0},
     {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
     {scene: <AboutTest text='3'/>, title: 'Meny', index: 2},
   ];
-
 
 function NavButton(props) {
   return (
