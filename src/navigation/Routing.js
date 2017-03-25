@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Menu from '../scenes/Menu'
 import {
   View,
   Text,
@@ -16,7 +17,7 @@ function AboutTest(props) {
 const routes = [
     {scene: <AboutTest text='1'/>, title: 'Om oss', index: 0},
     {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
-    {scene: <AboutTest text='3'/>, title: 'Meny', index: 2},
+    {scene: <Menu/>, title: 'Meny', index: 2},
   ];
 
 function NavButton(props) {
