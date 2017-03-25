@@ -38,10 +38,19 @@ export default class MapScene extends Component {
     this.state = {
       boats: {},
     };
+    this.updateBoats.bind(this);
+  }
 
-    firebase.database().ref('boats').on('value', (snapshot) => {
-      this.setState({boats: snapshot.exportVal()});
-    });
+  componentWillMount() {
+    firebase.database().ref('boats').on('value', this.updateBoats.bind(this));
+  }
+
+  componentWillUnmount() {
+   firebase.database().ref('boats').off('value', this.updateBoats.bind(this)); 
+  }
+
+  updateBoats(snapshot) {
+    this.setState({boats: snapshot.exportVal()});
   }
 
   render() {
@@ -61,9 +70,9 @@ export default class MapScene extends Component {
           {Object.keys(this.state.boats).map((name, index) => (
             <MapView.Marker
               draggable
-              coordinate={toLatLang(this.state.firebase[name])}
-              title={this.state.firebase[name].boatname}
-              key={this.state.firebase[name].boatname} >
+              coordinate={toLatLang(this.state.boats[name])}
+              title={this.state.boats[name].boatname}
+              key={this.state.boats[name].boatname} >
               {/*<MapView.Callout>
                 <Text style={{width: 50, height: 50}}>{this.state.firebase[name].boatname}</Text>
               </MapView.Callout>*/}

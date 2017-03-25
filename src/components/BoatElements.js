@@ -10,20 +10,20 @@ import {
 
 export default class BoatElements extends Component {
 
-  writeBoatData(boatname, phone, region, isOut, x, y) {
+  writeBoatData(boatname, phone, region, isOut, latitude, longitude) {
 
     firebase.database().ref('boats/' + boatname).set({
       boatname,
 			phone,
 			region,
 			isOut,
-      x,
-      y,
+      latitude,
+      longitude,
     })
   }
 
   render() {
-    this.writeBoatData('Båt1', '0735775343', 'Västerbotten', true, '1232', '2232')
+    this.writeBoatData('Båt1', '0735775343', 'Västerbotten', true, 57.653263, 11.777580)
 
     return (
       <View style={styles.rowElements}>
