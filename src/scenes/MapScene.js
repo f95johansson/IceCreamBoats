@@ -11,18 +11,55 @@ import {
 } from 'react-native';
 import * as firebase from 'firebase';
 
+import randomstring from '../utils/randomstring';
+import location from '../utils/location';
+
+
 class Overlay extends Component {
-  onPress() {
-    if (this.map) {
-      // to be implemented
+  constructor(props) {
+    super(props);
+
+    this.state = {id:''};
+
+    this.sendPosition.bind(this);
+  }
+
+  sendPosition() {
+    // to be implemented
+    var id;
+    var time = new Date().getTime();
+    
+
+    if (this.state.id === '') {
+      id = randomstring.generate(32);
+      this.setState({id: id});
+    } else {
+      id = this.state.id;
     }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        alert(JSON.stringify(position));
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+    );
+
+    /*
+    firebase.database().ref('users/'+id).set({
+      latitude: latitude,
+      longitude: longitude,
+      time: time,
+      notified: true,
+    });
+    */
   }
 
   render() {
     return (
       <Animated.View style={styles.overlay}>
         <Button
-          onPress={this.onPress}
+          onPress={this.sendPosition}
           title="Jag vill ha glass"
           accessibilityLabel="Nu kommer vi"
         />
