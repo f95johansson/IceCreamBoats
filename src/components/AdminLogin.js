@@ -14,13 +14,14 @@ export default class AdminLogin extends Component {
   componentWillMount() {
     this.state = {
       email: 'icecreamboats2017@gmail.com',
-      password: 'Lösenord',
+      password: 'pass2017',
       signedIn: false,
-      message: '',
+      message: ''
     }
 
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
+        this.props.isLoggedIn(true)
         // User is signed in.
         this.setState({
           signedIn: true,
@@ -29,6 +30,7 @@ export default class AdminLogin extends Component {
         console.log('user.email:', user.email);
 
       } else {
+        this.props.isLoggedIn(false)
         // No user is signed in.
         console.log('not logged in')
         this.setState({
