@@ -22,13 +22,14 @@ export default class SlideDownView extends Component {
     this.state = {
       offsetTop: offsetTop != undefined ? offsetTop : DEFAULT_CONTAINER_HEIGHT,
       handlerHeight : handlerHeight != undefined ? handlerHeight: DEFAULT_CONTAINER_HEIGHT,
-      containerHeight : initialHeight != undefined && initialHeight > handlerHeight ? initialHeight: handlerHeight,
+      containerHeight : DEFAULT_CONTAINER_HEIGHT, //initialHeight != undefined && initialHeight > handlerHeight ? initialHeight: handlerHeight,
+      previousContainerHeight: DEFAULT_CONTAINER_HEIGHT,
       containerMinimumHeight : handlerHeight != undefined ? handlerHeight: DEFAULT_CONTAINER_HEIGHT,
       containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 250,
-      containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : 'orange',
+      containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : '#F5BB94',
       containerOpacity : containerOpacity != undefined ? containerOpacity : 1,
       handlerView : handlerDefaultView,
-      handlerBackgroundColor : handlerBackgroundColor != undefined ? handlerBackgroundColor : 'orange',
+      handlerBackgroundColor : handlerBackgroundColor != undefined ? handlerBackgroundColor : '#F5BB94',
       handlerOpacity : handlerOpacity != undefined ? handlerOpacity : 1,
       isPanMoving: false
     };
@@ -42,10 +43,11 @@ export default class SlideDownView extends Component {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: this.handlePanResponderStart.bind(this),
       onPanResponderMove: this.handlePanResponderMove.bind(this),
       onPanResponderRelease: this.handlePanResponderEnd.bind(this),
-      onPanResponderTerminate: this.handlePanResponderEnd.bind(this),
-      onPanResponderStart: this.handlePanResponderStart.bind(this)
+      onPanResponderTerminate: this.handlePanResponderEnd.bind(this)
+      
     });
   }
 
@@ -65,14 +67,17 @@ export default class SlideDownView extends Component {
   render() {
     const styles = {
       container: {
+        borderTopColor: '#EA591C',
+        borderTopWidth: 6,
         position: 'absolute',
         overflow: 'hidden',
-        top: 300,
+        bottom: 0,
         opacity: this.state.containerOpacity,
         backgroundColor : this.state.containerBackgroundColor,
         height: this.state.containerHeight
       },
       handler: {
+
         height : this.state.handlerHeight,
         width : width,
         justifyContent : 'center',
@@ -80,9 +85,9 @@ export default class SlideDownView extends Component {
         backgroundColor : this.state.handlerBackgroundColor
       }
     };
-
+    /*
     return (
-      this.state.isPanMoving ?
+      this.state.isPanMoving !== 55 ?
       <View style={styles.container}>
         {this.props.children}
         <View style={styles.handler} {...this.panResponder.panHandlers}>
@@ -103,17 +108,51 @@ export default class SlideDownView extends Component {
         }
       </Motion>
     )
+    */
+    return (
+      <Motion defaultStyle={{y: this.state.previousContainerHeight}} style={{y: spring(this.state.containerHeight, { stiffness: 200, damping: 30 })}}>
+        {
+          ({y}) => (
+            <View style={[styles.container, { height: y}]}>
+              {this.props.children}
+              <View style={styles.handler} {...this.panResponder.panHandlers}>
+                {this.state.handlerView}
+              </View>
+            </View>
+          )
+        }
+      </Motion>
+    )
+  }
+
+  handlePanResponderStart(e, gestureState) {
+    console.log('Start: '+gestureState.dy+' '+this.state.containerHeight);
+
+    const dy = gestureState.dy;
+    const negativeY = -dy;
+
+    // Stores displacement in y-axis at touchStart
+    this.previousTop = negativeY + this.state.containerHeight;
   }
 
   handlePanResponderMove(e, gestureState) {
     const dy = gestureState.dy;
     const negativeY = -dy;
+  
     // current position is difference in distance since touchStart(dy) and displacement in y-axis at touchStart(dy)
-    const positionY = negativeY + this.previousTop;
+    const newHeight = negativeY + this.previousTop;
+    console.log('Move: '+newHeight);
+
+
 
     // This check is to prevent the handler from moving out of it's boundry
-    if (positionY <= -this.state.containerMinimumHeight && positionY >= -this.state.containerMaximumHeight) {
-      this.setState({ containerHeight : -positionY, isPanMoving: true });
+    if (newHeight >= this.state.containerMinimumHeight && newHeight <= this.state.containerMaximumHeight) {
+      console.log('inside')
+      //this.setState({ containerHeight : positionY, isPanMoving: true });
+
+      this.setState({previousContainerHeight: this.state.containerHeight});
+
+      this.setState({containerHeight: newHeight});
 
       // This will call getContainerHeight of parent component.
       if (this.props.getContainerHeight != undefined) {
@@ -122,35 +161,29 @@ export default class SlideDownView extends Component {
     }
   }
 
-  handlePanResponderStart(e, gestureState) {
-    const dy = gestureState.dy;
-    const negativeY = -dy;
-
-    // Stores displacement in y-axis at touchStart
-    this.previousTop = negativeY - this.state.containerHeight;
-  }
-
   handlePanResponderEnd(e, gestureState) {
+    console.log('End');
+
     let containerHeight;
-    const dy = gestureState.dy;
+    const dy = -gestureState.dy;
 
     // Saves current state of containerHeight so that it can be used to
     // travel off using <Motion/> from last point(this.previousContainerHeight)
     this.previousContainerHeight = this.state.containerHeight;
 
-    if(this.previousTop == -this.state.containerHeight) { // not moved
+    if(this.previousTop == this.state.containerHeight) { // not moved
       if(this.state.containerHeight == this.state.containerMaximumHeight) {
         containerHeight = this.state.containerMinimumHeight;
       } else {
         containerHeight = this.state.containerMaximumHeight;
       }
-    } else if (dy > 0) { // move down
+    } else if (dy > 0) { // move up
       containerHeight = this.state.containerMaximumHeight;
-    } else { // move up
+    } else { // move down
       containerHeight = this.state.containerMinimumHeight;
     }
 
-    this.setState({ containerHeight : containerHeight, isPanMoving: false });
+    this.setState({ containerHeight : containerHeight });
     // This will call getContainerHeight of parent component.
     if (this.props.getContainerHeight != undefined) {
       this.props.getContainerHeight(containerHeight);
