@@ -10,6 +10,7 @@ import {
   Button
 } from 'react-native';
 import * as firebase from 'firebase';
+import SlideDownView from '../components/SlideDownView'
 
 class Overlay extends Component {
   onPress() {
@@ -20,13 +21,14 @@ class Overlay extends Component {
 
   render() {
     return (
-      <Animated.View style={styles.overlay}>
-        <Button
-          onPress={this.onPress}
-          title="Jag vill ha glass"
-          accessibilityLabel="Nu kommer vi"
-        />
-      </Animated.View>
+      <SlideDownView style={styles.overlay}
+        handlerDefaultView={
+          <Button
+            onPress={this.onPress}
+            title="Jag vill ha glass"
+            accessibilityLabel="Nu kommer vi"
+          />
+        } />
     );
   }
 }

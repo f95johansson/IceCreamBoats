@@ -9,11 +9,12 @@
   "dependencies": {
     "firebase": "^3.6.10",
     "react": "15.4.2",
+    "react-motion": "^0.4.7",
     "react-native": "^0.41.2",
     "react-native-communications": "^2.2.1",
-    "react-native-transformable-image": "0.0.18",
     "react-native-image-pan-zoom": "^1.1.12",
-    "react-native-maps": ">=0.12.4"
+    "react-native-maps": ">=0.12.4",
+    "react-native-transformable-image": "0.0.18"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
