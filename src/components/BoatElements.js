@@ -5,32 +5,65 @@ import {
   Text,
   View,
   Image,
-  Button
+  Button,
+  TextInput
 } from 'react-native';
 
 export default class BoatElements extends Component {
 
-  writeBoatData(boatname, phone, region, isOut, latitude, longitude) {
+  constructor(props) {
+    super(props)
+    this.state = {
+      boats: {},
+      aboutText: ''
+    }
 
-    firebase.database().ref('boats/' + boatname).set({
-      boatname,
-			phone,
-			region,
-			isOut,
-      latitude,
-      longitude,
-    })
+    this.updateBoats.bind(this)
+  }
+
+  componentWillMount() {
+    firebase.database().ref('boats').on('value', this.updateBoats.bind(this));
+  }
+
+  componentWillUnmount() {
+   firebase.database().ref('boats').off('value', this.updateBoats.bind(this));
+  }
+
+  updateBoats(snapshot) {
+    this.setState({boats: snapshot.exportVal()});
+  }
+
+  renderBoats() {
+    let boats = this.state.boats
+    let elements = []
+
+    for (var boat in boats) {
+      let name = boats[boat].boatName
+
+      elements.push(
+        <View key={name} style={styles.rowElements}>
+          <Text style={{color: 'red'}}>{name} </Text>
+          <Text>Karta(bild) </Text>
+          <Text>Penna(bild) </Text>
+          <Text>Checkbox(bild) </Text>
+          <Text onPress={this.removeBoat.bind(this, name)}>Ta bort(bild) </Text>
+        </View>
+      )
+    }
+
+    return elements
+  }
+
+  removeBoat(name) {
+    console.log('name', name);
+    firebase.database().ref('boats/'+name).remove()
   }
 
   render() {
-    this.writeBoatData('Båt1', '0735775343', 'Västerbotten', true, 57.653263, 11.777580)
-
     return (
-      <View style={styles.rowElements}>
-        <Text>Båt 1 </Text>
-        <Text>Karta(bild) </Text>
-        <Text>Penna(bild) </Text>
-        <Text>Checkbox(bild) </Text>
+      <View>
+        <Text>Båtar</Text>
+        {this.renderBoats()}
       </View>
     )
   }
