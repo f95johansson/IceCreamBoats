@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import * as firebase from 'firebase';
 
-import randomstring from '../utils/randomstring';
-import location from '../utils/location';
+import {generate} from '../utils/randomstring';
+import {uploadUserLocation} from '../utils/location';
 
 
 class Overlay extends Component {
@@ -28,10 +28,9 @@ class Overlay extends Component {
     // to be implemented
     var id;
     var time = new Date().getTime();
-    
 
     if (this.state.id === '') {
-      id = randomstring.generate(32);
+      id = generate(32);
       this.setState({id: id});
     } else {
       id = this.state.id;
@@ -39,31 +38,26 @@ class Overlay extends Component {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        alert(JSON.stringify(position));
+        uploadUserLocation(id, position.coords.latitude, position.coords.longitude, time);
       },
-      (error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+      (error) => alert(JSON.stringify(error))
+      //{enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
     );
 
-    /*
-    firebase.database().ref('users/'+id).set({
-      latitude: latitude,
-      longitude: longitude,
-      time: time,
-      notified: true,
-    });
-    */
+    
+
+    
   }
 
   render() {
     return (
-      <Animated.View style={styles.overlay}>
+      <View style={styles.overlay}>
         <Button
-          onPress={this.sendPosition}
+          onPress={this.sendPosition.bind(this)}
           title="Jag vill ha glass"
           accessibilityLabel="Nu kommer vi"
         />
-      </Animated.View>
+      </View>
     );
   }
 }
@@ -98,9 +92,9 @@ export default class MapScene extends Component {
           {Object.keys(this.state.boats).map((name, index) => (
             <MapView.Marker
               draggable
-              coordinate={toLatLang(this.state.firebase[name])}
-              title={this.state.firebase[name].boatname}
-              key={this.state.firebase[name].boatname} >
+              coordinate={toLatLang(this.state.boats[name])}
+              title={this.state.boats[name].boatname}
+              key={this.state.boats[name].boatname} >
               {/*<MapView.Callout>
                 <Text style={{width: 50, height: 50}}>{this.state.firebase[name].boatname}</Text>
               </MapView.Callout>*/}

@@ -2,7 +2,7 @@ var numbers = '0123456789';
 var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 
-function generate(length) {
+export function generate(length) {
   if (length === undefined) {length = 32;}
   randomChars = numbers + letters;
 
@@ -11,4 +11,5 @@ function generate(length) {
   for (i = 1; i <= length; i++) {
     string += randomChars.substring(rn = Math.floor(Math.random() * randomChars.length), rn + 1);
   }
+  return string;
 }
