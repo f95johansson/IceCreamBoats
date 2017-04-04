@@ -46,6 +46,7 @@ export default class BoatElements extends Component {
           <Text>Karta(bild) </Text>
           <Text>Penna(bild) </Text>
           <Text>Checkbox(bild) </Text>
+          <Text>Detta är min båt(bild) </Text>
           <Text onPress={this.removeBoat.bind(this, name)}>Ta bort(bild) </Text>
         </View>
       )
