@@ -109,8 +109,14 @@ export default class SlideDownView extends Component {
       </Motion>
     )
     */
+    var y;
+    if (this.state.isPanMoving) {
+      y = this.state.containerHeight;
+    } else {
+      y = spring(this.state.containerHeight, { stiffness: 200, damping: 30 });
+    }
     return (
-      <Motion defaultStyle={{y: this.state.previousContainerHeight}} style={{y: spring(this.state.containerHeight, { stiffness: 200, damping: 30 })}}>
+      <Motion defaultStyle={{y: this.state.previousContainerHeight}} style={{y: y}}>
         {
           ({y}) => (
             <View style={[styles.container, { height: y}]}>
@@ -122,7 +128,7 @@ export default class SlideDownView extends Component {
           )
         }
       </Motion>
-    )
+    );
   }
 
   handlePanResponderStart(e, gestureState) {
@@ -150,9 +156,12 @@ export default class SlideDownView extends Component {
       console.log('inside')
       //this.setState({ containerHeight : positionY, isPanMoving: true });
 
-      this.setState({previousContainerHeight: this.state.containerHeight});
-
-      this.setState({containerHeight: newHeight});
+      var previousContainerHeight = this.state.containerHeight;
+      this.setState({
+        previousContainerHeight: previousContainerHeight, 
+        containerHeight: newHeight, 
+        isPanMoving: true
+      });
 
       // This will call getContainerHeight of parent component.
       if (this.props.getContainerHeight != undefined) {
@@ -183,7 +192,7 @@ export default class SlideDownView extends Component {
       containerHeight = this.state.containerMinimumHeight;
     }
 
-    this.setState({ containerHeight : containerHeight });
+    this.setState({ containerHeight : containerHeight, isPanMoving: false });
     // This will call getContainerHeight of parent component.
     if (this.props.getContainerHeight != undefined) {
       this.props.getContainerHeight(containerHeight);
