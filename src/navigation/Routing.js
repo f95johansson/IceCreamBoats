@@ -15,10 +15,10 @@ import MapScene from '../scenes/MapScene';
 
 //Here is where the views goes
 const routes = [
-    {scene: <About />, title: 'Om oss', index: 0},
-    {scene: <MapScene />, title: 'Karta', index: 1},
-    {scene: <Menu/>, title: 'Meny', index: 2},
-    {scene: <Admin/>, title: 'Admin', index: 3},
+    {scene: <About />,    title: 'Om oss', index: 0},
+    {scene: <MapScene />, title: 'Karta',  index: 1},
+    {scene: <Menu/>,      title: 'Meny',   index: 2},
+    {scene: <Admin/>,     title: 'Admin',  index: 3},
   ];
 
 function NavButton(props) {

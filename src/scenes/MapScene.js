@@ -43,7 +43,6 @@ class Overlay extends Component {
     }).catch((error) => {
         alert(JSON.stringify(error));
     });
-    //alert(JSON.stringify(PermissionsAndroid.PERMISSIONS));
   }
 
   render() {
@@ -110,7 +109,7 @@ export default class MapScene extends Component {
               draggable
               coordinate={toLatLang(this.state.boats[name])}
               title={this.state.boats[name].boatname}
-              key={this.state.boats[name].boatname} >
+              key={index} >
               {/*<MapView.Callout>
                 <Text style={{width: 50, height: 50}}>{this.state.firebase[name].boatname}</Text>
               </MapView.Callout>*/}

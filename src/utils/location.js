@@ -26,3 +26,16 @@ export function uploadUserLocation(userId, latitude, longitude, time) {
     notified: true,
   });
 }
+
+export function uploadCurrentBoatLocation(boatName) {
+  getUserLocation().then((position) => {
+    uploadBoatLocation(boatName, position.coords.latitude, position.coords.longitude);
+  });
+}
+
+export function uploadBoatLocation(boatName, latitude, longitude) {
+  firebase.database().ref('boats/'+boatName).update({
+    latitude: latitude,
+    longitude: longitude,
+  });
+}
