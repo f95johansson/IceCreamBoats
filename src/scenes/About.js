@@ -22,7 +22,6 @@ export default class About extends Component {
     this.loadAboutText()
 
   }
-
   loadAboutText() {
     firebase.database().ref('about').on('value',
     (snapshot) => {

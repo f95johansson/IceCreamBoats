@@ -15,15 +15,20 @@ import SlideDownView from '../components/SlideDownView'
 class Overlay extends Component {
   onPress() {
     if (this.map) {
-      // to be implemented
+      // to be implementedrr
     }
   }
 
   render() {
     return (
       <SlideDownView style={styles.overlay}
+        handlerOpacity={1}
+        containerBackgroundColor={'#F5BB94'}
+        containerMinimumHeight={60}
+        handlerHeight={200}
+        initialHeight={250}
         handlerDefaultView={
-          <Button
+          <Button style={styles.notificationButton}
             onPress={this.onPress}
             title="Jag vill ha glass"
             accessibilityLabel="Nu kommer vi"
@@ -58,7 +63,6 @@ export default class MapScene extends Component {
   render() {
     return (
       <View style={styles.MapScene} >
-        <Text></Text>
         <MapView 
             style={styles.map}
             ref={(map) => {this.map = map;}}
@@ -106,7 +110,7 @@ var styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: '#f9f9f9',
     height: 200,
   },
+
 });

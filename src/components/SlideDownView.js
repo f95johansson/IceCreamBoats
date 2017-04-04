@@ -15,16 +15,16 @@ export default class SlideDownView extends Component {
     super(props);
 
     const {
-      offsetTop, handlerHeight, initialHeight, containerMaximumHeight, containerBackgroundColor,
+      offsetTop, handlerHeight, initialHeight, containerMinimumHeight, containerMaximumHeight, containerBackgroundColor,
       containerOpacity, handlerDefaultView, handlerBackgroundColor, handlerOpacity
     } = props;
 
     this.state = {
       offsetTop: offsetTop != undefined ? offsetTop : DEFAULT_CONTAINER_HEIGHT,
       handlerHeight : handlerHeight != undefined ? handlerHeight: DEFAULT_CONTAINER_HEIGHT,
-      containerHeight : DEFAULT_CONTAINER_HEIGHT, //initialHeight != undefined && initialHeight > handlerHeight ? initialHeight: handlerHeight,
-      previousContainerHeight: DEFAULT_CONTAINER_HEIGHT,
-      containerMinimumHeight : handlerHeight != undefined ? handlerHeight: DEFAULT_CONTAINER_HEIGHT,
+      containerHeight : initialHeight != undefined ? initialHeight: handlerHeight,
+      previousContainerHeight: initialHeight != undefined ? initialHeight: handlerHeight,
+      containerMinimumHeight : containerMinimumHeight != undefined ? containerMinimumHeight: DEFAULT_CONTAINER_HEIGHT,
       containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 250,
       containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : '#F5BB94',
       containerOpacity : containerOpacity != undefined ? containerOpacity : 1,
@@ -77,7 +77,6 @@ export default class SlideDownView extends Component {
         height: this.state.containerHeight
       },
       handler: {
-
         height : this.state.handlerHeight,
         width : width,
         justifyContent : 'center',

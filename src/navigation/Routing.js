@@ -95,10 +95,14 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    backgroundColor: '#F5BB94',
   },
   Routing: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: 50,
+    zIndex: 999,
+
   },
   NavButton: {
     padding: 20,
