@@ -52,7 +52,12 @@ export default class MapScene extends Component {
   }
 
   updateBoats(snapshot) {
-    this.setState({boats: snapshot.exportVal()});
+    var boats = snapshot.exportVal();
+    if (boats === null) {
+      this.setState({boats: {}});
+    } else {
+      this.setState({boats: boats});
+    }
   }
 
   render() {
