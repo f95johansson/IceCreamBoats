@@ -42,6 +42,7 @@ class Overlay extends Component {
     }).catch((error) => {
         alert(JSON.stringify(error));
     });
+    //alert(JSON.stringify(PermissionsAndroid.PERMISSIONS));
   }
 
   render() {
