@@ -20,7 +20,7 @@ export default class About extends Component {
       ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
     }
     this.loadAboutText()
-
+    //TODO: fixa checkbox, fixa lifecycle varningar
   }
   loadAboutText() {
     firebase.database().ref('about').on('value',
