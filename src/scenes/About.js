@@ -19,6 +19,17 @@ export default class About extends Component {
       ContactUsTitle: "Kontakta oss",
       ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
     }
+    this.loadAboutText()
+
+  }
+
+  loadAboutText() {
+    firebase.database().ref('about').on('value',
+    (snapshot) => {
+      this.setState({
+        aboutText: snapshot.exportVal().about
+      })
+    })
   }
 
   render() {
@@ -34,7 +45,7 @@ export default class About extends Component {
           </Text>
           {'\n'}{'\n'}
           <Text style={styles.baseText}>
-            {this.state.AboutText}
+            {this.state.aboutText}
           </Text>
           {'\n'}{'\n'}
           <Text style={styles.titleText}>
