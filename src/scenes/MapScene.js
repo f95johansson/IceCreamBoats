@@ -10,10 +10,10 @@ import {
   Button
 } from 'react-native';
 import * as firebase from 'firebase';
-import SlideDownView from '../components/SlideDownView'
+import SlideDownView from '../components/SlideDownView';
 
 import {generate} from '../utils/randomstring';
-import {uploadUserLocation} from '../utils/location';
+import * as location from '../utils/location';
 
 
 class Overlay extends Component {
@@ -37,17 +37,11 @@ class Overlay extends Component {
       id = this.state.id;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        uploadUserLocation(id, position.coords.latitude, position.coords.longitude, time);
-      },
-      (error) => alert(JSON.stringify(error))
-      //{enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
-    );
-
-    
-
-    
+    location.getUserLocation().then((position) => {
+        location.uploadUserLocation(id, position.coords.latitude, position.coords.longitude, time);
+    }).catch((error) => {
+        alert(JSON.stringify(error));
+    });
   }
 
   render() {
@@ -55,7 +49,7 @@ class Overlay extends Component {
       <SlideDownView style={styles.overlay}
         handlerDefaultView={
           <Button
-            onPress={this.onPress}
+            onPress={this.sendPosition.bind(this)}
             title="Jag vill ha glass"
             accessibilityLabel="Nu kommer vi"
           />
