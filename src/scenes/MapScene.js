@@ -10,6 +10,7 @@ import {
   Button
 } from 'react-native';
 import * as firebase from 'firebase';
+import SlideDownView from '../components/SlideDownView'
 
 import {generate} from '../utils/randomstring';
 import {uploadUserLocation} from '../utils/location';
@@ -51,13 +52,14 @@ class Overlay extends Component {
 
   render() {
     return (
-      <View style={styles.overlay}>
-        <Button
-          onPress={this.sendPosition.bind(this)}
-          title="Jag vill ha glass"
-          accessibilityLabel="Nu kommer vi"
-        />
-      </View>
+      <SlideDownView style={styles.overlay}
+        handlerDefaultView={
+          <Button
+            onPress={this.onPress}
+            title="Jag vill ha glass"
+            accessibilityLabel="Nu kommer vi"
+          />
+        } />
     );
   }
 }
@@ -69,10 +71,24 @@ export default class MapScene extends Component {
     this.state = {
       boats: {},
     };
+    this.updateBoats.bind(this);
+  }
 
-    firebase.database().ref('boats').on('value', (snapshot) => {
-      this.setState({boats: snapshot.exportVal()});
-    });
+  componentWillMount() {
+    firebase.database().ref('boats').on('value', this.updateBoats.bind(this));
+  }
+
+  componentWillUnmount() {
+   firebase.database().ref('boats').off('value', this.updateBoats.bind(this)); 
+  }
+
+  updateBoats(snapshot) {
+    var boats = snapshot.exportVal();
+    if (boats === null) {
+      this.setState({boats: {}});
+    } else {
+      this.setState({boats: boats});
+    }
   }
 
   render() {

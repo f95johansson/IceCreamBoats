@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Menu from '../scenes/Menu';
+import About from '../scenes/About';
+import Admin from '../scenes/Admin';
 import {
   View,
   Text,
@@ -9,16 +12,14 @@ import {
 } from 'react-native';
 import MapScene from '../scenes/MapScene';
 
-function AboutTest(props) {
-  return (<Text>{props.text}</Text>);
-}
 
+//Here is where the views goes
 const routes = [
-    {scene: <AboutTest text='1'/>, title: 'Om oss', index: 0},
+    {scene: <About />, title: 'Om oss', index: 0},
     {scene: <MapScene />, title: 'Karta', index: 1},
-    {scene: <AboutTest text='3'/>, title: 'Meny', index: 2},
+    {scene: <Menu/>, title: 'Meny', index: 2},
+    {scene: <Admin/>, title: 'Admin', index: 3},
   ];
-
 
 function NavButton(props) {
   return (
@@ -70,6 +71,7 @@ export default class Routing extends Component {
         <NavButton index={0} routes={routes} route={route} navigator={navigator} />
         <NavButton index={1} routes={routes} route={route} navigator={navigator} />
         <NavButton index={2} routes={routes} route={route} navigator={navigator} />
+        <NavButton index={3} routes={routes} route={route} navigator={navigator} />
       </View>
     );
   }
