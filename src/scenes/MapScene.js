@@ -10,13 +10,40 @@ import {
   Button
 } from 'react-native';
 import * as firebase from 'firebase';
-import SlideDownView from '../components/SlideDownView'
+import SlideDownView from '../components/SlideDownView';
+
+import {generate} from '../utils/randomstring';
+import * as location from '../utils/location';
+
 
 class Overlay extends Component {
-  onPress() {
-    if (this.map) {
-      // to be implementedrr
+
+  constructor(props) {
+    super(props);
+
+    this.state = {id:''};
+
+    this.sendPosition.bind(this);
+  }
+
+  sendPosition() {
+    // to be implemented
+    var id;
+    var time = new Date().getTime();
+
+    if (this.state.id === '') {
+      id = generate(32);
+      this.setState({id: id});
+    } else {
+      id = this.state.id;
     }
+
+    location.getUserLocation().then((position) => {
+        location.uploadUserLocation(id, position.coords.latitude, position.coords.longitude, time);
+    }).catch((error) => {
+        alert(JSON.stringify(error));
+    });
+    //alert(JSON.stringify(PermissionsAndroid.PERMISSIONS));
   }
 
   render() {
@@ -29,7 +56,7 @@ class Overlay extends Component {
         initialHeight={250}
         handlerDefaultView={
           <Button style={styles.notificationButton}
-            onPress={this.onPress}
+            onPress={this.sendPosition.bind(this)}
             title="Jag vill ha glass"
             accessibilityLabel="Nu kommer vi"
           />
@@ -57,7 +84,12 @@ export default class MapScene extends Component {
   }
 
   updateBoats(snapshot) {
-    this.setState({boats: snapshot.exportVal()});
+    var boats = snapshot.exportVal();
+    if (boats === null) {
+      this.setState({boats: {}});
+    } else {
+      this.setState({boats: boats});
+    }
   }
 
   render() {
