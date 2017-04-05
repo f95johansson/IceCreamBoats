@@ -7,21 +7,27 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native';
 
 export default class About extends Component {
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.state = {
-      AboutTitle: "Om oss",
+      AboutTitle: 'Om oss',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
-      ContactUsTitle: "Kontakta oss",
+      ContactUsTitle: 'Kontakta oss',
       ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
     }
+  }
+
+  componentWillMount() {
     this.loadAboutText()
     //TODO: fixa checkbox, fixa lifecycle varningar
   }
+
   loadAboutText() {
     firebase.database().ref('about').on('value',
     (snapshot) => {
@@ -61,6 +67,11 @@ export default class About extends Component {
             <Text>Tryck här för att ringa (infoga bild på telefon)</Text>
           </View>
         </TouchableOpacity>
+
+        <TouchableHighlight
+          onPress={() => this.props.openAdmin()}>
+        <Text>Admin(förmodligen inte för dig)</Text>
+        </TouchableHighlight>
 
       </View>
     )

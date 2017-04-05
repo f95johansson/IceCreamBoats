@@ -25,7 +25,7 @@ export default class SlideDownView extends Component {
       containerHeight : initialHeight != undefined ? initialHeight: handlerHeight,
       previousContainerHeight: initialHeight != undefined ? initialHeight: handlerHeight,
       containerMinimumHeight : containerMinimumHeight != undefined ? containerMinimumHeight: DEFAULT_CONTAINER_HEIGHT,
-      containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 250,
+      containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 190,
       containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : '#F5BB94',
       containerOpacity : containerOpacity != undefined ? containerOpacity : 1,
       handlerView : handlerDefaultView,
@@ -84,30 +84,7 @@ export default class SlideDownView extends Component {
         backgroundColor : this.state.handlerBackgroundColor
       }
     };
-    /*
-    return (
-      this.state.isPanMoving !== 55 ?
-      <View style={styles.container}>
-        {this.props.children}
-        <View style={styles.handler} {...this.panResponder.panHandlers}>
-          {this.state.handlerView}
-        </View>
-      </View>
-      :
-      <Motion defaultStyle={{y: this.previousContainerHeight}} style={{y: spring(this.state.containerHeight, { stiffness: 200, damping: 30 })}}>
-        {
-          ({y}) => (
-            <View style={[styles.container, { height: y}]}>
-              {this.props.children}
-              <View style={styles.handler} {...this.panResponder.panHandlers}>
-                {this.state.handlerView}
-              </View>
-            </View>
-          )
-        }
-      </Motion>
-    )
-    */
+
     var y;
     if (this.state.isPanMoving) {
       y = this.state.containerHeight;

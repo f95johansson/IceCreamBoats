@@ -52,9 +52,10 @@ class Overlay extends Component {
       <SlideDownView style={styles.overlay}
         handlerOpacity={1}
         containerBackgroundColor={'#F5BB94'}
-        containerMinimumHeight={60}
-        handlerHeight={200}
-        initialHeight={250}
+        containerMinimumHeight={20}
+        containerMaximumHeight={190}
+        handlerHeight={160}
+        initialHeight={190}
         handlerDefaultView={
           <Button style={styles.notificationButton}
             onPress={this.sendPosition.bind(this)}
