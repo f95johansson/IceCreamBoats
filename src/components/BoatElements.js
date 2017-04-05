@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import * as location from '../utils/location' //TODO: funkar ej att importera
 import {
   StyleSheet,
   Text,
@@ -33,6 +34,18 @@ export default class BoatElements extends Component {
     this.setState({boats: snapshot.exportVal()});
   }
 
+  setBoat(boatName) {
+    this.props.setBoat(boatName)
+
+    firebase.database().ref('boats/' + boatName).update({
+      chosen: true,
+    }).then(() => {
+      this.setModalVisible(false)
+    }, (error) => {
+      console.log('error', error);
+    })
+  }
+
   renderBoats() {
     let boats = this.state.boats
     let elements = []
@@ -43,16 +56,20 @@ export default class BoatElements extends Component {
       elements.push(
         <View key={name} style={styles.rowElements}>
           <Text style={{color: 'red'}}>{name} </Text>
-          <Text>Karta(bild) </Text>
+          <Text onPress={this.setPosition.bind(this)}>Karta(bild) </Text>
           <Text>Penna(bild) </Text>
-          <Text>Checkbox(bild) </Text>
-          <Text>Detta är min båt(bild) </Text>
+          <Text onPress={this.setBoat.bind(this, name)}>Välj båt(bild) </Text>
           <Text onPress={this.removeBoat.bind(this, name)}>Ta bort(bild) </Text>
         </View>
       )
     }
 
     return elements
+  }
+
+  setPosition() {
+
+
   }
 
   removeBoat(name) {

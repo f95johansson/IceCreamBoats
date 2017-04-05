@@ -7,7 +7,9 @@ import {
   StyleSheet,
   Animated,
   PanResponder,
-  Button
+  Button,
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import * as firebase from 'firebase';
 import SlideDownView from '../components/SlideDownView';
@@ -64,22 +66,49 @@ class Overlay extends Component {
   }
 }
 
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+let id = 0;
+
 export default class MapScene extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       boats: {},
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+      markers: [],
     };
     this.updateBoats.bind(this);
   }
+
+  onMapPress(e) {
+  this.setState({
+    markers: [
+      ...this.state.markers,
+      {
+        coordinate: e.nativeEvent.coordinate,
+        key: id++,
+      },
+    ],
+  });
+}
 
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats.bind(this));
   }
 
   componentWillUnmount() {
-   firebase.database().ref('boats').off('value', this.updateBoats.bind(this)); 
+   firebase.database().ref('boats').off('value', this.updateBoats.bind(this));
   }
 
   updateBoats(snapshot) {
@@ -94,29 +123,29 @@ export default class MapScene extends Component {
   render() {
     return (
       <View style={styles.MapScene} >
-        <MapView 
-            style={styles.map}
-            ref={(map) => {this.map = map;}}
-            region={{
-              latitude: 57.653263,
-              longitude: 11.777580,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }} >
-            
-          {Object.keys(this.state.boats).map((name, index) => (
+        <MapView
+          provider={this.props.provider}
+          style={styles.map}
+          initialRegion={this.state.region}
+          onPress={(e) => this.onMapPress(e)}
+        >
+          {this.state.markers.map(marker => (
             <MapView.Marker
               draggable
-              coordinate={toLatLang(this.state.boats[name])}
-              title={this.state.boats[name].boatname}
-              key={index} >
-              {/*<MapView.Callout>
-                <Text style={{width: 50, height: 50}}>{this.state.firebase[name].boatname}</Text>
-              </MapView.Callout>*/}
-            </MapView.Marker>
+              key={marker.key}
+              coordinate={marker.coordinate}
+            />
           ))}
-          </MapView>
-        <Overlay />
+        </MapView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => this.setState({ markers: [] })}
+            style={styles.bubble}
+          >
+            <Text>Tap to create a marker of random color</Text>
+          </TouchableOpacity>
+        </View>
+        {/*<Overlay />*/}
       </View>
     );
   }

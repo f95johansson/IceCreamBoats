@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 import BoatElements from '../components/BoatElements'
 import AdminLogin from '../components/AdminLogin'
 import AddBoatModal from '../components/AddBoatModal'
+import AddPositionModal from '../components/AddPositionModal'
 import {
   StyleSheet,
   Text,
@@ -22,7 +23,8 @@ export default class Menu extends Component {
       showTextInput: false,
       inputText: '',
       showAddboat: false,
-      isLoggedIn: false
+      isLoggedIn: false,
+      boatName: ''
     }
 
     this.loadAboutText()
@@ -30,7 +32,7 @@ export default class Menu extends Component {
 
   loadAboutText() {
     firebase.database().ref('about').on('value',
-    (snapshot) => { 
+    (snapshot) => {
       this.setState({
         aboutText: snapshot.exportVal().about
       })
@@ -66,8 +68,12 @@ export default class Menu extends Component {
     }, (error) => {
       console.log('error', error);
     })
-
   }
+
+  setBoat(boatName) {
+    this.setState({ boatName })
+  }
+
   render() {
     console.log('staet', this.state);
     return (
@@ -78,8 +84,9 @@ export default class Menu extends Component {
 
         {this.state.isLoggedIn ?
           <View>
-            <BoatElements/>
+            <BoatElements setBoat={this.setBoat.bind(this)}/>
             <AddBoatModal/>
+            <AddPositionModal getBoat={this.state.boatName}/>
             {this.renderAbout()}
           </View>
         :[]}
