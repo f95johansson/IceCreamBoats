@@ -13,24 +13,19 @@ import {
 } from 'react-native';
 import MapScene from '../scenes/MapScene';
 
-
-var openAdminState = {
-  open: () => {}
+const INDEX = {
+  ABOUT: 0,
+  MAP: 1,
+  MENU: 2,
+  ADMIN: 3
 }
-//Here is where the views goes
-const routes = [
-    {scene: <About openAdmin={openAdminState} />, title: 'Om oss', index: 0, source: require('../../assets/tabbar/info/info.png')},
-    {scene: <MapScene />, title: 'Karta', index: 1, source: require('../../assets/tabbar/map/map.png')},
-    {scene: <Menu />, title: 'Utbud', index: 2, source: require('../../assets/tabbar/menu/menu.android.png')},
-    {scene: <Admin />, title: 'Admin', index: 3, source: require('../../assets/tabbar/info/info.png')},
-  ];
 
 function NavButton(props) {
   return (
     <TouchableHighlight
       style={styles.NavButton}
       onPress={() => {
-        if (props.index === 1 && props.route.index !== 1) {
+        if (props.index === INDEX.MAP && props.route.index !== INDEX.MAP) {
           props.navigator.popToTop();
           return;
         }
@@ -52,6 +47,27 @@ function NavButton(props) {
 }
 
 export default class Routing extends Component {
+
+  constructor(props) {
+    super(props);
+    this.openAdmin = this.openAdmin.bind(this);
+    this.setAboutPageAdminRouting = this.setAboutPageAdminRouting.bind(this);
+    this.mapNavigatorObject = this.mapNavigatorObject.bind(this);76
+
+    this.routes = [
+      {scene: <About openAdmin={this.openAdmin} />, title: 'Om oss',  index: INDEX.ABOUT, source: require('../../assets/tabbar/info/info.png')},
+      {scene: <MapScene />, title: 'Karta',   index: INDEX.MAP, source: require('../../assets/tabbar/map/map.png')},
+      {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU, source: require('../../assets/tabbar/menu/menu.android.png')},
+      {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN, source: require('../../assets/tabbar/info/info.png')},
+    ];
+    this.navigator = null;
+  }
+
+  mapNavigatorObject(navigator) {
+    this.setAndroidBackPressButton(navigator);
+    this.setAboutPageAdminRouting(navigator);
+  }
+
   setAndroidBackPressButton(navigator) {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       if (navigator && navigator.getCurrentRoutes().length > 1) {
@@ -60,6 +76,14 @@ export default class Routing extends Component {
       }
       return false;
     });
+  }
+
+  setAboutPageAdminRouting(navigator) {
+    this.navigator = navigator;
+  }
+
+  openAdmin() {
+    this.navigator.replace(this.routes[INDEX.ADMIN]);
   }
 
   page = (route, navigator) => {
@@ -74,34 +98,22 @@ export default class Routing extends Component {
   bar = (route, navigator) => {
     return (
       <View style={styles.Routing}>
-        <NavButton index={0} routes={routes} route={route} navigator={navigator} />
-        <NavButton index={1} routes={routes} route={route} navigator={navigator} />
-        <NavButton index={2} routes={routes} route={route} navigator={navigator} />
-        <NavButton index={3} routes={routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.ABOUT} routes={this.routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.MAP}   routes={this.routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.MENU}  routes={this.routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.ADMIN} routes={this.routes} route={route} navigator={navigator} />
       </View>
     );
-  }
-
-  renderScene = (route, navigator) => {
-    var page = this.page(route, navigator);
-
-    if (route.index === 0) {
-      var openAdmin = () => {
-        navigator.replace(routes[3].scene);
-      }
-      openAdminState.open = openAdmin
-    }
-    return page;
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={routes[1]}
-        renderScene={this.renderScene}
+        initialRoute={this.routes[INDEX.MAP]}
+        renderScene={this.page}
         configureScene={(route, routeStack) =>
           Navigator.SceneConfigs.FloatFromBottom}
-        ref={this.setAndroidBackPressButton}
+        ref={this.mapNavigatorObject}
       />
     );
   }

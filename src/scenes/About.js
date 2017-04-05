@@ -16,15 +16,16 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      AboutTitle: "Om oss",
+      AboutTitle: 'Om oss',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
-      ContactUsTitle: "Kontakta oss",
+      ContactUsTitle: 'Kontakta oss',
       ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
     }
   }
 
   componentWillMount() {
     this.loadAboutText()
+    //TODO: fixa checkbox, fixa lifecycle varningar
   }
 
   loadAboutText() {
@@ -68,7 +69,7 @@ export default class About extends Component {
         </TouchableOpacity>
 
         <TouchableHighlight
-          onPress={this.props.openAdmin.open}>
+          onPress={() => this.props.openAdmin()}>
         <Text>Admin(förmodligen inte för dig)</Text>
         </TouchableHighlight>
 

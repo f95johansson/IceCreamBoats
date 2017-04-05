@@ -84,30 +84,7 @@ export default class SlideDownView extends Component {
         backgroundColor : this.state.handlerBackgroundColor
       }
     };
-    /*
-    return (
-      this.state.isPanMoving !== 55 ?
-      <View style={styles.container}>
-        {this.props.children}
-        <View style={styles.handler} {...this.panResponder.panHandlers}>
-          {this.state.handlerView}
-        </View>
-      </View>
-      :
-      <Motion defaultStyle={{y: this.previousContainerHeight}} style={{y: spring(this.state.containerHeight, { stiffness: 200, damping: 30 })}}>
-        {
-          ({y}) => (
-            <View style={[styles.container, { height: y}]}>
-              {this.props.children}
-              <View style={styles.handler} {...this.panResponder.panHandlers}>
-                {this.state.handlerView}
-              </View>
-            </View>
-          )
-        }
-      </Motion>
-    )
-    */
+
     var y;
     if (this.state.isPanMoving) {
       y = this.state.containerHeight;
