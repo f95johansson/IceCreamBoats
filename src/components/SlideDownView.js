@@ -25,7 +25,7 @@ export default class SlideDownView extends Component {
       containerHeight : initialHeight != undefined ? initialHeight: handlerHeight,
       previousContainerHeight: initialHeight != undefined ? initialHeight: handlerHeight,
       containerMinimumHeight : containerMinimumHeight != undefined ? containerMinimumHeight: DEFAULT_CONTAINER_HEIGHT,
-      containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 250,
+      containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 190,
       containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : '#F5BB94',
       containerOpacity : containerOpacity != undefined ? containerOpacity : 1,
       handlerView : handlerDefaultView,

@@ -8,17 +8,21 @@ import {
   Navigator,
   TouchableHighlight,
   StyleSheet,
-  BackAndroid
+  BackAndroid,
+  Image
 } from 'react-native';
 import MapScene from '../scenes/MapScene';
 
 
+var openAdminState = {
+  open: () => {}
+}
 //Here is where the views goes
 const routes = [
-    {scene: <About />, title: 'Om oss', index: 0},
-    {scene: <MapScene />, title: 'Karta', index: 1},
-    {scene: <Menu/>, title: 'Meny', index: 2},
-    {scene: <Admin/>, title: 'Admin', index: 3},
+    {scene: <About openAdmin={openAdminState} />, title: 'Om oss', index: 0, source: require('../../assets/tabbar/info/info.png')},
+    {scene: <MapScene />, title: 'Karta', index: 1, source: require('../../assets/tabbar/map/map.png')},
+    {scene: <Menu />, title: 'Utbud', index: 2, source: require('../../assets/tabbar/menu/menu.android.png')},
+    {scene: <Admin />, title: 'Admin', index: 3, source: require('../../assets/tabbar/info/info.png')},
   ];
 
 function NavButton(props) {
@@ -39,13 +43,15 @@ function NavButton(props) {
           }
         }
       }}>
-      <Text>{props.routes[props.index].title}</Text>
+      <View style={styles.iconview}>
+        <Image source={props.routes[props.index].source} style={styles.icon} />
+        <Text style={styles.iconText}>{props.routes[props.index].title}</Text>
+      </View>
     </TouchableHighlight>
   );
 }
 
 export default class Routing extends Component {
-
   setAndroidBackPressButton(navigator) {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       if (navigator && navigator.getCurrentRoutes().length > 1) {
@@ -76,11 +82,23 @@ export default class Routing extends Component {
     );
   }
 
+  renderScene = (route, navigator) => {
+    var page = this.page(route, navigator);
+
+    if (route.index === 0) {
+      var openAdmin = () => {
+        navigator.replace(routes[3].scene);
+      }
+      openAdminState.open = openAdmin
+    }
+    return page;
+  }
+
   render() {
     return (
       <Navigator
         initialRoute={routes[1]}
-        renderScene={this.page}
+        renderScene={this.renderScene}
         configureScene={(route, routeStack) =>
           Navigator.SceneConfigs.FloatFromBottom}
         ref={this.setAndroidBackPressButton}
@@ -100,14 +118,22 @@ var styles = StyleSheet.create({
   Routing: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 50,
-    zIndex: 999,
-
+    height: 80,
   },
   NavButton: {
     padding: 20,
+    flex: 1,
   },
   Scene: {
     flex: 1,
+  },
+  icon: {
+    alignSelf: 'center',
+    width: 27,
+    height: 27,
+  },
+  iconText: {
+    alignSelf: 'center'
+
   }
 });
