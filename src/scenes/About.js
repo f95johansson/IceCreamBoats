@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   TouchableHighlight
 } from 'react-native';
+import styles from '../style/styles'
 
 export default class About extends Component {
 
@@ -78,13 +79,3 @@ export default class About extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  baseText: {
-    fontFamily: 'Cochin',
-    textAlign: 'center'
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});

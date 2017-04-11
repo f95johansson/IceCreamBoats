@@ -16,6 +16,7 @@ import SlideDownView from '../components/SlideDownView';
 
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
+import styles from '../style/styles'
 
 
 class Overlay extends Component {
@@ -158,20 +159,3 @@ function toLatLang(object) {
     longitude: object.longitude,
   };
 }
-
-var styles = StyleSheet.create({
-  map: {
-    flex: 1
-  },
-  MapScene: {
-    flex: 1,
-  },
-  overlay: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    height: 200,
-  },
-
-});
