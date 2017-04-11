@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Text, View, Button, TextInput } from 'react-native';
 import * as firebase from 'firebase';
+//import styles from '../style/components/addpositionmodal'
+import styles from '../style/components/addboatmodal'
+import gstyles from '../style/styles'
 
   export default class AddBoatModal extends Component {
 
@@ -37,14 +40,14 @@ import * as firebase from 'firebase';
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
+      <View style={gstyles.view}>
         <Modal
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {alert("Modal has been closed.")}}
           >
-         <View style={{marginTop: 22}}>
+         <View style={gstyles.view}>
           <View>
             <Button
               onPress={()=>{ this.setModalVisible(!this.state.modalVisible) }}
@@ -55,19 +58,19 @@ import * as firebase from 'firebase';
 
             <Text>Båtnamn</Text>
               <TextInput
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                style={gstyles.textInput}
                 onChangeText={(text) => this.setState({boatName: text})}
                 value={this.state.boatName}
                 />
               <Text>Telefon</Text>
               <TextInput
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                style={gstyles.textInput}
                 onChangeText={(text) => this.setState({phone: text})}
                 value={this.state.phone}
                 />
               <Text>Region</Text>
               <TextInput
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                style={gstyles.textInput}
                 onChangeText={(text) => this.setState({region: text})}
                 value={this.state.region}
                 />
