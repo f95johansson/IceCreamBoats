@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
-import Menu from '../scenes/Menu'
-import About from '../scenes/About'
-import Admin from '../scenes/Admin'
+import Menu from '../scenes/Menu';
+import About from '../scenes/About';
+import Admin from '../scenes/Admin';
 import {
   View,
   Text,
   Navigator,
   TouchableHighlight,
   StyleSheet,
-  BackAndroid
+  BackAndroid,
+  Image
 } from 'react-native';
+import MapScene from '../scenes/MapScene';
+import styles from '../style/routing'
 
-function AboutTest(props) {
-  return (<Text>{props.text}</Text>);
+const INDEX = {
+  ABOUT: 0,
+  MAP: 1,
+  MENU: 2,
+  ADMIN: 3
 }
-
-//Here is where the views goes
-const routes = [
-    {scene: <About text='1'/>, title: 'Om oss', index: 0},
-    {scene: <AboutTest text='2'/>, title: 'Karta', index: 1},
-    {scene: <Menu/>, title: 'Meny', index: 2},
-    {scene: <Admin/>, title: 'Admin', index: 3},
-  ];
 
 function NavButton(props) {
   return (
     <TouchableHighlight
       style={styles.NavButton}
       onPress={() => {
-        if (props.index === 1 && props.route.index !== 1) {
+        if (props.index === INDEX.MAP && props.route.index !== INDEX.MAP) {
           props.navigator.popToTop();
           return;
         }
@@ -41,12 +39,35 @@ function NavButton(props) {
           }
         }
       }}>
-      <Text>{props.routes[props.index].title}</Text>
+      <View style={styles.iconview}>
+        <Image source={props.routes[props.index].source} style={styles.icon} />
+        <Text style={styles.iconText}>{props.routes[props.index].title}</Text>
+      </View>
     </TouchableHighlight>
   );
 }
 
 export default class Routing extends Component {
+
+  constructor(props) {
+    super(props);
+    this.openAdmin = this.openAdmin.bind(this);
+    this.setAboutPageAdminRouting = this.setAboutPageAdminRouting.bind(this);
+    this.mapNavigatorObject = this.mapNavigatorObject.bind(this);76
+
+    this.routes = [
+      {scene: <About openAdmin={this.openAdmin} />, title: 'Om oss',  index: INDEX.ABOUT, source: require('../../assets/tabbar/info/info.png')},
+      {scene: <MapScene />, title: 'Karta',   index: INDEX.MAP, source: require('../../assets/tabbar/map/map.png')},
+      {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU, source: require('../../assets/tabbar/menu/menu.android.png')},
+      {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN, source: require('../../assets/tabbar/info/info.png')},
+    ];
+    this.navigator = null;
+  }
+
+  mapNavigatorObject(navigator) {
+    this.setAndroidBackPressButton(navigator);
+    this.setAboutPageAdminRouting(navigator);
+  }
 
   setAndroidBackPressButton(navigator) {
     BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -58,67 +79,45 @@ export default class Routing extends Component {
     });
   }
 
+  setAboutPageAdminRouting(navigator) {
+    this.navigator = navigator;
+  }
+
+  openAdmin() {
+    this.navigator.replace(this.routes[INDEX.ADMIN]);
+  }
+
   page = (route, navigator) => {
-    return (<View style={styles.app}>
-              <View style={styles.Scene}>{route.scene}</View>
-              <View>{this.bar(route, navigator)}</View>
-            </View>);
+    return (
+      <View style={styles.app}>
+        <View style={styles.Scene}>{route.scene}</View>
+        <View>{this.bar(route, navigator)}</View>
+      </View>
+    );
   }
 
   bar = (route, navigator) => {
     return (
       <View style={styles.Routing}>
-        <NavButton index={0} routes={routes} route={route} navigator={navigator} />
-        <NavButton index={1} routes={routes} route={route} navigator={navigator} />
-        <NavButton index={2} routes={routes} route={route} navigator={navigator} />
-        <NavButton index={3} routes={routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.ABOUT} routes={this.routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.MAP}   routes={this.routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.MENU}  routes={this.routes} route={route} navigator={navigator} />
+        <NavButton index={INDEX.ADMIN} routes={this.routes} route={route} navigator={navigator} />
       </View>
-      );
+    );
   }
 
   render() {
     return (
       <Navigator
-        initialRoute={routes[1]}
+        initialRoute={this.routes[INDEX.MAP]}
         renderScene={this.page}
         configureScene={(route, routeStack) =>
           Navigator.SceneConfigs.FloatFromBottom}
-        ref={this.setAndroidBackPressButton}
+        ref={this.mapNavigatorObject}
       />
     );
   }
 }
 
-/*
-React.BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (navigator && navigator.getCurrentRoutes().length > 1) {
-        navigator.pop();
-        return true;
-    }
-    return false;
-});
-*/
 
-var styles = StyleSheet.create({
-  app: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  Routing_old: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  Routing: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  NavButton: {
-    padding: 20,
-  },
-  Scene: {
-
-  }
-});

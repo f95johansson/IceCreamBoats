@@ -7,23 +7,41 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native';
+import styles from '../style/about'
+import gstyles from '../style/styles'
 
 export default class About extends Component {
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.state = {
-      AboutTitle: "Om oss",
+      AboutTitle: 'Om oss',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
-      ContactUsTitle: "Kontakta oss",
+      ContactUsTitle: 'Kontakta oss',
       ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
     }
   }
 
+  componentWillMount() {
+    this.loadAboutText()
+    //TODO: fixa checkbox, fixa lifecycle varningar
+  }
+
+  loadAboutText() {
+    firebase.database().ref('about').on('value',
+    (snapshot) => {
+      this.setState({
+        aboutText: snapshot.exportVal().about
+      })
+    })
+  }
+
   render() {
     return (
-      <View>
+      <View style={{paddingTop: 25}}>
         <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
           style={{width: 400, height: 250}} />
 
@@ -34,7 +52,7 @@ export default class About extends Component {
           </Text>
           {'\n'}{'\n'}
           <Text style={styles.baseText}>
-            {this.state.AboutText}
+            {this.state.aboutText}
           </Text>
           {'\n'}{'\n'}
           <Text style={styles.titleText}>
@@ -52,17 +70,13 @@ export default class About extends Component {
           </View>
         </TouchableOpacity>
 
+        <TouchableHighlight
+          onPress={() => this.props.openAdmin()}>
+        <Text>Admin(förmodligen inte för dig)</Text>
+        </TouchableHighlight>
+
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  baseText: {
-    fontFamily: 'Cochin',
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
