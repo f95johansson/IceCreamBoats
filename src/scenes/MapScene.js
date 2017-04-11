@@ -16,7 +16,8 @@ import SlideDownView from '../components/SlideDownView';
 
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
-import styles from '../style/styles'
+import styles from '../style/mapscene'
+import gstyles from '../style/styles'
 
 
 class Overlay extends Component {

@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-//Global CSS for all files
 
 var styles = StyleSheet.create({
+
+  //About.js
+  baseText: {
+    fontFamily: 'Cochin',
+    textAlign: 'center'
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
 
 });
 

@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   TouchableHighlight
 } from 'react-native';
-import styles from '../style/styles'
+import styles from '../style/about'
+import gstyles from '../style/styles'
 
 export default class About extends Component {
 
