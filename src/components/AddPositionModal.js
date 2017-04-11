@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Modal, Text, View, Button, TextInput } from 'react-native';
 import * as firebase from 'firebase';
+import styles from '../style/components/addpositionmodal'
+import gstyles from '../style/styles'
 
   export default class AddPositionModal extends Component {
 
@@ -32,14 +34,14 @@ import * as firebase from 'firebase';
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
+      <View style={gstyles.view}>
         <Modal
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {alert("Modal has been closed.")}}
           >
-         <View style={{marginTop: 22}}>
+         <View style={gstyles.view}>
           <View>
             <Button
               onPress={()=>{ this.setModalVisible(!this.state.modalVisible) }}
@@ -49,7 +51,7 @@ import * as firebase from 'firebase';
             <Text>Skicka ut notis till närliggande</Text>
             <Text>Kommer om:</Text>
               <TextInput
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                style={gstyles.textInput}
                 onChangeText={(text) => this.setState({destinationTime: text})}
                 value={this.state.destinationTime}
                 />

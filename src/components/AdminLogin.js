@@ -8,6 +8,8 @@ import {
   Button,
   TextInput
 } from 'react-native';
+import styles from '../style/components/adminlogin'
+import gstyles from '../style/styles'
 
 export default class AdminLogin extends Component {
 
@@ -45,12 +47,12 @@ export default class AdminLogin extends Component {
       <View>
         <Text>Logga in</Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          style={styles.textInput}
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email}
           />
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          style={styles.textInput}
           onChangeText={(text) => this.setState({password: text})}
           value={this.state.password}
           />

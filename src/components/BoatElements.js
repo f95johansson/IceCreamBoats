@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import * as location from '../utils/location' //TODO: funkar ej att importera
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   Button,
   TextInput
 } from 'react-native';
+import styles from '../style/components/boatelement'
+import gstyles from '../style/styles'
 
 export default class BoatElements extends Component {
 
@@ -55,7 +56,7 @@ export default class BoatElements extends Component {
 
       elements.push(
         <View key={name} style={styles.rowElements}>
-          <Text style={{color: 'red'}}>{name} </Text>
+          <Text style={styles.nameColor}>{name} </Text>
           <Text onPress={this.setPosition.bind(this)}>Karta(bild) </Text>
           <Text>Penna(bild) </Text>
           <Text onPress={this.setBoat.bind(this, name)}>Välj båt(bild) </Text>
@@ -87,12 +88,3 @@ export default class BoatElements extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  rowElements: {
-        flexWrap: 'wrap',
-        alignItems: 'flex-start',
-        flexDirection:'row',
-        paddingTop: 10,
-    },
-
-});

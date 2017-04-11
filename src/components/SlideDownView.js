@@ -6,6 +6,8 @@ import {
   StyleSheet
 } from 'react-native';
 import { Motion, spring } from 'react-motion';
+import styles from '../style/components/boatelement'
+import gstyles from '../style/styles'
 
 const { width, height } = Dimensions.get('window');
 const DEFAULT_CONTAINER_HEIGHT = 60;
@@ -65,25 +67,6 @@ export default class SlideDownView extends Component {
   }
 
   render() {
-    const styles = {
-      container: {
-        borderTopColor: '#EA591C',
-        borderTopWidth: 6,
-        position: 'absolute',
-        overflow: 'hidden',
-        bottom: 0,
-        opacity: this.state.containerOpacity,
-        backgroundColor : this.state.containerBackgroundColor,
-        height: this.state.containerHeight
-      },
-      handler: {
-        height : this.state.handlerHeight,
-        width : width,
-        justifyContent : 'center',
-        opacity : this.state.handlerOpacity,
-        backgroundColor : this.state.handlerBackgroundColor
-      }
-    };
 
     var y;
     if (this.state.isPanMoving) {
