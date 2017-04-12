@@ -56,9 +56,9 @@ export default class Routing extends Component {
     this.mapNavigatorObject = this.mapNavigatorObject.bind(this);76
 
     this.routes = [
-      {scene: <About openAdmin={this.openAdmin} />, title: 'Om oss',  index: INDEX.ABOUT, source: require('../../assets/tabbar/info/info.png')},
+      {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT, source: require('../../assets/tabbar/info/info.png')},
       {scene: <MapScene />, title: 'Karta',   index: INDEX.MAP, source: require('../../assets/tabbar/map/map.png')},
-      {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU, source: require('../../assets/tabbar/menu/menu.android.png')},
+      {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU, source: require('../../assets/tabbar/menu/menu.png')},
       {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN, source: require('../../assets/tabbar/info/info.png')},
     ];
     this.navigator = null;

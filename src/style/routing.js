@@ -6,7 +6,7 @@ var styles = StyleSheet.create ({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#F5BB94',
+    backgroundColor: '#FFFFFF',
   },
   Routing: {
     flexDirection: 'row',
@@ -22,11 +22,13 @@ var styles = StyleSheet.create ({
   },
   icon: {
     alignSelf: 'center',
-    width: 27,
-    height: 27,
+    width: 23,
+    height: 23,
   },
   iconText: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: 3,
+    fontSize: 12
 
   }
 });
