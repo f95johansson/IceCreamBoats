@@ -113,7 +113,7 @@ export default class Routing extends Component {
         initialRoute={this.routes[INDEX.MAP]}
         renderScene={this.page}
         configureScene={(route, routeStack) =>
-          Navigator.SceneConfigs.FloatFromBottom}
+          Navigator.SceneConfigs.FadeAndroid}
         ref={this.mapNavigatorObject}
       />
     );
