@@ -6,15 +6,14 @@ var styles = StyleSheet.create ({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#FFFFFF',
-  },
+    backgroundColor: '#FFFFFF',  },
   Routing: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 80,
+    height: 70,
   },
   NavButton: {
-    padding: 20,
+    padding: 14,
     flex: 1,
   },
   Scene: {

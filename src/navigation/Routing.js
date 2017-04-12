@@ -92,6 +92,7 @@ export default class Routing extends Component {
     return (
       <View style={styles.app}>
         <View style={styles.Scene}>{route.scene}</View>
+        <View>{this.bar(route, navigator)}</View>
       </View>
     );
   }
@@ -109,7 +110,6 @@ export default class Routing extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
         <Navigator
           initialRoute={this.routes[INDEX.MAP]}
           renderScene={this.page}
@@ -117,8 +117,6 @@ export default class Routing extends Component {
             Navigator.SceneConfigs.FloatFromLeft}
           ref={this.mapNavigatorObject}
         />
-        {this.bar(route, navigator)}
-      </View>
     );
   }
 }
