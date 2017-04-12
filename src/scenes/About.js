@@ -41,9 +41,9 @@ export default class About extends Component {
 
   render() {
     return (
-      <View style={{paddingTop: 25}}>
+      <View>
         <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          style={{width: 400, height: 250}} />
+          style={styles.headerImage} />
 
         <Text style={styles.baseText}>
           {'\n'}{'\n'}

@@ -14,6 +14,10 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  headerImage: {
+    width: 400, 
+    height: 250
+  }
 
 });
 

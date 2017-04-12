@@ -7,17 +7,21 @@ var styles = StyleSheet.create ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     backgroundColor: '#FFFFFF',  },
+
   Routing: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 70,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
+
   NavButton: {
     padding: 14,
     flex: 1,
   },
   Scene: {
-    flex: 1,
+    flex:1,
+    alignSelf: 'stretch',
+    marginBottom: 60,
   },
   icon: {
     alignSelf: 'center',
@@ -29,7 +33,13 @@ var styles = StyleSheet.create ({
     marginTop: 3,
     fontSize: 12
 
-  }
+  },
+  iconTextSelected: {
+    alignSelf: 'center',
+    marginTop: 3,
+    fontSize: 12,
+    color: '#dc2b0b',
+  },
 });
 
 export default styles

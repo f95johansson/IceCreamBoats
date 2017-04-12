@@ -9,6 +9,7 @@ var styles = StyleSheet.create({
   },
   MapScene: {
     flex: 1,
+    alignSelf: 'stretch',
   },
   overlay: {
     position: 'absolute',
