@@ -71,7 +71,7 @@ class Overlay extends Component {
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
+const LATITUDE = 37.78825;//TODO: fixa dynamisk
 const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -134,17 +134,19 @@ export default class MapScene extends Component {
           onPress={(e) => this.onMapPress(e)}
         >
           {this.state.markers.map(marker => (
+          <View>
             <MapView.Marker
               draggable
               key={marker.key}
-              coordinate={marker.coordinate} />
-            
+              coordinate={marker.coordinate}
+              title={'Båt X'}
+              description={'Telefonnummer: 073454443'}
+              />
+          </View>
           ))}
         </MapView>
 
-
-        {/*<Overlay />*/}
-
+        <Overlay />
       </View>
     );
   }
