@@ -126,6 +126,7 @@ export default class MapScene extends Component {
   render() {
     return (
       <View style={styles.MapScene} >
+
         <MapView
           provider={this.props.provider}
           style={styles.map}
@@ -136,19 +137,14 @@ export default class MapScene extends Component {
             <MapView.Marker
               draggable
               key={marker.key}
-              coordinate={marker.coordinate}
-            />
+              coordinate={marker.coordinate} />
+            
           ))}
         </MapView>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => this.setState({ markers: [] })}
-            style={styles.bubble}
-          >
-            <Text>Tap to create a marker of random color</Text>
-          </TouchableOpacity>
-        </View>
+
+
         {/*<Overlay />*/}
+
       </View>
     );
   }
