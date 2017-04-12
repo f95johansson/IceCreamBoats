@@ -21,7 +21,7 @@ var styles = StyleSheet.create ({
   Scene: {
     flex:1,
     alignSelf: 'stretch',
-    marginBottom: 60,
+    paddingBottom: 60,
   },
   icon: {
     alignSelf: 'center',

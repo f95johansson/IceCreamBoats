@@ -53,12 +53,9 @@ export default class Routing extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {page:'Karta'};
     this.openAdmin = this.openAdmin.bind(this);
-    this.setAboutPageAdminRouting = this.setAboutPageAdminRouting.bind(this);
-    this.mapNavigatorObject = this.mapNavigatorObject.bind(this);
 
-      //Admin: {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN, 
-      //iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
     this.routes = {
       Info: {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT, 
         iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
@@ -66,53 +63,26 @@ export default class Routing extends Component {
         iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'), icon: require('../../assets/tabbar/map/map.png')},
       Utbud: {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU, 
         iconSelected: require('../../assets/tabbar/menuSelected/menuSelected.png'), icon: require('../../assets/tabbar/menu/menu.png')},
+      Admin: {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN, 
+       iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
     };
-    this.navigator = null;
 
-    this.state = {page:'Karta'};
+    this.setAndroidBackPressButton();
   }
 
-  mapNavigatorObject(navigator) {
-    this.setAndroidBackPressButton(navigator);
-    this.setAboutPageAdminRouting(navigator);
-  }
-
-  setAndroidBackPressButton(navigator) {
+  setAndroidBackPressButton() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
-      if (navigator && navigator.getCurrentRoutes().length > 1) {
-          navigator.popToTop();
-          return true;
+      if (this.state.page !== 'Karta') {
+        this.setState({page: 'Karta'})
+        return true;
       }
       return false;
     });
   }
 
-  setAboutPageAdminRouting(navigator) {
-    this.navigator = navigator;
-  }
 
   openAdmin() {
     this.setState({page: 'Admin'})
-  }
-
-  page = (route, navigator) => {
-    return (
-      <View style={styles.app}>
-        <View style={styles.Scene}>{route.scene}</View>
-        <View>{this.bar(route, navigator)}</View>
-      </View>
-    );
-  }
-
-  bar = (route, navigator) => {
-    return (
-      <View style={styles.Routing}>
-        <NavButton index={INDEX.ABOUT} routes={this.routes} route={route} navigator={navigator} />
-        <NavButton index={INDEX.MAP}   routes={this.routes} route={route} navigator={navigator} />
-        <NavButton index={INDEX.MENU}  routes={this.routes} route={route} navigator={navigator} />
-        <NavButton index={INDEX.ADMIN} routes={this.routes} route={route} navigator={navigator} />
-      </View>
-    );
   }
 
   render() {
