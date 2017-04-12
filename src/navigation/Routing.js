@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import MapScene from '../scenes/MapScene';
 import styles from '../style/routing'
+import CustomTransition from './CustomTransition';
 
 const INDEX = {
   ABOUT: 0,
@@ -91,7 +92,6 @@ export default class Routing extends Component {
     return (
       <View style={styles.app}>
         <View style={styles.Scene}>{route.scene}</View>
-        <View>{this.bar(route, navigator)}</View>
       </View>
     );
   }
@@ -109,13 +109,16 @@ export default class Routing extends Component {
 
   render() {
     return (
-      <Navigator
-        initialRoute={this.routes[INDEX.MAP]}
-        renderScene={this.page}
-        configureScene={(route, routeStack) =>
-          Navigator.SceneConfigs.FadeAndroid}
-        ref={this.mapNavigatorObject}
-      />
+      <View style={{flex: 1}}>
+        <Navigator
+          initialRoute={this.routes[INDEX.MAP]}
+          renderScene={this.page}
+          configureScene={(route, routeStack) =>
+            Navigator.SceneConfigs.FloatFromLeft}
+          ref={this.mapNavigatorObject}
+        />
+        {this.bar(route, navigator)}
+      </View>
     );
   }
 }
