@@ -18,6 +18,10 @@ var styles = StyleSheet.create({
     left: 0,
     height: 200,
   },
+  buttonView:{
+    alignSelf: 'center',
+    width: 250,
+  }
 
 });
 

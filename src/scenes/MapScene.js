@@ -53,17 +53,21 @@ class Overlay extends Component {
     return (
       <SlideDownView style={styles.overlay}
         handlerOpacity={1}
-        containerBackgroundColor={'#F5BB94'}
-        containerMinimumHeight={20}
-        containerMaximumHeight={190}
-        handlerHeight={160}
-        initialHeight={190}
+        containerBackgroundColor={'#FFFFFF'}
+        containerMinimumHeight={10}
+        containerMaximumHeight={90}
+        handlerHeight={90}
+        initialHeight={90}
+        
         handlerDefaultView={
-          <Button style={styles.notificationButton}
-            onPress={this.sendPosition.bind(this)}
-            title="Jag vill ha glass"
-            accessibilityLabel="Nu kommer vi"
-          />
+          <View style ={styles.buttonView}>
+            <Button style={styles.notificationButton}
+              onPress={this.sendPosition.bind(this)}
+              title="Gör mig synlig för båtarna"
+              color={'#EA591C'}
+              accessibilityLabel="Nu kommer vi"
+            />
+          </View>
         } />
     );
   }
