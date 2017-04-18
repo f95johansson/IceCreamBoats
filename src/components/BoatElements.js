@@ -19,7 +19,6 @@ export default class BoatElements extends Component {
       boats: {},
       aboutText: ''
     }
-
     this.updateBoats.bind(this)
   }
 
@@ -32,14 +31,14 @@ export default class BoatElements extends Component {
   }
 
   updateBoats(snapshot) {
-    this.setState({boats: snapshot.exportVal()});
+    this.setState({boats: snapshot.exportVal()})
   }
 
   setBoat(boatName) {
     this.props.setBoat(boatName)
 
     firebase.database().ref('boats/' + boatName).update({
-      chosen: true,
+      owner: firebase.auth().currentUser.email,
     }).then(() => {
       this.setModalVisible(false)
     }, (error) => {
@@ -74,7 +73,6 @@ export default class BoatElements extends Component {
   }
 
   removeBoat(name) {
-    console.log('name', name);
     firebase.database().ref('boats/'+name).remove()
   }
 
@@ -87,4 +85,3 @@ export default class BoatElements extends Component {
     )
   }
 }
-
