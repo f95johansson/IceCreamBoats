@@ -55,7 +55,7 @@ export default class Routing extends Component {
     super(props);
     this.state = {page:'Karta'};
     this.openAdmin = this.openAdmin.bind(this);
-
+  
     this.routes = {
       Info: {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT, 
         iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
@@ -90,10 +90,12 @@ export default class Routing extends Component {
       <View style={styles.Routing}>
         <Tabs selected={this.state.page} style={{backgroundColor:'white'}}
               selectedStyle={{selected: true}} onSelect={el=>this.setState({page:el.props.name})}>
-            {Object.keys(this.routes).map((name, index) => 
-                <TabButton 
+            {Object.keys(this.routes).map((name, index) => {
+              if (name !== 'Admin') {
+                return <TabButton 
                   name={this.routes[name].title} key={this.routes[name].title} route={this.routes[name]} styles={styles}
-                />)
+                />}
+              })
             }
         </Tabs>
         <View style={styles.Scene}>{this.routes[this.state.page].scene}</View>

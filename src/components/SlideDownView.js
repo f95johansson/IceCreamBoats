@@ -6,7 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { Motion, spring } from 'react-motion';
-import styles from '../style/components/boatelement'
+import styles from '../style/components/slidedownview'
 import gstyles from '../style/styles'
 
 const { width, height } = Dimensions.get('window');
@@ -157,5 +157,6 @@ export default class SlideDownView extends Component {
       this.props.getContainerHeight(containerHeight);
     }
   }
+  
 
 }

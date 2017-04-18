@@ -6,7 +6,8 @@ var styles = StyleSheet.create ({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#FFFFFF',  },
+    backgroundColor: '#FFFFFF',  
+  },
 
   Routing: {
     flex: 1,

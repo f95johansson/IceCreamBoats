@@ -142,7 +142,6 @@ export default class MapScene extends Component {
           ))}
         </MapView>
 
-
         <Overlay />
 
       </View>
