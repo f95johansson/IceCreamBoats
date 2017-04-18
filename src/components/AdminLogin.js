@@ -29,7 +29,6 @@ export default class AdminLogin extends Component {
           signedIn: true,
           message: 'Användare '+user.email+' är inloggad',
         })
-        console.log('user.email:', user.email);
 
       } else {
         this.props.isLoggedIn(false)
