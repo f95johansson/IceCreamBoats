@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
+import Button from 'react-native-button';
 import {
   View,
   Text,
@@ -7,9 +8,9 @@ import {
   StyleSheet,
   Animated,
   PanResponder,
-  Button,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import * as firebase from 'firebase';
 import SlideDownView from '../components/SlideDownView';
@@ -26,7 +27,8 @@ class Overlay extends Component {
     super(props);
 
     this.state = {id:''};
-    this.sendPosition.bind(this);
+
+    this.sendPosition = this.sendPosition.bind(this);
   }
 
   sendPosition() {
@@ -52,18 +54,28 @@ class Overlay extends Component {
     return (
       <SlideDownView style={styles.overlay}
         handlerOpacity={1}
-        containerBackgroundColor={'#F5BB94'}
-        containerMinimumHeight={20}
-        containerMaximumHeight={190}
-        handlerHeight={160}
-        initialHeight={190}
+        containerBackgroundColor={'#FFFFFF'}
+        containerMinimumHeight={60}
+        containerMaximumHeight={150}
+        handlerHeight={60}
+        initialHeight={150}
         handlerDefaultView={
-          <Button style={styles.notificationButton}
-            onPress={this.sendPosition.bind(this)}
-            title="Jag vill ha glass"
-            accessibilityLabel="Nu kommer vi"
-          />
-        } />
+          
+          <Image source={require('../../assets/layout/wave.png')} style={styles.wave} />
+        }>
+          <View style={styles.slideBackground}>
+          </View>
+          <Button containerStyle={styles.buttonContainer}
+                    style={styles.button}
+                    onPress={this.sendPosition}>
+                    Gör mig synlig för båtarna
+          </Button>
+          <Button containerStyle={styles.questionmark}
+                    style={styles.questionmarkButton}
+                    onPress={this.sendPosition}>
+                    ?
+          </Button>
+        </SlideDownView>
     );
   }
 }

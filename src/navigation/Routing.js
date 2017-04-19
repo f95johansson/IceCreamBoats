@@ -23,39 +23,13 @@ const INDEX = {
   ADMIN: 3
 }
 
-function NavButton(props) {
-  return (
-    <TouchableHighlight
-      style={styles.NavButton}
-      onPress={() => {
-        if (props.index === INDEX.MAP && props.route.index !== INDEX.MAP) {
-          props.navigator.popToTop();
-          return;
-        }
-
-        if (props.route.index !== props.index) {
-          if (props.navigator.getCurrentRoutes().length > 1) {
-            props.navigator.replace(props.routes[props.index]);
-          } else {
-            props.navigator.push(props.routes[props.index]);
-          }
-        }
-      }}>
-      <View style={styles.iconview}>
-        <Image source={props.routes[props.index].source} style={styles.icon} />
-        <Text style={styles.iconText}>{props.routes[props.index].title}</Text>
-      </View>
-    </TouchableHighlight>
-  );
-}
-
 export default class Routing extends Component {
 
   constructor(props) {
     super(props);
     this.state = {page:'Karta'};
     this.openAdmin = this.openAdmin.bind(this);
-
+  
     this.routes = {
       Info: {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT,
         iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
@@ -91,10 +65,13 @@ export default class Routing extends Component {
         {<View style={styles.Scene}>{this.routes[this.state.page].scene}</View>}
         <Tabs selected={this.state.page} style={{backgroundColor:'white'}}
               selectedStyle={{selected: true}} onSelect={el=>this.setState({page:el.props.name})}>
-            {Object.keys(this.routes).map((name, index) =>
-                <TabButton
+
+            {Object.keys(this.routes).map((name, index) => {
+              if (name !== 'Admin') {
+                return <TabButton 
                   name={this.routes[name].title} key={this.routes[name].title} route={this.routes[name]} styles={styles}
-                />)
+                />}
+              })
             }
         </Tabs>
       </View>

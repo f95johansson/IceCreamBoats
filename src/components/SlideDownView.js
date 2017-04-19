@@ -6,8 +6,9 @@ import {
   StyleSheet
 } from 'react-native';
 import { Motion, spring } from 'react-motion';
-import styles from '../style/components/boatelement'
-import gstyles from '../style/styles'
+import gstyles from '../style/styles';
+
+
 
 const { width, height } = Dimensions.get('window');
 const DEFAULT_CONTAINER_HEIGHT = 60;
@@ -28,10 +29,10 @@ export default class SlideDownView extends Component {
       previousContainerHeight: initialHeight != undefined ? initialHeight: handlerHeight,
       containerMinimumHeight : containerMinimumHeight != undefined ? containerMinimumHeight: DEFAULT_CONTAINER_HEIGHT,
       containerMaximumHeight : containerMaximumHeight != undefined ? containerMaximumHeight : 190,
-      containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : '#F5BB94',
+      containerBackgroundColor : containerBackgroundColor != undefined ? containerBackgroundColor : '#FFFFFF',
       containerOpacity : containerOpacity != undefined ? containerOpacity : 1,
       handlerView : handlerDefaultView,
-      handlerBackgroundColor : handlerBackgroundColor != undefined ? handlerBackgroundColor : '#F5BB94',
+      handlerBackgroundColor : handlerBackgroundColor != undefined ? handlerBackgroundColor : '#FFFFFF',
       handlerOpacity : handlerOpacity != undefined ? handlerOpacity : 1,
       isPanMoving: false
     };
@@ -68,6 +69,26 @@ export default class SlideDownView extends Component {
 
   render() {
 
+    const styles = {
+      container: {
+        position: 'absolute',
+        overflow: 'hidden',
+        bottom: 0,
+        opacity: this.state.containerOpacity,
+        //backgroundColor : this.state.containerBackgroundColor,
+        backgroundColor : 'rgba(52, 52, 52, 0)',
+        height: this.state.containerHeight
+      },
+      handler: {
+        height : this.state.handlerHeight,
+        width : width,
+        justifyContent : 'center',
+        opacity : this.state.handlerOpacity,
+        backgroundColor : 'rgba(52, 52, 52, 0)'
+        //backgroundColor : this.state.containerBackgroundColor,
+      }
+    };
+
     var y;
     if (this.state.isPanMoving) {
       y = this.state.containerHeight;
@@ -79,10 +100,10 @@ export default class SlideDownView extends Component {
         {
           ({y}) => (
             <View style={[styles.container, { height: y}]}>
-              {this.props.children}
               <View style={styles.handler} {...this.panResponder.panHandlers}>
                 {this.state.handlerView}
               </View>
+              {this.props.children}
             </View>
           )
         }
@@ -157,5 +178,6 @@ export default class SlideDownView extends Component {
       this.props.getContainerHeight(containerHeight);
     }
   }
+  
 
 }
