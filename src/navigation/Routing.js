@@ -57,13 +57,13 @@ export default class Routing extends Component {
     this.openAdmin = this.openAdmin.bind(this);
 
     this.routes = {
-      Info: {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT, 
+      Info: {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT,
         iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
-      Karta: {scene: <MapScene />, title: 'Karta',   index: INDEX.MAP, 
+      Karta: {scene: <MapScene />, title: 'Karta',   index: INDEX.MAP,
         iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'), icon: require('../../assets/tabbar/map/map.png')},
-      Utbud: {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU, 
+      Utbud: {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU,
         iconSelected: require('../../assets/tabbar/menuSelected/menuSelected.png'), icon: require('../../assets/tabbar/menu/menu.png')},
-      Admin: {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN, 
+      Admin: {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN,
        iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
     };
 
@@ -88,15 +88,15 @@ export default class Routing extends Component {
   render() {
     return (
       <View style={styles.Routing}>
+        {<View style={styles.Scene}>{this.routes[this.state.page].scene}</View>}
         <Tabs selected={this.state.page} style={{backgroundColor:'white'}}
               selectedStyle={{selected: true}} onSelect={el=>this.setState({page:el.props.name})}>
-            {Object.keys(this.routes).map((name, index) => 
-                <TabButton 
+            {Object.keys(this.routes).map((name, index) =>
+                <TabButton
                   name={this.routes[name].title} key={this.routes[name].title} route={this.routes[name]} styles={styles}
                 />)
             }
         </Tabs>
-        <View style={styles.Scene}>{this.routes[this.state.page].scene}</View>
       </View>
     );
 
@@ -127,4 +127,3 @@ function TabButton (props) {
     );
   }
 }
-
