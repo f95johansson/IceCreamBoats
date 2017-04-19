@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import * as firebase from 'firebase';
 import SlideDownView from '../components/SlideDownView';
-
+import InfoModal from '../components/InfoModal';
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
 import styles from '../style/mapscene'

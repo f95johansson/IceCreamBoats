@@ -54,8 +54,6 @@ import gstyles from '../style/styles'
               title="Stäng"
               color="#841584"/>
 
-
-
             <Text>Båtnamn</Text>
               <TextInput
                 style={gstyles.textInput}
