@@ -11,8 +11,9 @@ export function getUserLocation() {
           (error) => reject(error)
           //{enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
         );
-      }).catch(() => {
-        alert('Vi måste veta er position om vi ska kunna åka till er');
+      }).catch((error) => {
+        console.log(error);
+        //alert('Vi måste veta er position om vi ska kunna åka till er');
       });
     }
   );

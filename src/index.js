@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen';
 import {
   StyleSheet,
   Text,
@@ -21,9 +21,9 @@ firebase.initializeApp(config);
 
 export default class IceCreamBoats extends Component {
 
-    componentDidMount() {
-        SplashScreen.hide();
-    }
+  componentDidMount() {
+    SplashScreen.hide();
+  }
 
   render() {
     return (

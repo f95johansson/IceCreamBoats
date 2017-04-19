@@ -80,29 +80,46 @@ class Overlay extends Component {
   }
 }
 
-const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-let id = 0;
 
+let id = 0;
 export default class MapScene extends Component {
 
   constructor(props) {
     super(props);
+    this.getUserLocation()
+
     this.state = {
+      userEmail: '',
+      boatInfo: {
+        name: '',
+        phone: ''
+      },
       boats: {},
       region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.0500,
+        longitudeDelta: 0.0500
       },
       markers: [],
     };
     this.updateBoats.bind(this);
+  }
+
+  getUserLocation() {
+    location.getUserLocation().then((position) => {
+        let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude }
+        this.setState({
+          region: {
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
+            latitudeDelta: 0.0500,
+            longitudeDelta: 0.0500
+          }
+        })
+    }).catch((error) => {
+        console.log('ERRRR', error)
+    });
   }
 
   onMapPress(e) {
@@ -119,6 +136,11 @@ export default class MapScene extends Component {
 
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats.bind(this));
+
+    //Identify user
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) { this.setState({ userEmail: user.email }, ()=> {this.getBoatInfo()}) }
+    }.bind(this))
   }
 
   componentWillUnmount() {
@@ -134,10 +156,27 @@ export default class MapScene extends Component {
     }
   }
 
+  getBoatInfo() {
+    let userEmail = this.state.userEmail
+    ref = firebase.database().ref('boats')
+
+    ref.once('value', (snapshot) => {
+      snapshot.forEach( (childSnapshot) => {
+        if (childSnapshot.val().owner==userEmail) {
+            this.setState({
+              boatInfo: {
+                          name: childSnapshot.val().boatName,
+                          phone: childSnapshot.val().phone }
+            })
+        }
+      })
+    })
+  }
+
   render() {
+    //TODO: kunna ta bort en popup genom att klicka på den. Dock så funkar inte onPress för tillfället
     return (
       <View style={styles.MapScene} >
-
         <MapView
           provider={this.props.provider}
           style={styles.map}
@@ -145,16 +184,21 @@ export default class MapScene extends Component {
           onPress={(e) => this.onMapPress(e)}
         >
           {this.state.markers.map(marker => (
+          <View>
             <MapView.Marker
               draggable
               key={marker.key}
-              coordinate={marker.coordinate} />
-            
+              coordinate={marker.coordinate}
+              title={this.state.boatInfo.name}
+              description={'Tele: '+this.state.boatInfo.phone}
+              />
+            {/*BUGGY SHIT COMPONENT*/}
+            <MapView.Callout tooltip={true} onPress={() => console.log('CLICKED!', 123)}/>
+          </View>
           ))}
         </MapView>
 
         <Overlay />
-
       </View>
     );
   }
