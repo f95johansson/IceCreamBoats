@@ -71,13 +71,12 @@ export default class SlideDownView extends Component {
 
     const styles = {
       container: {
-        borderTopColor: '#EA591C',
-        borderTopWidth: 3,
         position: 'absolute',
         overflow: 'hidden',
         bottom: 0,
         opacity: this.state.containerOpacity,
-        backgroundColor : this.state.containerBackgroundColor,
+        //backgroundColor : this.state.containerBackgroundColor,
+        backgroundColor : 'rgba(52, 52, 52, 0)',
         height: this.state.containerHeight
       },
       handler: {
@@ -85,7 +84,8 @@ export default class SlideDownView extends Component {
         width : width,
         justifyContent : 'center',
         opacity : this.state.handlerOpacity,
-        backgroundColor : this.state.handlerBackgroundColor
+        backgroundColor : 'rgba(52, 52, 52, 0)'
+        //backgroundColor : this.state.containerBackgroundColor,
       }
     };
 
@@ -100,10 +100,10 @@ export default class SlideDownView extends Component {
         {
           ({y}) => (
             <View style={[styles.container, { height: y}]}>
-              {this.props.children}
               <View style={styles.handler} {...this.panResponder.panHandlers}>
                 {this.state.handlerView}
               </View>
+              {this.props.children}
             </View>
           )
         }

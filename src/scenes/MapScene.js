@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
+import Button from 'react-native-button';
 import {
   View,
   Text,
@@ -7,9 +8,9 @@ import {
   StyleSheet,
   Animated,
   PanResponder,
-  Button,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import * as firebase from 'firebase';
 import SlideDownView from '../components/SlideDownView';
@@ -27,7 +28,7 @@ class Overlay extends Component {
 
     this.state = {id:''};
 
-    this.sendPosition.bind(this);
+    this.sendPosition = this.sendPosition.bind(this);
   }
 
   sendPosition() {
@@ -54,21 +55,27 @@ class Overlay extends Component {
       <SlideDownView style={styles.overlay}
         handlerOpacity={1}
         containerBackgroundColor={'#FFFFFF'}
-        containerMinimumHeight={10}
-        containerMaximumHeight={90}
-        handlerHeight={90}
-        initialHeight={90}
-        
+        containerMinimumHeight={60}
+        containerMaximumHeight={150}
+        handlerHeight={60}
+        initialHeight={150}
         handlerDefaultView={
-          <View style ={styles.buttonView}>
-            <Button style={styles.notificationButton}
-              onPress={this.sendPosition.bind(this)}
-              title="Gör mig synlig för båtarna"
-              color={'#EA591C'}
-              accessibilityLabel="Nu kommer vi"
-            />
+          
+          <Image source={require('../../assets/layout/wave.png')} style={styles.wave} />
+        }>
+          <View style={styles.slideBackground}>
           </View>
-        } />
+          <Button containerStyle={styles.buttonContainer}
+                    style={styles.button}
+                    onPress={this.sendPosition}>
+                    Gör mig synlig för båtarna
+          </Button>
+          <Button containerStyle={styles.questionmark}
+                    style={styles.questionmarkButton}
+                    onPress={this.sendPosition}>
+                    ?
+          </Button>
+        </SlideDownView>
     );
   }
 }

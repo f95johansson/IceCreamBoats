@@ -23,32 +23,6 @@ const INDEX = {
   ADMIN: 3
 }
 
-function NavButton(props) {
-  return (
-    <TouchableHighlight
-      style={styles.NavButton}
-      onPress={() => {
-        if (props.index === INDEX.MAP && props.route.index !== INDEX.MAP) {
-          props.navigator.popToTop();
-          return;
-        }
-
-        if (props.route.index !== props.index) {
-          if (props.navigator.getCurrentRoutes().length > 1) {
-            props.navigator.replace(props.routes[props.index]);
-          } else {
-            props.navigator.push(props.routes[props.index]);
-          }
-        }
-      }}>
-      <View style={styles.iconview}>
-        <Image source={props.routes[props.index].source} style={styles.icon} />
-        <Text style={styles.iconText}>{props.routes[props.index].title}</Text>
-      </View>
-    </TouchableHighlight>
-  );
-}
-
 export default class Routing extends Component {
 
   constructor(props) {
