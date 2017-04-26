@@ -26,6 +26,9 @@ var styles = StyleSheet.create({
   	position:'absolute', 
   	right: 0, 
   	marginTop: 10
+  },
+  cross:{
+    fontSize: 22
   }
 });
 

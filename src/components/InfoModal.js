@@ -21,7 +21,7 @@ export default function InfoModal(props) {
           Synlighet
         </Text>
         <TouchableOpacity style={styles.modalExit} onPress={() => props.onInfoModalChange(false)}>
-          <Text style={{fontSize: 22}}>
+          <Text style={styles.cross}>
             ╳
           </Text>
         </TouchableOpacity>
