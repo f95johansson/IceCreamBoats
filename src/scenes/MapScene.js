@@ -15,6 +15,7 @@ import {
 import * as firebase from 'firebase';
 import SlideDownView from '../components/SlideDownView';
 import InfoModal from '../components/InfoModal';
+import Modal from 'react-native-simple-modal';
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
 import styles from '../style/mapscene'
@@ -26,7 +27,7 @@ class Overlay extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {id:''};
+    this.state = {id:'', openModal: false};
 
     this.sendPosition = this.sendPosition.bind(this);
   }
@@ -60,7 +61,6 @@ class Overlay extends Component {
         handlerHeight={60}
         initialHeight={150}
         handlerDefaultView={
-          
           <Image source={require('../../assets/layout/wave.png')} style={styles.wave} />
         }>
           <View style={styles.slideBackground}>
@@ -72,10 +72,11 @@ class Overlay extends Component {
           </Button>
           <Button containerStyle={styles.questionmark}
                     style={styles.questionmarkButton}
-                    onPress={this.sendPosition}>
+                    onPress={() => this.props.onInfoModalChange(true)}>
                     ?
           </Button>
         </SlideDownView>
+ 
     );
   }
 }
@@ -89,6 +90,7 @@ export default class MapScene extends Component {
     this.getUserLocation()
 
     this.state = {
+      openModal: false,
       userEmail: '',
       boatInfo: {
         name: '',
@@ -104,6 +106,7 @@ export default class MapScene extends Component {
       markers: [],
     };
     this.updateBoats.bind(this);
+    this.onInfoModalChange = this.onInfoModalChange.bind(this)
   }
 
   getUserLocation() {
@@ -172,33 +175,42 @@ export default class MapScene extends Component {
       })
     })
   }
+  onInfoModalChange(openModal) {
+    this.setState({openModal: openModal})
+  }
+
 
   render() {
     //TODO: kunna ta bort en popup genom att klicka på den. Dock så funkar inte onPress för tillfället
     return (
       <View style={styles.MapScene} >
+        {/*Fix comunication to slidedownview class*/}
+
         <MapView
           provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}
-          onPress={(e) => this.onMapPress(e)}
-        >
-          {this.state.markers.map(marker => (
-          <View>
-            <MapView.Marker
-              draggable
-              key={marker.key}
-              coordinate={marker.coordinate}
-              title={this.state.boatInfo.name}
-              description={'Tele: '+this.state.boatInfo.phone}
-              />
-            {/*BUGGY SHIT COMPONENT*/}
-            <MapView.Callout tooltip={true} onPress={() => console.log('CLICKED!', 123)}/>
-          </View>
-          ))}
+          onPress={(e) => this.onMapPress(e)}>
+            {this.state.markers.map(marker => (
+            <View key={marker.key}>
+              <MapView.Marker
+                draggable
+                coordinate={marker.coordinate}
+                title={this.state.boatInfo.name}
+                description={'Tele: '+this.state.boatInfo.phone}
+                />
+              {/*BUGGY SHIT COMPONENT*/}
+              <MapView.Callout tooltip={true} onPress={() => console.log('CLICKED!', 123)}/>
+            </View>
+            ))}
         </MapView>
 
-        <Overlay />
+        <Overlay onInfoModalChange={this.onInfoModalChange}/>
+
+        <InfoModal 
+          offset={this.state.offset} 
+          openModal={this.state.openModal} 
+          onInfoModalChange={this.onInfoModalChange}/>
       </View>
     );
   }
