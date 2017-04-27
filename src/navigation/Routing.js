@@ -34,6 +34,8 @@ export default class Routing extends Component {
 
   constructor(props) {
     super(props);
+    this.openAdmin = this.openAdmin.bind(this);
+
     this.state = {
       page: SCENE_NAMES.MAP,
       routes :{
@@ -67,7 +69,6 @@ export default class Routing extends Component {
         },
       },
     };
-    this.openAdmin = this.openAdmin.bind(this);
   
     this.setAndroidBackPressButton();
   }
@@ -87,7 +88,7 @@ export default class Routing extends Component {
   }
 
   changeView(newPage) {
-    this.setState({page:newPage.props.name})
+    this.setState({page: newPage.props.name})
   }
 
   render() {

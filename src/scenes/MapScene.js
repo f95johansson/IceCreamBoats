@@ -13,18 +13,18 @@ import {
   Image
 } from 'react-native';
 import * as firebase from 'firebase';
-import MapSceneOverlay from '../components/MapSceneOverlay'
+import MapSceneOverlay from '../components/MapSceneOverlay';
 import InfoModal from '../components/InfoModal';
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
-import styles from '../style/mapscene'
-import gstyles from '../style/styles'
+import styles from '../style/mapscene';
+import gstyles from '../style/styles';
 
 export default class MapScene extends Component {
 
   constructor(props) {
     super(props);
-    this.getUserLocation()
+    this.getUserLocation();
 
     this.state = {
       openModal: false,
@@ -41,14 +41,15 @@ export default class MapScene extends Component {
         longitudeDelta: 0.0500
       },
       markers: [],
+      id: 0
     };
-    this.updateBoats.bind(this);
-    this.onInfoModalChange = this.onInfoModalChange.bind(this)
+    this.updateBoats = this.updateBoats.bind(this);
+    this.onInfoModalChange = this.onInfoModalChange.bind(this);
   }
 
   getUserLocation() {
     location.getUserLocation().then((position) => {
-        let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude }
+        let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude };
         this.setState({
           region: {
             latitude: locationData.latitude,
@@ -56,35 +57,39 @@ export default class MapScene extends Component {
             latitudeDelta: 0.0500,
             longitudeDelta: 0.0500
           }
-        })
+        });
     }).catch((error) => {
-        console.log('ERRRR', error)
+        console.log('ERRRR', error);
     });
   }
 
   onMapPress(e) {
-  this.setState({
-    markers: [
-      ...this.state.markers,
-      {
-        coordinate: e.nativeEvent.coordinate,
-        key: id++,
-      },
-    ],
-  });
-}
+    var coordinate = e.nativeEvent.coordinate;
+    this.setState({
+      id: this.state.id+1,
+      markers: [
+        ...this.state.markers,
+        {
+          coordinate: coordinate,
+          key: this.state.id+1,
+        },
+      ]
+    });
+  }
 
   componentWillMount() {
-    firebase.database().ref('boats').on('value', this.updateBoats.bind(this));
+    firebase.database().ref('boats').on('value', this.updateBoats);
 
     //Identify user
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) { this.setState({ userEmail: user.email }, ()=> {this.getBoatInfo()}) }
-    }.bind(this))
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) { 
+        this.setState({ userEmail: user.email }, () => this.getBoatInfo());
+      }
+    });
   }
 
   componentWillUnmount() {
-   firebase.database().ref('boats').off('value', this.updateBoats.bind(this));
+   firebase.database().ref('boats').off('value', this.updateBoats);
   }
 
   updateBoats(snapshot) {
@@ -97,23 +102,23 @@ export default class MapScene extends Component {
   }
 
   getBoatInfo() {
-    let userEmail = this.state.userEmail
-    ref = firebase.database().ref('boats')
+    let userEmail = this.state.userEmail;
+    ref = firebase.database().ref('boats');
 
     ref.once('value', (snapshot) => {
       snapshot.forEach( (childSnapshot) => {
         if (childSnapshot.val().owner==userEmail) {
             this.setState({
               boatInfo: {
-                          name: childSnapshot.val().boatName,
-                          phone: childSnapshot.val().phone }
-            })
+                name: childSnapshot.val().boatName,
+                phone: childSnapshot.val().phone }
+            });
         }
-      })
-    })
+      });
+    });
   }
   onInfoModalChange(openModal) {
-    this.setState({openModal: openModal})
+    this.setState({openModal: openModal});
   }
 
 
