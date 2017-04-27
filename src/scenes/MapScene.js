@@ -17,8 +17,9 @@ import MapSceneOverlay from '../components/MapSceneOverlay';
 import InfoModal from '../components/InfoModal';
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
-import styles from '../style/mapscene';
-import gstyles from '../style/styles';
+import styles from '../style/mapscene'
+import gstyles from '../style/styles'
+let id = 0
 
 export default class MapScene extends Component {
 
@@ -82,7 +83,7 @@ export default class MapScene extends Component {
 
     //Identify user
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) { 
+      if (user) {
         this.setState({ userEmail: user.email }, () => this.getBoatInfo());
       }
     });
@@ -149,9 +150,9 @@ export default class MapScene extends Component {
 
         <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>
 
-        <InfoModal 
-          offset={this.state.offset} 
-          openModal={this.state.openModal} 
+        <InfoModal
+          offset={this.state.offset}
+          openModal={this.state.openModal}
           onInfoModalChange={this.onInfoModalChange}/>
       </View>
     );
