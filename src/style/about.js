@@ -7,7 +7,7 @@ var styles = StyleSheet.create({
   //About.js
   titleText: {
     paddingTop: 20,
-    paddingBottom: 15,
+    paddingBottom: 20,
     fontFamily: 'Cochin',
     fontSize: 25,
     fontWeight: 'bold',
@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50,
     fontSize: 16,
-    paddingBottom: 30,
+    paddingBottom: 15,
   },
 
   headerImage: {

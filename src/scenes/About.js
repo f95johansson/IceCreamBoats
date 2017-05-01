@@ -75,7 +75,7 @@ export default class About extends Component {
                 <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 2</Text>
                 <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>Ute nu!</Text>
               </View>
-              <Text style={{fontStyle: 'italic'}}>Göteborgs Skärgård</Text>
+              <Text style={{fontStyle: 'italic'}}>Göteborgs-Skärgård</Text>
               <Text style={{fontStyle: 'italic'}}>Kungsö Marstrand</Text>
               <Text style={{fontStyle: 'italic', fontWeight:'bold', paddingTop: 11, paddingBottom: 5}}>Patrik Ågren</Text>
               <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
@@ -89,7 +89,7 @@ export default class About extends Component {
         
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
-        <Text>Admin(förmodligen inte för dig)</Text>
+        <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
         </TouchableHighlight>
 
       </View>
