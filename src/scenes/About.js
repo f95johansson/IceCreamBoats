@@ -54,9 +54,9 @@ export default class About extends Component {
           <View style={{flexWrap:'wrap', flexDirection:'row', justifyContent: 'center',}}>
             <View style={{padding: 20}}>
               <View style={{flexWrap:'wrap', flexDirection:'row'}}>
-                <Image source={require('../../assets/info/boat.png')} style={{height: 14, width: 30, top: 5, marginRight: 10}}/>
+                <Image source={require('../../assets/info/boat.png')} style={{height: 13, width: 30, top: 5, marginRight: 10}}/>
                 <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 1</Text>
-                <Text style={{fontWeight: 'bold', fontSize: 18, color:'#EA591C'}}>Ute nu!</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>Ute nu!</Text>
               </View>
               <Text style={{fontStyle: 'italic'}}>Norra Skärgården</Text>
               <Text style={{fontStyle: 'italic'}}>Marstrand-Mollösund</Text>
@@ -71,9 +71,9 @@ export default class About extends Component {
 
             <View style={{padding: 20}}>
               <View style={{flexWrap:'wrap', flexDirection:'row'}}>
-                <Image source={require('../../assets/info/boat.png')} style={{height: 14, width: 30, top: 5, marginRight: 10}}/>
+                <Image source={require('../../assets/info/boat.png')} style={{height: 13, width: 30, top: 5, marginRight: 10}}/>
                 <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 2</Text>
-                <Text style={{fontWeight: 'bold', fontSize: 18, color:'#EA591C'}}>Ute nu!</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>Ute nu!</Text>
               </View>
               <Text style={{fontStyle: 'italic'}}>Göteborgs Skärgård</Text>
               <Text style={{fontStyle: 'italic'}}>Kungsö Marstrand</Text>
@@ -86,9 +86,7 @@ export default class About extends Component {
               </TouchableOpacity>
             </View>
           </View>
-
         
-
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
         <Text>Admin(förmodligen inte för dig)</Text>
