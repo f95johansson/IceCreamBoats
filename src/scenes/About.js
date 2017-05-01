@@ -18,10 +18,9 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      AboutTitle: 'Om oss',
+      AboutTitle: 'F R E S H   C O A S T',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
-      ContactUsTitle: 'Kontakta oss',
-      ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
+      MiniTitle: 'Skepp ohoj!'
     }
   }
 
@@ -42,33 +41,53 @@ export default class About extends Component {
   render() {
     return (
       <View>
-        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          style={styles.headerImage} />
-
-        <Text style={styles.baseText}>
-          {'\n'}{'\n'}
+         <Image source={require('../../assets/info/InfoImage.jpg')} style={{width: 450, height: 190}} />
           <Text style={styles.titleText}>
             {this.state.AboutTitle}
           </Text>
-          {'\n'}{'\n'}
+          <Text style={styles.miniTitle}>
+            {this.state.MiniTitle}
+          </Text>
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
-          {'\n'}{'\n'}
-          <Text style={styles.titleText}>
-            {this.state.ContactUsTitle}
-          </Text>
-          {'\n'}{'\n'}
-          <Text style={styles.baseText}>
-            {this.state.ContactUsText}
-          </Text>
-        </Text>
+          <View style={{flexWrap:'wrap', flexDirection:'row', justifyContent: 'center',}}>
+            <View style={{padding: 20}}>
+              <View style={{flexWrap:'wrap', flexDirection:'row'}}>
+                <Image source={require('../../assets/info/boat.png')} style={{height: 14, width: 30, top: 5, marginRight: 10}}/>
+                <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 1</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 18, color:'#EA591C'}}>Ute nu!</Text>
+              </View>
+              <Text style={{fontStyle: 'italic'}}>Norra Skärgården</Text>
+              <Text style={{fontStyle: 'italic'}}>Marstrand-Mollösund</Text>
+              <Text style={{fontStyle: 'italic', fontWeight:'bold', paddingTop: 11, paddingBottom: 5}}>Oscar Nilsson</Text>
+              <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
+                <View style={{flexWrap:'wrap', flexDirection: 'row'}}>
+                  <Image source={require('../../assets/info/phone.png')} style={{height: 25, width: 25,}}/>
+                  <Text style={{paddingLeft: 10, top: 2}}>Ring</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
 
-        <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
-          <View >
-            <Text>Tryck här för att ringa (infoga bild på telefon)</Text>
+            <View style={{padding: 20}}>
+              <View style={{flexWrap:'wrap', flexDirection:'row'}}>
+                <Image source={require('../../assets/info/boat.png')} style={{height: 14, width: 30, top: 5, marginRight: 10}}/>
+                <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 2</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 18, color:'#EA591C'}}>Ute nu!</Text>
+              </View>
+              <Text style={{fontStyle: 'italic'}}>Göteborgs Skärgård</Text>
+              <Text style={{fontStyle: 'italic'}}>Kungsö Marstrand</Text>
+              <Text style={{fontStyle: 'italic', fontWeight:'bold', paddingTop: 11, paddingBottom: 5}}>Patrik Ågren</Text>
+              <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
+                <View style={{flexWrap:'wrap', flexDirection: 'row'}}>
+                  <Image source={require('../../assets/info/phone.png')} style={{height: 25, width: 25,}}/>
+                  <Text style={{paddingLeft: 10, top: 2}}>Ring</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </TouchableOpacity>
+
+        
 
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
