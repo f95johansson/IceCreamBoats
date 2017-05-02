@@ -12,7 +12,7 @@ import {
   Image
 } from 'react-native';
 import MapScene from '../scenes/MapScene';
-import styles from '../style/routing'
+import styles from '../style/routing';
 import CustomTransition from './CustomTransition';
 import Tabs from 'react-native-tabs';
 
@@ -21,24 +21,53 @@ const INDEX = {
   MAP: 1,
   MENU: 2,
   ADMIN: 3
-}
+};
+
+const SCENE_NAMES = {
+  INFO: 'Info',
+  MAP: 'Karta',
+  MENU: 'Utbud',
+  ADMIN: 'Admin'
+};
 
 export default class Routing extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {page:'Karta'};
     this.openAdmin = this.openAdmin.bind(this);
-  
-    this.routes = {
-      Info: {scene: <About openAdmin={this.openAdmin} />, title: 'Info',  index: INDEX.ABOUT,
-        iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
-      Karta: {scene: <MapScene />, title: 'Karta',   index: INDEX.MAP,
-        iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'), icon: require('../../assets/tabbar/map/map.png')},
-      Utbud: {scene: <Menu />,     title: 'Utbud',   index: INDEX.MENU,
-        iconSelected: require('../../assets/tabbar/menuSelected/menuSelected.png'), icon: require('../../assets/tabbar/menu/menu.png')},
-      Admin: {scene: <Admin />,    title: 'Admin',   index: INDEX.ADMIN,
-       iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'), icon: require('../../assets/tabbar/info/info.png')},
+
+    this.state = {
+      page: SCENE_NAMES.MAP,
+      routes :{
+        [SCENE_NAMES.INFO]: {
+          scene: <About openAdmin={this.openAdmin} />,
+          title: SCENE_NAMES.INFO,
+          index: INDEX.ABOUT,
+          iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'),
+          icon: require('../../assets/tabbar/info/info.png'),
+        },
+        [SCENE_NAMES.MAP]: {
+          scene: <MapScene />,
+          title: SCENE_NAMES.MAP,
+          index: INDEX.MAP,
+          iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'),
+          icon: require('../../assets/tabbar/map/map.png'),
+        },
+        [SCENE_NAMES.MENU]: {
+          scene: <Menu />,
+          title: SCENE_NAMES.MENU,
+          index: INDEX.MENU,
+          iconSelected: require('../../assets/tabbar/menuSelected/menuSelected.png'),
+          icon: require('../../assets/tabbar/menu/menu.png'),
+        },
+        [SCENE_NAMES.ADMIN]: {
+          scene: <Admin />,
+          title: SCENE_NAMES.ADMIN,
+          index: INDEX.ADMIN,
+          iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'),
+          icon: require('../../assets/tabbar/info/info.png'),
+        },
+      },
     };
 
     this.setAndroidBackPressButton();
@@ -46,39 +75,50 @@ export default class Routing extends Component {
 
   setAndroidBackPressButton() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
-      if (this.state.page !== 'Karta') {
-        this.setState({page: 'Karta'})
-        return true;
+      if (this.state.page !== SCENE_NAMES.MAP) {
+        this.setState({page: SCENE_NAMES.MAP})
+        return true
       }
-      return false;
-    });
+      return false
+    })
   }
 
-
   openAdmin() {
-    this.setState({page: 'Admin'})
+    this.setState({page: SCENE_NAMES.ADMIN})
+  }
+
+  changeView(newPage) {
+    this.setState({page: newPage.props.name})
   }
 
   render() {
     return (
       <View style={styles.Routing}>
-        {<View style={styles.Scene}>{this.routes[this.state.page].scene}</View>}
-        <Tabs selected={this.state.page} style={{backgroundColor:'white'}}
-              selectedStyle={{selected: true}} onSelect={el=>this.setState({page:el.props.name})}>
 
-            {Object.keys(this.routes).map((name, index) => {
-              if (name !== 'Admin') {
-                return <TabButton 
-                  name={this.routes[name].title} key={this.routes[name].title} route={this.routes[name]} styles={styles}
-                />}
-              })
+        <View style={[styles.Scene, this.state.page === SCENE_NAMES.MAP ? {}: {width: 0, height: 0, flex: 0, paddingBottom: 0}]}>{this.state.routes[SCENE_NAMES.MAP].scene}</View>
+        { this.state.page === SCENE_NAMES.MAP ?
+            <View></View> :
+            <View style={styles.Scene}>{this.state.routes[this.state.page].scene}</View>}
+
+        <Tabs selected={this.state.page}
+              style={{backgroundColor:'white'}}
+              selectedStyle={{selected: true}}
+              onSelect={el => this.changeView(el)}>
+
+            {Object.keys(this.state.routes).map((name, index) => {
+              if (name !== SCENE_NAMES.ADMIN) {
+                return <TabButton
+                  name={this.state.routes[name].title}
+                  key={this.state.routes[name].title}
+                  route={this.state.routes[name]}
+                  styles={styles}
+                  />;
+              }})
             }
         </Tabs>
       </View>
     );
-
   }
-
 }
 
 function TabButton (props) {

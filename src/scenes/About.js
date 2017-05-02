@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
 import Communications from 'react-native-communications';
+import Aboat from '../components/Aboat'
 import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Image,
   TouchableOpacity,
   TouchableHighlight
@@ -18,15 +20,17 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      AboutTitle: 'Om oss',
+      AboutTitle: 'F R E S H   C O A S T',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
-      ContactUsTitle: 'Kontakta oss',
-      ContactUsText: 'Ifall ni vill konakta oss kan ni ringa oss på..',
+      MiniTitle: 'Skepp ohoj!',
+      coWorkers: 'Sambarbetsparters',
+      boats: []
     }
   }
 
   componentWillMount() {
     this.loadAboutText()
+    this.loadBoats()
     //TODO: fixa checkbox, fixa lifecycle varningar
   }
 
@@ -38,44 +42,50 @@ export default class About extends Component {
       })
     })
   }
+  loadBoats() {
+    firebase.database().ref('boats').on('value',
+    (snapshot) => {
+      this.setState({
+        boats: snapshot.exportVal()
+      })
+    })
+  }
 
   render() {
     return (
-      <View>
-        <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          style={styles.headerImage} />
-
-        <Text style={styles.baseText}>
-          {'\n'}{'\n'}
+      <ScrollView>
+         <Image source={require('../../assets/info/InfoImage.jpg')} style={{width: 450, height: 190}} />
           <Text style={styles.titleText}>
             {this.state.AboutTitle}
           </Text>
-          {'\n'}{'\n'}
+          <Text style={styles.miniTitle}>
+            {this.state.MiniTitle}
+          </Text>
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
-          {'\n'}{'\n'}
-          <Text style={styles.titleText}>
-            {this.state.ContactUsTitle}
-          </Text>
-          {'\n'}{'\n'}
-          <Text style={styles.baseText}>
-            {this.state.ContactUsText}
-          </Text>
-        </Text>
-
-        <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
-          <View >
-            <Text>Tryck här för att ringa (infoga bild på telefon)</Text>
+          <View style={{flex:1, flexWrap:'wrap', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+            {Object.keys(this.state.boats).map((boatName, index) => 
+              <Aboat  key={index}
+                      index= {index+1}
+                      name=  {this.state.boats[boatName].boatName}
+                      out=   {this.state.boats[boatName].isOut}
+                      region={this.state.boats[boatName].region}
+                      fromTo={this.state.boats[boatName].fromTo}
+                      phone= {this.state.boats[boatName].phone}
+              />)}
           </View>
-        </TouchableOpacity>
 
+          <Text style={styles.titleText}>
+            {this.state.coWorkers}
+          </Text>
+        
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
-        <Text>Admin(förmodligen inte för dig)</Text>
+        <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
         </TouchableHighlight>
 
-      </View>
+      </ScrollView>
     )
   }
 }

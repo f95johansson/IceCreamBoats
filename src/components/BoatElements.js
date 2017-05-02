@@ -6,10 +6,10 @@ import {
   View,
   Image,
   Button,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 import styles from '../style/components/boatelement'
-import gstyles from '../style/styles'
 
 export default class BoatElements extends Component {
 
@@ -27,7 +27,7 @@ export default class BoatElements extends Component {
   }
 
   componentWillUnmount() {
-   firebase.database().ref('boats').off('value', this.updateBoats.bind(this));
+    firebase.database().ref('boats').off('value', this.updateBoats.bind(this));
   }
 
   updateBoats(snapshot) {
@@ -49,21 +49,51 @@ export default class BoatElements extends Component {
   renderBoats() {
     let boats = this.state.boats
     let elements = []
-
+    let i = 0
     for (var boat in boats) {
       let name = boats[boat].boatName
 
       elements.push(
-        <View key={name} style={styles.rowElements}>
-          <Text style={styles.nameColor}>{name} </Text>
-          <Text onPress={this.setPosition.bind(this)}>Karta(bild) </Text>
-          <Text>Penna(bild) </Text>
-          <Text onPress={this.setBoat.bind(this, name)}>Välj båt(bild) </Text>
-          <Text onPress={this.removeBoat.bind(this, name)}>Ta bort(bild) </Text>
+        <View key={i} style={styles.rowElements}>
+          <Text key={i+1} style={styles.nameColor}>{name}fdf </Text>
+
+          <View style={styles.iconsRow}>
+            <TouchableOpacity style={styles.icons} onPress={this.setPosition.bind(this)}>
+              <Image
+                key={i+2}
+                style={styles.icon}
+                source={require('../../assets/admin/map/map.png')}
+                />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.icons} onPress={()=>{}}>
+              <Image
+                key={i+3}
+                style={styles.icon}
+                source={require('../../assets/admin/edit/edit.png')}
+                />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.icons} onPress={this.setBoat.bind(this, name)}>
+              <Image
+                key={i+4}
+                style={styles.icon}
+                source={require('../../assets/admin/add/add.png')}
+                />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.icons} onPress={this.removeBoat.bind(this, name)}>
+              <Image
+                key={i+5}
+                style={styles.icon}
+                source={require('../../assets/admin/trash/trash.png')}
+                />
+            </TouchableOpacity>
+          </View>
         </View>
       )
+      i++
     }
-
     return elements
   }
 
@@ -79,7 +109,6 @@ export default class BoatElements extends Component {
   render() {
     return (
       <View>
-        <Text>Båtar</Text>
         {this.renderBoats()}
       </View>
     )
