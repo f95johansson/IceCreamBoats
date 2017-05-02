@@ -9,7 +9,8 @@ import {
   TouchableHighlight,
   StyleSheet,
   BackAndroid,
-  Image
+  Image,
+  StatusBar
 } from 'react-native';
 import MapScene from '../scenes/MapScene';
 import styles from '../style/routing';
@@ -99,6 +100,7 @@ export default class Routing extends Component {
     return (
       <View style={[styles.Routing,this.state.page === SCENE_NAMES.MENU ?
       styles.MenuBackground:styles.NormalBackground]}>
+        <StatusBar backgroundColor="#e6e6e6" barStyle="dark-content"/>
 
         <View 
         style={[styles.Scene, 
