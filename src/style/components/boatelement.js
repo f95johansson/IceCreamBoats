@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 
 var styles = StyleSheet.create({
   rowElements: {
-    flex: 1,
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingBottom: 35
