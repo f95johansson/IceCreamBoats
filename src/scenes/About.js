@@ -3,7 +3,6 @@ import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
 import Communications from 'react-native-communications';
 import Aboat from '../components/Aboat'
-import ImageFromFirebase from '../components/ImageFromFirebase';
 import {
   Dimensions,
   StyleSheet,
