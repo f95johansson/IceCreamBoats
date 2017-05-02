@@ -16,6 +16,7 @@
     "react-native-communications": "^2.2.1",
     "react-native-image-pan-zoom": "^1.1.12",
     "react-native-maps": ">=0.12.4",
+    "react-native-onesignal": "^3.0.3",
     "react-native-splash-screen": "^2.0.0",
     "react-native-tabs": "^1.0.9",
     "react-native-transformable-image": "0.0.18"
