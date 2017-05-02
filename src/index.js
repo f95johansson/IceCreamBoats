@@ -5,7 +5,8 @@ import SplashScreen from 'react-native-splash-screen';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  //StatusBar,
 } from 'react-native';
 import Routing from './navigation/Routing';
 
@@ -22,12 +23,13 @@ firebase.initializeApp(config);
 export default class IceCreamBoats extends Component {
 
   componentDidMount() {
-    //SplashScreen.hide();
+    SplashScreen.hide();
   }
 
   render() {
     return (
-      <Routing />
+        
+        <Routing />
     );
   }
 }
