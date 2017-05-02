@@ -5,7 +5,8 @@ import SplashScreen from 'react-native-splash-screen';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  //StatusBar,
 } from 'react-native';
 import Routing from './navigation/Routing';
                         
@@ -65,7 +66,8 @@ export default class IceCreamBoats extends Component {
 
   render() {
     return (
-      <Routing />
+        
+        <Routing />
     );
   }
 }

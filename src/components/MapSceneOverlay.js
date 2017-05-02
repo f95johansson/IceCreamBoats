@@ -53,7 +53,7 @@ export default class Overlay extends Component {
         handlerHeight={60}
         initialHeight={150}
         handlerDefaultView={
-          <Image source={require('../../assets/layout/wave.png')} style={styles.wave} />
+          <Image source={require('../../assets/layout/wave.png')} style={styles.wave} resizeMode="stretch" />
         }>
           <View style={styles.slideBackground}>
           </View>
