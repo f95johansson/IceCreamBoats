@@ -45,6 +45,7 @@ export default class Routing extends Component {
           index: INDEX.ABOUT,
           iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'),
           icon: require('../../assets/tabbar/info/info.png'),
+          iconWhite: require('../../assets/tabbar/infoWhite/infoWhite.png'),
         },
         [SCENE_NAMES.MAP]: {
           scene: <MapScene />,
@@ -52,6 +53,7 @@ export default class Routing extends Component {
           index: INDEX.MAP,
           iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'),
           icon: require('../../assets/tabbar/map/map.png'),
+          iconWhite: require('../../assets/tabbar/mapWhite/mapWhite.png'),
         },
         [SCENE_NAMES.MENU]: {
           scene: <Menu />,
@@ -59,6 +61,7 @@ export default class Routing extends Component {
           index: INDEX.MENU,
           iconSelected: require('../../assets/tabbar/menuSelected/menuSelected.png'),
           icon: require('../../assets/tabbar/menu/menu.png'),
+          iconWhite: require('../../assets/tabbar/menuWhite/menuWhite.png'),
         },
         [SCENE_NAMES.ADMIN]: {
           scene: <Admin />,
@@ -66,6 +69,7 @@ export default class Routing extends Component {
           index: INDEX.ADMIN,
           iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'),
           icon: require('../../assets/tabbar/info/info.png'),
+          iconWhite: require('../../assets/tabbar/infoWhite/infoWhite.png'),
         },
       },
     };
@@ -93,15 +97,23 @@ export default class Routing extends Component {
 
   render() {
     return (
-      <View style={styles.Routing}>
+      <View style={[styles.Routing,this.state.page === SCENE_NAMES.MENU ?
+      styles.MenuBackground:styles.NormalBackground]}>
 
-        <View style={[styles.Scene, this.state.page === SCENE_NAMES.MAP ? {}: {width: 0, height: 0, flex: 0, paddingBottom: 0}]}>{this.state.routes[SCENE_NAMES.MAP].scene}</View>
+        <View 
+        style={[styles.Scene, 
+          this.state.page === SCENE_NAMES.MAP ? 
+          {}: {width: 0, height: 0, flex: 0, paddingBottom: 0},
+        ]}>
+          {this.state.routes[SCENE_NAMES.MAP].scene}
+        </View>
         { this.state.page === SCENE_NAMES.MAP ?
             <View></View> :
             <View style={styles.Scene}>{this.state.routes[this.state.page].scene}</View>}
 
         <Tabs selected={this.state.page}
-              style={{backgroundColor:'white'}}
+              style={[styles.Routing,this.state.page === SCENE_NAMES.MENU ?
+      styles.MenuBackground:styles.NormalBackground]}
               selectedStyle={{selected: true}}
               onSelect={el => this.changeView(el)}>
 
@@ -111,6 +123,7 @@ export default class Routing extends Component {
                   name={this.state.routes[name].title}
                   key={this.state.routes[name].title}
                   route={this.state.routes[name]}
+                  page={this.state.page}
                   styles={styles}
                   />;
               }})
@@ -137,9 +150,11 @@ function TabButton (props) {
         <View>
           <Image
             style={styles.icon}
-            source={props.route.icon}
+            source={props.page === SCENE_NAMES.MENU ? props.route.iconWhite : props.route.icon}
           />
-          <Text style={styles.iconText}>{props.route.title}</Text>
+          <Text style={props.page === SCENE_NAMES.MENU ?  styles.iconTextWhite :styles.iconText}>
+            {props.route.title}
+          </Text>
         </View>
     );
   }
