@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
 import Communications from 'react-native-communications';
+import Aboat from '../components/Aboat'
 import {
   StyleSheet,
   Text,
@@ -21,12 +22,15 @@ export default class About extends Component {
     this.state = {
       AboutTitle: 'F R E S H   C O A S T',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
-      MiniTitle: 'Skepp ohoj!'
+      MiniTitle: 'Skepp ohoj!',
+      coWorkers: 'Sambarbetsparters',
+      boats: []
     }
   }
 
   componentWillMount() {
     this.loadAboutText()
+    this.loadBoats()
     //TODO: fixa checkbox, fixa lifecycle varningar
   }
 
@@ -35,6 +39,14 @@ export default class About extends Component {
     (snapshot) => {
       this.setState({
         aboutText: snapshot.exportVal().about
+      })
+    })
+  }
+  loadBoats() {
+    firebase.database().ref('boats').on('value',
+    (snapshot) => {
+      this.setState({
+        boats: snapshot.exportVal()
       })
     })
   }
@@ -52,41 +64,21 @@ export default class About extends Component {
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
-          <View style={{flexWrap:'wrap', flexDirection:'row', justifyContent: 'center',}}>
-            <View style={{padding: 20}}>
-              <View style={{flexWrap:'wrap', flexDirection:'row'}}>
-                <Image source={require('../../assets/info/boat.png')} style={{height: 13, width: 30, top: 5, marginRight: 10}}/>
-                <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 1</Text>
-                <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>Ute nu!</Text>
-              </View>
-              <Text style={{fontStyle: 'italic'}}>Norra Skärgården</Text>
-              <Text style={{fontStyle: 'italic'}}>Marstrand-Mollösund</Text>
-              <Text style={{fontStyle: 'italic', fontWeight:'bold', paddingTop: 11, paddingBottom: 5}}>Oscar Nilsson</Text>
-              <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
-                <View style={{flexWrap:'wrap', flexDirection: 'row'}}>
-                  <Image source={require('../../assets/info/phone.png')} style={{height: 25, width: 25,}}/>
-                  <Text style={{paddingLeft: 10, top: 2}}>Ring</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={{padding: 20}}>
-              <View style={{flexWrap:'wrap', flexDirection:'row'}}>
-                <Image source={require('../../assets/info/boat.png')} style={{height: 13, width: 30, top: 5, marginRight: 10}}/>
-                <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt 2</Text>
-                <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>Ute nu!</Text>
-              </View>
-              <Text style={{fontStyle: 'italic'}}>Göteborgs-Skärgård</Text>
-              <Text style={{fontStyle: 'italic'}}>Kungsö Marstrand</Text>
-              <Text style={{fontStyle: 'italic', fontWeight:'bold', paddingTop: 11, paddingBottom: 5}}>Patrik Ågren</Text>
-              <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)}>
-                <View style={{flexWrap:'wrap', flexDirection: 'row'}}>
-                  <Image source={require('../../assets/info/phone.png')} style={{height: 25, width: 25,}}/>
-                  <Text style={{paddingLeft: 10, top: 2}}>Ring</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+          <View style={{flex:1, flexWrap:'wrap', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+            {Object.keys(this.state.boats).map((boatName, index) => 
+              <Aboat  key={index}
+                      index= {index+1}
+                      name=  {this.state.boats[boatName].boatName}
+                      out=   {this.state.boats[boatName].isOut}
+                      region={this.state.boats[boatName].region}
+                      fromTo={this.state.boats[boatName].fromTo}
+                      phone= {this.state.boats[boatName].phone}
+              />)}
           </View>
+
+          <Text style={styles.titleText}>
+            {this.state.coWorkers}
+          </Text>
         
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
