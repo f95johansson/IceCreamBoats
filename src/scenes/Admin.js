@@ -45,8 +45,8 @@ export default class Menu extends Component {
 
   renderAbout() {
     return (
-            <View>
-              <Text>Här kan du ändra "Om oss"</Text>
+            <View style={{paddingTop: 30}}>
+              <Text style={{textAlign: 'center', paddingBottom: 10}}>Här kan du ändra "Om oss"</Text>
               <TextInput
                 multiline={true}
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -56,7 +56,7 @@ export default class Menu extends Component {
               <Button
                 onPress={ this.uploadAbout.bind(this) }
                 title="Ladda upp text"
-                color="#841584"/>
+                color="#e41e13"/>
             </View>
           )
   }
@@ -75,9 +75,8 @@ export default class Menu extends Component {
   }
 
   render() {
-    console.log('staet', this.state);
     return (
-      <View style={{paddingTop: 25}}>
+      <View style={{padding: 25}}>
         <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
 
         <AdminLogin isLoggedIn={this.isLoggedIn.bind(this)}/>
@@ -86,8 +85,8 @@ export default class Menu extends Component {
           <View>
             <BoatElements setBoat={this.setBoat.bind(this)}/>
             <AddBoatModal/>
-            <AddPositionModal getBoat={this.state.boatName}/>
             {this.renderAbout()}
+            <AddPositionModal getBoat={this.state.boatName}/>
           </View>
         :[]}
 
