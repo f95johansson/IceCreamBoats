@@ -46,7 +46,7 @@ import gstyles from '../style/styles'
             <Button
               onPress={()=>{ this.setModalVisible(!this.state.modalVisible) }}
               title="Stäng"
-              color="#841584"/>
+              color="#e41e13"/>
 
             <Text>Skicka ut notis till närliggande</Text>
             <Text>Kommer om:</Text>
@@ -58,7 +58,7 @@ import gstyles from '../style/styles'
               <Button
                 onPress={()=>{ this.uploadData() }}
                 title="Ladda upp"
-                color="#841584"/>
+                color="#e41e13"/>
 
           </View>
          </View>
@@ -67,7 +67,7 @@ import gstyles from '../style/styles'
         <Button
           onPress={()=>{ this.setModalVisible(true) }}
           title="Skicka ut notis till närliggande"
-          color="#841584"/>
+          color="#e41e13"/>
 
       </View>
     );

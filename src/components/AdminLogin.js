@@ -83,18 +83,18 @@ export default class AdminLogin extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{paddingBottom: 20}}>
         {this.state.signedIn ? [] : this.renderLogin()}
 
         {this.state.signedIn ?
           <Button
           onPress={this.handleSubmit.bind(this, 'logout')}
           title="Logga ut"
-          color="#841584"/> :
+          color="#e41e13"/> :
           <Button
             onPress={this.handleSubmit.bind(this, 'login')}
             title="Logga in "
-            color="#841584"/>}
+            color="#e41e13"/>}
           </View>
         )
       }

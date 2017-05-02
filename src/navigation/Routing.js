@@ -70,7 +70,6 @@ export default class Routing extends Component {
       },
     };
 
-    this.openAdmin = this.openAdmin.bind(this);
     this.setAndroidBackPressButton();
   }
 

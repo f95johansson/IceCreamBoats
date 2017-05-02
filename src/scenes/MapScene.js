@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
-import Button from 'react-native-button';
 import {
   View,
   Text,

@@ -52,7 +52,7 @@ import gstyles from '../style/styles'
             <Button
               onPress={()=>{ this.setModalVisible(!this.state.modalVisible) }}
               title="Stäng"
-              color="#841584"/>
+              color="#e41e13"/>
 
             <Text>Båtnamn</Text>
               <TextInput
@@ -76,7 +76,7 @@ import gstyles from '../style/styles'
               <Button
                 onPress={()=>{ this.uploadData() }}
                 title="Ladda upp"
-                color="#841584"/>
+                color="#e41e13"/>
 
           </View>
          </View>
@@ -85,7 +85,7 @@ import gstyles from '../style/styles'
         <Button
           onPress={()=>{ this.setModalVisible(true) }}
           title="Lägg till båt"
-          color="#841584"/>
+          color="#e41e13"/>
 
       </View>
     );
