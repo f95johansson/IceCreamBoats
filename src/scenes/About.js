@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Image,
   TouchableOpacity,
   TouchableHighlight
@@ -40,7 +41,7 @@ export default class About extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
          <Image source={require('../../assets/info/InfoImage.jpg')} style={{width: 450, height: 190}} />
           <Text style={styles.titleText}>
             {this.state.AboutTitle}
@@ -92,7 +93,7 @@ export default class About extends Component {
         <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
         </TouchableHighlight>
 
-      </View>
+      </ScrollView>
     )
   }
 }
