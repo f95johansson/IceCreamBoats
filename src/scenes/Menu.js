@@ -7,14 +7,21 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  StatusBar
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
+import styles from '../style/menu'
 
 export default class Menu extends Component {
   render() {
     return (
-      <View>
+      <View
+        style={styles.background}>
+        <StatusBar 
+          backgroundColor={'#8ed2de'} 
+          barStyle="light-content"
+        />
         <ImageZoom 
           cropWidth={Dimensions.get('window').width}
           cropHeight={Dimensions.get('window').height-100}
