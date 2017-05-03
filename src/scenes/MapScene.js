@@ -22,13 +22,6 @@ import gstyles from '../style/styles';
 
 const boatImage = require('../../assets/map/boat.png');
 
-function toLatLang(object) {
-  return {
-    latitude: object.latitude,
-    longitude: object.longitude,
-  };
-}
-
 export default class MapScene extends Component {
 
   constructor(props) {
@@ -132,11 +125,10 @@ export default class MapScene extends Component {
 
 
   render() {
+    console.log(this.state.boats)
     //TODO: kunna ta bort en popup genom att klicka på den. Dock så funkar inte onPress för tillfället
     return (
       <View style={styles.MapScene} >
-        {/*Fix comunication to slidedownview class*/}
-
         <MapView
           provider={this.props.provider}
           style={styles.map}
@@ -150,14 +142,13 @@ export default class MapScene extends Component {
                 title={this.state.boatInfo.name}
                 description={'Tele: '+this.state.boatInfo.phone}
                 />
-              {/*BUGGY SHIT COMPONENT*/}
               <MapView.Callout tooltip={true} onPress={() => console.log('CLICKED!', 123)}/>
             </View>
             ))}
             {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.markers
+              <MapView.Marker
                 key={index}
-                coordinate={toLatLang(this.state.boats[boatName])}
+                coordinate={this.state.boats[boatName]}
                 title={boatName}
                 description={'Tele: '+this.state.boats[boatName].phone}
                 image={boatImage}
