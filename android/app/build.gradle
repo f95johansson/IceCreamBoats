@@ -102,6 +102,10 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        manifestPlaceholders = [
+            GOOGLE_MAP_KEY:keystoreProperties['GoogleMapKey'],
+            onesignal_app_id:"f189b8e0-82a9-48e0-970a-95f0fe957916",
+            onesignal_google_project_number: "REMOTE"]
     }
     splits {
         abi {
@@ -113,13 +117,11 @@ android {
     }
     buildTypes {
         release {
-            manifestPlaceholders = [GOOGLE_MAP_KEY:keystoreProperties['GoogleMapKey']]
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
 
         debug {
-            manifestPlaceholders = [GOOGLE_MAP_KEY:keystoreProperties['GoogleMapKey']]
         }
     }
     // applicationVariants are e.g. debug, release
@@ -138,8 +140,14 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-onesignal')
     compile project(':react-native-splash-screen')
-    compile project(':react-native-maps')
+    compile(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+    compile 'com.google.android.gms:play-services-base:10.2.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules

@@ -15,7 +15,7 @@ var styles = StyleSheet.create({
 
   wave: {
   	flex: 1,
-  	width: 450,
+  	width: null,
   },
 
   slideBackground: {
@@ -31,9 +31,9 @@ var styles = StyleSheet.create({
   buttonContainer: {
   	justifyContent: 'center',
     padding: 7, 
-    height:40, 
+    height:35, 
     alignSelf: 'center',
-    width: 270, 
+    width: 220, 
     overflow:'hidden', 
     borderRadius:50, 
     backgroundColor: '#EA591C', 
@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
   buttonText: {
   	color: '#FFFFFF', 
     alignSelf:'center', 
-    fontSize: 19
+    fontSize: 16
   },
 
   questionmark: {
@@ -60,7 +60,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FEFEFE',
     padding: 2, 
     right: 25,
-    top: 80,
+    top: 77.5,
     position: 'absolute',
   },
 

@@ -5,19 +5,40 @@ import { StyleSheet } from 'react-native';
 var styles = StyleSheet.create({
 
   //About.js
-  baseText: {
-    fontFamily: 'Cochin',
-    textAlign: 'center'
-  },
   titleText: {
-    fontSize: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    fontFamily: 'Cochin',
+    fontSize: 25,
     fontWeight: 'bold',
+    color: '#EA591C',
+    textAlign: 'center',
+  },
+  miniTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingLeft: 50,
+  },
+
+  baseText: {
+    textAlign: 'left',
+    paddingLeft: 50,
+    paddingRight: 50,
+    fontSize: 16,
+    paddingBottom: 15,
   },
 
   headerImage: {
     width: 400, 
-    height: 250
-  }
+    height: 250,
+  },
+  boatView: {
+    flex:1, 
+    flexWrap:'wrap', 
+    flexDirection: 'row', 
+    alignItems:'center', 
+    justifyContent: 'center'
+  },
 
 });
 
