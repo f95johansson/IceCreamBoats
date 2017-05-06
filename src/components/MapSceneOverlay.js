@@ -21,9 +21,10 @@ export default class Overlay extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {id:'', openModal: false};
+    this.state = {id:'', openModal: false, isSendingPos: false};
 
     this.sendPosition = this.sendPosition.bind(this);
+    this.quitSending = this.quitSending.bind(this);
   }
 
   sendPosition() {
@@ -33,9 +34,10 @@ export default class Overlay extends Component {
 
     if (this.state.id === '') {
       id = generate(32);
-      this.setState({id: id});
+      this.setState({id: id, isSendingPos: true});
     } else {
       id = this.state.id;
+      this.setState({isSendingPos: true});
     }
 
     location.getUserLocation().then((position) => {
@@ -43,6 +45,20 @@ export default class Overlay extends Component {
     }).catch((error) => {
         alert(JSON.stringify(error));
     });
+
+    // change look of button to white
+    //this.setState({buttonpressState: !this.state.buttonpressState});
+
+
+
+  }
+
+  /* stop sending position - set sendingstate to false which shows button again*/
+  quitSending() {
+
+    location.deleteUserLocation(this.state.id);
+    // location.stopSendingUserLocation(id)
+    this.setState({isSendingPos: false});
   }
   render() {
     return (
@@ -63,17 +79,27 @@ export default class Overlay extends Component {
         }>
           <View style={styles.slideBackground}>
           </View>
-          <Button containerStyle={styles.buttonContainer}
-                    onPress={this.sendPosition}>
-                    <Text style={styles.buttonText}>Gör mig synlig för båtarna</Text>
-          </Button>
+
+
+          { this.state.isSendingPos ?
+
+            <View style={styles.isSendingcontainer}>
+              <Text style={styles.sendingPosTimer}>03:59:59</Text>
+              <Text onPress={this.quitSending} style={styles.sendingQuitText}>Avbryt</Text>
+            </View>
+            :
+            <Button containerStyle={styles.buttonContainer}
+                      onPress={this.sendPosition}>
+                      <Text style={styles.buttonText}>Gör mig synlig för båtarna</Text>
+            </Button>
+          }
           <Button containerStyle={styles.questionmark}
                     style={styles.questionmarkButton}
                     onPress={() => this.props.onInfoModalChange(true)}>
                     ?
           </Button>
         </SlideDownView>
- 
+
     );
   }
 }

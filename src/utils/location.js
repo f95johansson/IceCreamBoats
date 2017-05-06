@@ -40,3 +40,7 @@ export function uploadBoatLocation(boatName, latitude, longitude) {
     longitude: longitude,
   });
 }
+
+export function deleteUserLocation(userId) {
+ firebase.database().ref('users/'+userId).remove();
+}
