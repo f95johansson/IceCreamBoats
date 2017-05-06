@@ -81,13 +81,9 @@ export default class About extends Component {
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
-<<<<<<< HEAD
-          <View style={{flex:1, flexWrap:'wrap', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
-            {Object.keys(this.state.boats).map((name, index) =>
-=======
+
           <View style={styles.boatView}>
             {Object.keys(this.state.boats).map((name, index) =>
->>>>>>> 01a3e84b2491c7ba5afa96ac85a1800e263a3f36
               <Aboat  key={index}
                       index= {index+1}
                       name=  {this.state.boats[name].name}
@@ -100,9 +96,7 @@ export default class About extends Component {
           <Text style={styles.titleText}>
             {this.state.coWorkers}
           </Text>
-<<<<<<< HEAD
 
-=======
           <View style={{flex:1,
                         flexWrap:'wrap',
                         flexDirection: 'row',
@@ -111,7 +105,6 @@ export default class About extends Component {
             {this.state.partnerImages.map(image => {console.log(image); return <Image key={image} source={{uri: image, width: 110, height: 110}} style={{margin:10}}/>})}
           </View>
 
->>>>>>> 01a3e84b2491c7ba5afa96ac85a1800e263a3f36
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
         <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
