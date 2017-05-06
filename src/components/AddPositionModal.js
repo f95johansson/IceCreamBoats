@@ -19,9 +19,9 @@ import gstyles from '../style/styles'
     //TODO: REPLACE
     let longitude = 1.2323
     let latitude = 2.2323
-    let boatName = this.props.getBoat
+    let name = this.props.getBoat
 
-    firebase.database().ref('boats/' + boatName).update({
+    firebase.database().ref('boats/' + name).update({
       destLatitude: latitude,
       destLongitude: longitude,
       destinationTime: this.state.destinationTime

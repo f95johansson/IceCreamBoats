@@ -18,8 +18,7 @@ import gstyles from '../style/styles'
 
 export default class About extends Component {
 
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.state = {
       AboutTitle: 'F R E S H   C O A S T',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
@@ -28,10 +27,8 @@ export default class About extends Component {
       boats: [],
       partnerImages: [],
     }
-  }
-  componentWillMount() {
-    this.loadAboutText();
-    this.loadBoats();
+    this.loadAboutText()
+    this.loadBoats()
     this.loadImages();
     //TODO: fixa checkbox, fixa lifecycle varningar
   }
@@ -84,8 +81,9 @@ export default class About extends Component {
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
+
           <View style={styles.boatView}>
-            {Object.keys(this.state.boats).map((name, index) => 
+            {Object.keys(this.state.boats).map((name, index) =>
               <Aboat  key={index}
                       index= {index+1}
                       name=  {this.state.boats[name].name}
@@ -98,14 +96,15 @@ export default class About extends Component {
           <Text style={styles.titleText}>
             {this.state.coWorkers}
           </Text>
-          <View style={{flex:1, 
-                        flexWrap:'wrap', 
-                        flexDirection: 'row', 
-                        alignItems:'center', 
+
+          <View style={{flex:1,
+                        flexWrap:'wrap',
+                        flexDirection: 'row',
+                        alignItems:'center',
                         justifyContent: 'center'}}>
             {this.state.partnerImages.map(image => {console.log(image); return <Image key={image} source={{uri: image, width: 110, height: 110}} style={{margin:10}}/>})}
           </View>
-        
+
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
         <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
@@ -114,4 +113,3 @@ export default class About extends Component {
     )
   }
 }
-
