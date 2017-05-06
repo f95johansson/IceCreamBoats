@@ -18,22 +18,21 @@ export default class Menu extends Component {
     return (
       <View
         style={styles.background}>
-        <StatusBar 
-          backgroundColor={'#8ed2de'} 
+        <StatusBar
+          backgroundColor={'#8ed2de'}
           barStyle="light-content"
         />
-        <ImageZoom 
+        <ImageZoom
           cropWidth={Dimensions.get('window').width}
           cropHeight={Dimensions.get('window').height-100}
           imageWidth={Dimensions.get('window').width}
           imageHeight={Dimensions.get('window').height-100}
           longPressTime={100}>
-          <Image 
-            style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height-100}}
+          <Image
+            style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.25}}
             source={{uri:'http://freshcoast.se/wp-content/uploads/2016/06/meny_2016.jpg'}}/>
-        </ImageZoom>        
+        </ImageZoom>
       </View>
     )
   }
 }
-
