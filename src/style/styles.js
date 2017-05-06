@@ -5,12 +5,12 @@ import { StyleSheet } from 'react-native';
 
 var styles = StyleSheet.create({
   view: {
-    marginTop: 22
+    margin: 22,
   },
 
   textInput: {
-    height: 40, 
-    borderColor: 'gray', 
+    height: 40,
+    borderColor: 'gray',
     borderWidth: 1
   },
 });

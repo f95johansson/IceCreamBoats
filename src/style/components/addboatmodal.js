@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 
 var styles = StyleSheet.create({
-  //TODO RENAME?
+  margin: 10
 });
 
 export default styles
