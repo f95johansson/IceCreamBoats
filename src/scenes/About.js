@@ -17,8 +17,7 @@ import gstyles from '../style/styles'
 
 export default class About extends Component {
 
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.state = {
       AboutTitle: 'F R E S H   C O A S T',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
@@ -26,9 +25,7 @@ export default class About extends Component {
       coWorkers: 'Sambarbetsparters',
       boats: []
     }
-  }
 
-  componentWillMount() {
     this.loadAboutText()
     this.loadBoats()
     //TODO: fixa checkbox, fixa lifecycle varningar
@@ -65,21 +62,21 @@ export default class About extends Component {
             {this.state.aboutText}
           </Text>
           <View style={{flex:1, flexWrap:'wrap', flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
-            {Object.keys(this.state.boats).map((boatName, index) => 
+            {Object.keys(this.state.boats).map((name, index) =>
               <Aboat  key={index}
                       index= {index+1}
-                      name=  {this.state.boats[boatName].boatName}
-                      out=   {this.state.boats[boatName].isOut}
-                      region={this.state.boats[boatName].region}
-                      fromTo={this.state.boats[boatName].fromTo}
-                      phone= {this.state.boats[boatName].phone}
+                      name=  {this.state.boats[name].name}
+                      out=   {this.state.boats[name].isOut}
+                      region={this.state.boats[name].region}
+                      fromTo={this.state.boats[name].fromTo}
+                      phone= {this.state.boats[name].phone}
               />)}
           </View>
 
           <Text style={styles.titleText}>
             {this.state.coWorkers}
           </Text>
-        
+
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
         <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
@@ -89,4 +86,3 @@ export default class About extends Component {
     )
   }
 }
-

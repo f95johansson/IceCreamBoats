@@ -110,7 +110,7 @@ export default class MapScene extends Component {
         if (childSnapshot.val().owner==userEmail) {
             this.setState({
               boatInfo: {
-                name: childSnapshot.val().boatName,
+                name: childSnapshot.val().name,
                 phone: childSnapshot.val().phone }
             });
         }
