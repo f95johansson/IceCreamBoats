@@ -19,6 +19,7 @@ import * as location from '../utils/location';
 import styles from '../style/mapscene';
 import gstyles from '../style/styles';
 
+
 const boatImage = require('../../assets/map/boat.png');
 
 export default class MapScene extends Component {
@@ -124,7 +125,6 @@ export default class MapScene extends Component {
 
 
   render() {
-    console.log(this.state.boats)
     //TODO: kunna ta bort en popup genom att klicka på den. Dock så funkar inte onPress för tillfället
     return (
       <View style={styles.MapScene} >

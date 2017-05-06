@@ -19,6 +19,14 @@ var styles = StyleSheet.create({
   	width: null,
   },
 
+  arrow:{
+    width: 15, 
+    height: 8.5, 
+    position: 'relative', 
+    alignSelf:'center',
+    backgroundColor:"#FFFFFF",
+  },
+
   slideBackground: {
   	height: 120, 
     top: 58, 
@@ -43,7 +51,7 @@ var styles = StyleSheet.create({
     shadowOpacity: 1, 
     shadowRadius: 5,
     elevation: 2,
-    top: 35,
+    top: 20,
    
   },
 
@@ -62,7 +70,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FEFEFE',
     padding: 2, 
     right: 25,
-    top: 97.5,
+    top: 82.5,
     position: 'absolute',
   },
 
