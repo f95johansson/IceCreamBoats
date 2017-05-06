@@ -28,6 +28,10 @@ export function uploadUserLocation(userId, latitude, longitude, time) {
   });
 }
 
+export function deleteUserLocation(userId) {
+  firebase.database().ref('users/'+userId).remove();
+}
+
 export function uploadCurrentBoatLocation(boatName) {
   getUserLocation().then((position) => {
     uploadBoatLocation(boatName, position.coords.latitude, position.coords.longitude);
