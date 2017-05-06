@@ -6,9 +6,13 @@ var styles = StyleSheet.create ({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  NormalBackground: {
     backgroundColor: '#FFFFFF',  
   },
-
+  MenuBackground: {
+    backgroundColor: '#8ed2de',
+  },
   Routing: {
     flex: 1,
     alignItems: 'center',
@@ -33,7 +37,12 @@ var styles = StyleSheet.create ({
     alignSelf: 'center',
     marginTop: 3,
     fontSize: 12
-
+  },
+  iconTextWhite: {
+    alignSelf: 'center',
+    marginTop: 3,
+    fontSize: 12,
+    color: '#FFFFFF'
   },
   iconTextSelected: {
     alignSelf: 'center',

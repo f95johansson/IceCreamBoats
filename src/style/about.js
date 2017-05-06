@@ -31,7 +31,14 @@ var styles = StyleSheet.create({
   headerImage: {
     width: 400, 
     height: 250,
-  }
+  },
+  boatView: {
+    flex:1, 
+    flexWrap:'wrap', 
+    flexDirection: 'row', 
+    alignItems:'center', 
+    justifyContent: 'center'
+  },
 
 });
 

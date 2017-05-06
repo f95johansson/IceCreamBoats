@@ -7,6 +7,7 @@ var styles = StyleSheet.create({
   	flex: 1,
     flexDirection: 'row',
     position: 'absolute',
+    justifyContent: 'center',
     bottom: 0,
     right: 0,
     left: 0,
@@ -15,7 +16,7 @@ var styles = StyleSheet.create({
 
   wave: {
   	flex: 1,
-  	width: 450,
+  	width: null,
   },
 
   slideBackground: {
@@ -25,15 +26,15 @@ var styles = StyleSheet.create({
     left: 0, 
     right: 0, 
     backgroundColor: '#FFFFFF', 
-    position: 'absolute'
+    position: 'absolute',
   },
 
   buttonContainer: {
   	justifyContent: 'center',
     padding: 7, 
-    height:40, 
+    height:35, 
     alignSelf: 'center',
-    width: 270, 
+    width: 220, 
     overflow:'hidden', 
     borderRadius:50, 
     backgroundColor: '#EA591C', 
@@ -42,13 +43,14 @@ var styles = StyleSheet.create({
     shadowOpacity: 1, 
     shadowRadius: 5,
     elevation: 2,
-    top: 15,
+    top: 35,
+   
   },
 
   buttonText: {
   	color: '#FFFFFF', 
     alignSelf:'center', 
-    fontSize: 19
+    fontSize: 16
   },
 
   questionmark: {
@@ -60,7 +62,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FEFEFE',
     padding: 2, 
     right: 25,
-    top: 80,
+    top: 97.5,
     position: 'absolute',
   },
 
