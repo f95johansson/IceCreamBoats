@@ -124,7 +124,6 @@ export default class MapScene extends Component {
 
 
   render() {
-    console.log(this.state.boats)
     //TODO: kunna ta bort en popup genom att klicka på den. Dock så funkar inte onPress för tillfället
     return (
       <View style={styles.MapScene} >
@@ -145,7 +144,7 @@ export default class MapScene extends Component {
             </View>
             ))}
             {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.Marker
+              <MapView.Marker.Animated
                 key={index}
                 coordinate={this.state.boats[boatName]}
                 title={boatName}
