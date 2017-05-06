@@ -27,14 +27,12 @@ export default class IceCreamBoats extends Component {
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('registered', this.onRegistered);
-    OneSignal.addEventListener('ids', this.onIds);
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener('received', this.onReceived);
     OneSignal.removeEventListener('opened', this.onOpened);
     OneSignal.removeEventListener('registered', this.onRegistered);
-    OneSignal.removeEventListener('ids', this.onIds);
 
   }
 
@@ -54,11 +52,6 @@ export default class IceCreamBoats extends Component {
   onRegistered(notifData) {
     console.log("Device had been registered for push notifications!", notifData);
 
-  }
-
-  onIds(device) {
-    console.log('Device info: ', device);
-        
   }
   componentDidMount() {
     SplashScreen.hide();
