@@ -24,7 +24,8 @@ export default class Menu extends Component {
       inputText: '',
       showAddboat: false,
       isLoggedIn: false,
-      boatName: ''
+      name: '',
+      editBoat: ''
     }
 
     this.loadAboutText()
@@ -66,15 +67,26 @@ export default class Menu extends Component {
       about: this.state.aboutText
     }).then(() => {
     }, (error) => {
-      console.log('error', error);
+      console.log('error', error)
     })
   }
 
-  setBoat(boatName) {
-    this.setState({ boatName })
+  setBoat(name) {
+    this.setState({ name })
+  }
+
+  editBoat(name) {
+    this.setState({ editBoat: name })
+  }
+
+  clearState(){
+    this.setState({
+      editBoat: ''
+    })
   }
 
   render() {
+    console.log('editBoateditBoat', this.state.editBoat)
     return (
       <View style={{padding: 25}}>
         <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
@@ -83,10 +95,13 @@ export default class Menu extends Component {
 
         {this.state.isLoggedIn ?
           <View>
-            <BoatElements setBoat={this.setBoat.bind(this)}/>
-            <AddBoatModal/>
+            <BoatElements
+              setBoat={this.setBoat.bind(this)}
+              editBoat={this.editBoat.bind(this)}/>
+
+            <AddBoatModal clearState={this.clearState.bind(this)} editBoat={this.state.editBoat}/>
             {this.renderAbout()}
-            <AddPositionModal getBoat={this.state.boatName}/>
+            <AddPositionModal getBoat={this.state.name}/>
           </View>
         :[]}
 
