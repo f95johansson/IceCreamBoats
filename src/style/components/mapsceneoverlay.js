@@ -7,6 +7,7 @@ var styles = StyleSheet.create({
   	flex: 1,
     flexDirection: 'row',
     position: 'absolute',
+    justifyContent: 'center',
     bottom: 0,
     right: 0,
     left: 0,
@@ -25,7 +26,7 @@ var styles = StyleSheet.create({
     left: 0, 
     right: 0, 
     backgroundColor: '#FFFFFF', 
-    position: 'absolute'
+    position: 'absolute',
   },
 
   buttonContainer: {
@@ -42,7 +43,8 @@ var styles = StyleSheet.create({
     shadowOpacity: 1, 
     shadowRadius: 5,
     elevation: 2,
-    top: 15,
+    top: 35,
+   
   },
 
   buttonText: {
@@ -60,7 +62,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#FEFEFE',
     padding: 2, 
     right: 25,
-    top: 77.5,
+    top: 97.5,
     position: 'absolute',
   },
 

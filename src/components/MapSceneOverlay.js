@@ -5,7 +5,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Image
+  Image,
+  Animated,
+  Easing
 } from 'react-native';
 import SlideDownView from './SlideDownView';
 import {generate} from '../utils/randomstring';
@@ -42,7 +44,6 @@ export default class Overlay extends Component {
         alert(JSON.stringify(error));
     });
   }
-
   render() {
     return (
       <SlideDownView style={styles.overlay}
@@ -53,7 +54,12 @@ export default class Overlay extends Component {
         handlerHeight={60}
         initialHeight={150}
         handlerDefaultView={
-          <Image source={require('../../assets/layout/wave.png')} style={styles.wave} resizeMode="stretch" />
+          <View style={{flex:1, justifyContent:'center', }}>
+            <Image source={require('../../assets/layout/vag.png')} style={styles.wave} resizeMode="stretch" />
+            <View style={{flex: 1, backgroundColor: 'white'}}>
+              <Image source={require('../../assets/layout/arrow.png')} style={{width: 15, height: 8.5, position: 'relative', alignSelf:'center',backgroundColor:"#FFFFFF"}}/>
+            </View>
+          </View>
         }>
           <View style={styles.slideBackground}>
           </View>
