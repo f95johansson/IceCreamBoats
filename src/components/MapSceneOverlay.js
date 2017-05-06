@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import Button from 'react-native-button';
+import OneSignal from 'react-native-onesignal'; // Import package from node modules
 import {
   View,
   Text,
@@ -13,16 +14,29 @@ import * as location from '../utils/location';
 import styles from '../style/components/mapsceneoverlay'
 import gstyles from '../style/styles'
 
+import {postToArea,postNotification} from '../utils/notifications';
 
 export default class Overlay extends Component {
 
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    OneSignal.addEventListener('ids', this.onIds.bind(this));
 
     this.state = {id:'', openModal: false};
 
     this.sendPosition = this.sendPosition.bind(this);
   }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onIds(device) {
+    this.setState ({
+      oneSignalDevice : device
+    })
+    console.log('Device info: ', this.state.oneSignalDevice);
+  }
+
 
   sendPosition() {
     // to be implemented
@@ -36,10 +50,12 @@ export default class Overlay extends Component {
       id = this.state.id;
     }
 
+    
     location.getUserLocation().then((position) => {
-        location.uploadUserLocation(id, position.coords.latitude, position.coords.longitude, time);
+        location.uploadUserLocation(id, this.state.oneSignalDevice.userId, 
+            position.coords.latitude, position.coords.longitude, time);
     }).catch((error) => {
-        alert(JSON.stringify(error));
+        alert(JSON.stringify('ERROR: ' + error));
     });
   }
 

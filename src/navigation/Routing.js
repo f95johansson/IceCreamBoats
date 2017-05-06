@@ -16,6 +16,7 @@ import MapScene from '../scenes/MapScene';
 import styles from '../style/routing';
 import CustomTransition from './CustomTransition';
 import Tabs from 'react-native-tabs';
+import postNotification from '../utils/notifications'
 
 const INDEX = {
   ABOUT: 0,
