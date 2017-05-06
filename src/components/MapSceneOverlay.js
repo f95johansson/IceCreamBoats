@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import Button from 'react-native-button';
+import * as Animatable from 'react-native-animatable'
 import {
   View,
   Text,
@@ -20,10 +21,9 @@ export default class Overlay extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {id:'', openModal: false};
-
+    this.state = {id:'', openModal: false, isDown: '180deg'};
     this.sendPosition = this.sendPosition.bind(this);
+    this.onSlideFinished = this.onSlideFinished.bind(this);
   }
 
   sendPosition() {
@@ -44,8 +44,16 @@ export default class Overlay extends Component {
         alert(JSON.stringify(error));
     });
   }
+
+  onSlideFinished(isDown) {
+    this.setState({isDown: isDown ? '0deg' : '180deg'});
+    this.refs.arrow.transitionTo({transform: [{rotate: this.state.isDown}]}, 500)
+  }
+
   render() {
+    console.log('state.isDown', this.state.isDown)
     return (
+
       <SlideDownView style={styles.overlay}
         handlerOpacity={1}
         containerBackgroundColor={'#FFFFFF'}
@@ -53,11 +61,12 @@ export default class Overlay extends Component {
         containerMaximumHeight={150}
         handlerHeight={60}
         initialHeight={150}
+        onSlideFinished={this.onSlideFinished}
         handlerDefaultView={
-          <View style={{flex:1, justifyContent:'center', }}>
+          <View style={{flex:1, justifyContent:'center',}}>
             <Image source={require('../../assets/layout/vag.png')} style={styles.wave} resizeMode="stretch" />
-            <View style={{flex: 1, backgroundColor: 'white'}}>
-              <Image source={require('../../assets/layout/arrow.png')} style={{width: 15, height: 8.5, position: 'relative', alignSelf:'center',backgroundColor:"#FFFFFF"}}/>
+            <View style={{flex: 1, backgroundColor: 'white', padding: 9}}>
+              <Animatable.Image ref="arrow" source={require('../../assets/layout/arrow.png')} style={styles.arrow}/>
             </View>
           </View>
         }>
@@ -73,7 +82,6 @@ export default class Overlay extends Component {
                     ?
           </Button>
         </SlideDownView>
- 
     );
   }
 }
