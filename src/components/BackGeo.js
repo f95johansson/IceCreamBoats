@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import * as firebase from 'firebase';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
+import { postToArea } from '../utils/notifications';
 
 export default class BackGeo extends Component {
   componentWillMount() {
@@ -42,6 +43,7 @@ export default class BackGeo extends Component {
   }
 
   upload(location) {
+    //postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
     firebase.database().ref('boats/Jonas').update({
       latitude: location.latitude,
       longitude: location.longitude,

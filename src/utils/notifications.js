@@ -22,21 +22,18 @@ export function postNotification (message, userId) {
 //Check if the given user latitude and longitude is within the radius of the
 //boat's longitude and latitude
 function inArea (radius, boatLong, boatLat, userLong, userLat) {
-  console.log('I am inArea')
   // Check if satisfied (c_x - x)^2 + (c_y - y)^2 < r^2
   return (((userLong - boatLong)^2 + (userLat - boatLat)^2) < radius^2)
 }
 
 //Check if the given time signature is within the allowed time threshold
 function inTime (userTimeSignature, allowedTimeThreshold) {
-  console.log('I am inTime')
   currentTime = Math.floor(new Date().getTime()/1000);
   allowedTime = currentTime - allowedTimeThreshold;
   return userTimeSignature > allowedTime
 }
 
 function postToUsersInArea (message, users, longitude, latitude, radius) {
-  console.log(users)
   //Filter users to check if they're within the right time and longitude 
   //latitude
   
