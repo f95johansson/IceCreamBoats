@@ -31,19 +31,27 @@ export function uploadUserLocation(userId, oneSignalUserId, latitude, longitude,
   });
 }
 
+<<<<<<< HEAD
 export function deleteUserLocation(userId) {
   firebase.database().ref('users/'+userId).remove();
 }
 
 export function uploadCurrentBoatLocation(boatName) {
+=======
+export function uploadCurrentBoatLocation(name) {
+>>>>>>> master
   getUserLocation().then((position) => {
-    uploadBoatLocation(boatName, position.coords.latitude, position.coords.longitude);
+    uploadBoatLocation(name, position.coords.latitude, position.coords.longitude);
   });
 }
 
-export function uploadBoatLocation(boatName, latitude, longitude) {
-  firebase.database().ref('boats/'+boatName).update({
+export function uploadBoatLocation(name, latitude, longitude) {
+  firebase.database().ref('boats/'+name).update({
     latitude: latitude,
     longitude: longitude,
   });
+}
+
+export function deleteUserLocation(userId) {
+ firebase.database().ref('users/'+userId).remove();
 }

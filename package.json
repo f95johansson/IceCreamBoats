@@ -12,11 +12,12 @@
     "react": "15.4.2",
     "react-motion": "^0.4.7",
     "react-native": "^0.41.2",
+    "react-native-animatable": "^1.1.1",
     "react-native-button": "^1.8.2",
     "react-native-communications": "^2.2.1",
     "react-native-image-pan-zoom": "^1.1.12",
-    "react-native-maps": ">=0.12.4",
     "react-native-mauron85-background-geolocation": "^0.2.0-alpha.7",
+    "react-native-maps": "0.12.4",
     "react-native-onesignal": "^3.0.3",
     "react-native-simple-modal": "^5.0.0",
     "react-native-splash-screen": "^2.0.0",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
+    "babel-plugin-module-resolver": "^2.7.0",
     "babel-preset-react-native": "1.9.1",
     "jest": "19.0.2",
     "react-test-renderer": "15.4.2"

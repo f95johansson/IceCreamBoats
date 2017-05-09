@@ -9,7 +9,7 @@ import {
   //StatusBar,
 } from 'react-native';
 import Routing from './navigation/Routing';
-                        
+
 import OneSignal from 'react-native-onesignal'; // Import package from node modules
 
 // Initialize Firebase
@@ -59,7 +59,7 @@ export default class IceCreamBoats extends Component {
 
   render() {
     return (
-        
+
         <Routing />
     );
   }

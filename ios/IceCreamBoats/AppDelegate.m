@@ -11,7 +11,6 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-//#import "SplashScreen.h"  // here TODO: fix this
 
 @implementation AppDelegate
 
@@ -32,7 +31,6 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  //[SplashScreen show];  // here TODO: fix
   return YES;
 }
 

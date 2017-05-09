@@ -19,6 +19,7 @@ import * as location from '../utils/location';
 import styles from '../style/mapscene';
 import gstyles from '../style/styles';
 
+
 const boatImage = require('../../assets/map/boat.png');
 
 export default class MapScene extends Component {
@@ -111,7 +112,7 @@ export default class MapScene extends Component {
         if (childSnapshot.val().owner==userEmail) {
             this.setState({
               boatInfo: {
-                name: childSnapshot.val().boatName,
+                name: childSnapshot.val().name,
                 phone: childSnapshot.val().phone }
             });
         }
