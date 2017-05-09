@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 5,
     elevation: 2,
-    top: 35,
+    top: 20,
 
   },
 
@@ -61,7 +61,7 @@ var styles = StyleSheet.create({
     width: 220,
     overflow:'visible',
     backgroundColor: '#fff',
-    top: 35,
+    top: 20,
     flexDirection: 'column',
     //justifyContent: 'flex-end',
     alignItems: 'flex-end',

@@ -21,12 +21,25 @@ export default class Overlay extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {id:'', openModal: false, isDown: '180deg', isSendingPos: false};
+    this.timer = 0;
+    this.state = {id:'', openModal: false, isDown: '180deg', isSendingPos: false,
+    hours: 3, minutes: 59, seconds: 59 , timeleft: 14399};
     this.sendPosition = this.sendPosition.bind(this);
     this.quitSending = this.quitSending.bind(this);
     this.onSlideFinished = this.onSlideFinished.bind(this);
-  }
+    this.startTimer = this.startTimer.bind(this);
+    this.tickTimer = this.tickTimer.bind(this);
 
+  }
+  componentWillMount() {
+
+    if (this.state.id != 0){
+      var time = location.getUserTimeStamp(this.state.id);
+
+    }
+
+
+  }
   sendPosition() {
     // to be implemented
     var id;
@@ -46,6 +59,8 @@ export default class Overlay extends Component {
         alert(JSON.stringify(error));
     });
 
+    this.startTimer();
+
     // change look of button to white
     //this.setState({buttonpressState: !this.state.buttonpressState});
 
@@ -56,14 +71,46 @@ export default class Overlay extends Component {
   /* stop sending position - set sendingstate to false which shows button again*/
   quitSending() {
 
+    var time = location.getUserTimeStamp(this.state.id);
+
+    console.log(this.state.id);
+    console.log(time);
+
     location.deleteUserLocation(this.state.id);
     // location.stopSendingUserLocation(id)
-    this.setState({isSendingPos: false});
+    this.setState({isSendingPos: false, hours: 3, minutes: 59, seconds: 59,
+      timeleft: 14399});
+    clearInterval(this.timer);
+    this.timer = 0;
   }
 
   onSlideFinished(isDown) {
     this.setState({isDown: isDown ? '0deg' : '180deg'});
     this.refs.arrow.transitionTo({transform: [{rotate: this.state.isDown}]}, 500)
+  }
+
+  startTimer() {
+    if (this.timer == 0) {
+      this.timer = setInterval(this.tickTimer, 1000);
+    }
+  }
+
+  tickTimer() {
+    let timeLeft = this.state.timeleft - 1;
+
+    let hourdivisor = 60*60;
+    let hoursleft = Math.floor(timeLeft / (hourdivisor));
+
+    let minutesleft = Math.floor((timeLeft / 60)-(hoursleft*60));
+    let secondsleft = Math.floor(timeLeft - (minutesleft*60)- (hoursleft*hourdivisor));
+
+    this.setState({hours: hoursleft, minutes: minutesleft, seconds: secondsleft,
+    timeleft: timeLeft });
+
+    if (timeLeft == 0) {
+      clearInterval(this.timer);
+    }
+
   }
 
   render() {
@@ -93,7 +140,8 @@ export default class Overlay extends Component {
           { this.state.isSendingPos ?
 
             <View style={styles.isSendingcontainer}>
-              <Text style={styles.sendingPosTimer}>03:59:59</Text>
+              <Text style={styles.sendingPosTimer}>{this.state.hours}:{
+                  this.state.minutes}:{this.state.seconds}</Text>
               <Text onPress={this.quitSending} style={styles.sendingQuitText}>Avbryt</Text>
             </View>
             :

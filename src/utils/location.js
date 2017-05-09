@@ -44,3 +44,8 @@ export function uploadBoatLocation(name, latitude, longitude) {
 export function deleteUserLocation(userId) {
  firebase.database().ref('users/'+userId).remove();
 }
+export function getUserTimeStamp(userId) {
+  var ref = firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+  return snapshot.exportVal();
+  });
+}
