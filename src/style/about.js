@@ -37,9 +37,24 @@ var styles = StyleSheet.create({
     flexWrap:'wrap', 
     flexDirection: 'row', 
     alignItems:'center', 
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  logoView:{
+    flex:1,
+    flexWrap:'wrap',
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+  logoImage:{
+    margin: 10,
+  },
+  adminLogin:{
+    fontWeight:'bold', 
+    fontStyle:'italic', 
+    alignSelf: 'center',
   },
 
-});
+  });
 
 export default styles
