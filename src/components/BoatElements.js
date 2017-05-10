@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import * as location from '../utils/location' //TODO: funkar ej att importera
+import * as location from '../utils/location'; 
 import {
   Text,
   View,
@@ -9,7 +9,9 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
+import BackGeo from '../components/BackGeo';
 import styles from '../style/components/boatelement'
+
 
 export default class BoatElements extends Component {
 
@@ -20,20 +22,21 @@ export default class BoatElements extends Component {
       userEmail: ''
     }
 
-    this.updateBoats.bind(this)
+    this.updateBoats = this.updateBoats.bind(this)
     this.identifyUser()
-    firebase.database().ref('boats').on('value', this.updateBoats.bind(this))
+    firebase.database().ref('boats').on('value', this.updateBoats)
     this.loadFirebaseData()
   }
 
   loadFirebaseData() {
-    let snapValue
-    firebase.database().ref('boats').once('value', (snapshot) => { snapValue = snapshot.exportVal()} )
-    this.setState({ snapValue })
+    firebase.database().ref('boats').once('value', (snapshot) => {
+      let snapValue = snapshot.exportVal()
+      this.setState({ snapValue })
+    })
   }
 
   componentWillUnmount() {
-    firebase.database().ref('boats').off('value', this.updateBoats.bind(this));
+    firebase.database().ref('boats').off('value', this.updateBoats);
   }
 
   identifyUser(){
@@ -49,48 +52,52 @@ export default class BoatElements extends Component {
   }
 
   isOut(name) {
-    let snapValue
-    firebase.database().ref('boats').once('value', (snapshot) => { snapValue = snapshot.exportVal()} )
-    let isOut = snapValue[name].isOut
-    snapValue[name].isOut = !isOut
-    this.setState({ snapValue })
+    firebase.database().ref('boats').once('value', (snapshot) => { 
+      let snapValue = snapshot.exportVal()
+      let isOut = snapValue[name].isOut
+      snapValue[name].isOut = !isOut
+      this.setState({ snapValue })
 
-    firebase.database().ref('boats/' + name).update({
-      isOut: isOut ? false : true,
-    }).then(() => {
-      //this.setModalVisible(false)
-    }, (error) => {
-      console.log('error', error);
+      firebase.database().ref('boats/' + name).update({
+        isOut: isOut ? false : true,
+      }).then(() => {
+        //this.setModalVisible(false)
+      }, (error) => {
+        console.log('error', error);
+      })
     })
   }
 
   claimBoat(name) {
     const { userEmail } = this.state
-    let snapValue
-    firebase.database().ref('boats').once('value', (snapshot) => { snapValue = snapshot.exportVal()} )
-    let owner = snapValue[name].owner
+    firebase.database().ref('boats').once('value', (snapshot) => { 
+      let snapValue = snapshot.exportVal()
+      let owner = snapValue[name].owner
 
-    //if the boat is not claimed
-    if (owner==null) {
-      this.props.setBoat(name)
-      firebase.database().ref('boats/' + name).update({
-        owner: userEmail,
-      }).then(() => {
-      }, (error) => {
-        console.log('error', error);
-      })
-    }
-    //else if the boat is claimed by user
-    else if(owner==userEmail) {
-      this.props.setBoat(name)
-      firebase.database().ref('boats/' + name).update({
-        owner: null,
-      }).then(() => {
-      }, (error) => {
-        console.log('error', error);
-      })
-    }
-    this.loadFirebaseData()
+      //if the boat is not claimed
+      if (owner === null) {
+        new BackGeo().start();
+        this.props.setBoat(name)
+        alert(userEmail)
+        firebase.database().ref('boats/'+name).update({
+          owner: name,
+        }).then(() => {
+        }, (error) => {
+          console.log('error', error);
+        })
+      }
+      //else if the boat is claimed by user
+      else if(owner === userEmail) {
+        new BackGeo().stop();
+        this.props.setBoat(name)
+        firebase.database().ref('boats/'+name).remove().update({
+          owner: null
+        }).catch((error) => {
+          console.log('error', error);
+        })
+      }
+      this.loadFirebaseData()
+    })
   }
 
   editBoat(name) {
@@ -107,15 +114,15 @@ export default class BoatElements extends Component {
       let owner = snapValue[name].owner
 
       var checkbox = isOut ?
-      require('../../assets/admin/checked/checked.png'):
-      require('../../assets/admin/unchecked/unchecked.png')
+        require('../../assets/admin/checked/checked.png'):
+        require('../../assets/admin/unchecked/unchecked.png')
 
       var boatclaim = owner ?
-      require('../../assets/admin/claimedBoat/claimedBoat.png'):
-      require('../../assets/admin/claimBoat/claimBoat.png')
+        require('../../assets/admin/claimedBoat/claimedBoat.png'):
+        require('../../assets/admin/claimBoat/claimBoat.png')
 
       elements.push(
-        <View key={i} style={styles.rowElements}>
+        (<View key={i} style={styles.rowElements}>
           <Text key={i+1} style={styles.nameColor}>{name} </Text>
 
           <View style={styles.iconsRow}>
@@ -151,7 +158,7 @@ export default class BoatElements extends Component {
                 />
             </TouchableOpacity>
           </View>
-        </View>
+        </View>)
       )
       i++
     }

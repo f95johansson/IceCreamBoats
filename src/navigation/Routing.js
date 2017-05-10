@@ -16,7 +16,6 @@ import MapScene from '../scenes/MapScene';
 import styles from '../style/routing';
 import CustomTransition from './CustomTransition';
 import Tabs from 'react-native-tabs';
-import BackGeo from '../components/BackGeo';
 
 const INDEX = {
   ABOUT: 0,
@@ -142,7 +141,6 @@ export default class Routing extends Component {
       <View style={[styles.Routing,this.state.page === SCENE_NAMES.MENU ?
       styles.MenuBackground:styles.NormalBackground]}>
         <StatusBar backgroundColor="#e6e6e6" barStyle="dark-content"/>
-        <BackGeo />
 
         <View 
         style={[styles.Scene, 

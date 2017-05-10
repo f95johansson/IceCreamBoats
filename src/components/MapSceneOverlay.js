@@ -38,7 +38,7 @@ export default class Overlay extends Component {
     this.setState ({
       oneSignalDevice : device
     })
-    console.log('Device info: ', this.state.oneSignalDevice);
+    console.log('Onsignal device info: ', this.state.oneSignalDevice);
   }
 
 
@@ -84,7 +84,6 @@ export default class Overlay extends Component {
   }
 
   render() {
-    console.log('state.isDown', this.state.isDown)
     return (
 
       <SlideDownView style={styles.overlay}

@@ -4,8 +4,23 @@ import * as firebase from 'firebase';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
 import { postToArea } from '../utils/notifications';
 
-export default class BackGeo extends Component {
-  componentWillMount() {
+let instance = null; // singleton
+
+export default class BackGeo {
+
+  constructor() {
+    if (instance === null) {
+      instance = this;
+      this.setup();
+    }
+    return instance;
+  }
+
+  getInstance() {
+    return new BackGeo();
+  }
+
+  setup() {
     BackgroundGeolocation.configure({
       desiredAccuracy: 10,
       stationaryRadius: 1,
@@ -13,7 +28,7 @@ export default class BackGeo extends Component {
       locationTimeout: 30,
       notificationTitle: 'Background tracking',
       notificationText: 'enabled',
-      debug: true,
+      debug: false,
       startOnBoot: false,
       stopOnTerminate: false,
       locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
@@ -42,15 +57,23 @@ export default class BackGeo extends Component {
     });
   }
 
-  upload(location) {
-    //postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
-    firebase.database().ref('boats/Jonas').update({
-      latitude: location.latitude,
-      longitude: location.longitude,
-    });
+  start() {
+    BackgroundGeolocation.start();
   }
 
-  render() {
-    return (<View></View>);
+  stop() {
+    BackgroundGeolocation.stop();
+  }
+
+  upload(location) {
+    //postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
+    firebase.database().ref('owners/'+firebase.auth().currentUser.email).once((owner) => {
+      if (owner !== null) {
+        firebase.database().ref('boats/' + owner.boatName).update({
+          latitude: location.latitude,
+          longitude: location.longitude,
+        });
+      }
+    });
   }
 }

@@ -26,7 +26,7 @@ export default class IceCreamBoats extends Component {
   componentWillMount() {
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
-    OneSignal.addEventListener('registered', this.onRegistered);
+    OneSignal.addEventListener('registered', this.onRegistered);    
   }
 
   componentWillUnmount() {
