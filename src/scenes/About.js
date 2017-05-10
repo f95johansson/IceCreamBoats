@@ -27,34 +27,54 @@ export default class About extends Component {
       boats: [],
       partnerImages: [],
     }
+    this.componentWillUnmount = this.componentWillUnmount.bind(this)
+    this.loadBoats = this.loadBoats.bind(this);
+    this.loadImages = this.loadImages.bind(this);
+    this.loadAboutText = this.loadAboutText.bind(this);
+    this.updateAboutText = this.updateAboutText.bind(this);
+    this.updateBoats = this.updateBoats.bind(this);
+    this.updateImages = this.updateImages.bind(this)
+
+
     this.loadAboutText()
     this.loadBoats()
     this.loadImages();
+    
+
     //TODO: fixa checkbox, fixa lifecycle varningar
+  }
+  componentWillUnmount(){
+    firebase.database().ref('about').off('value', this.updateAboutText)
+    firebase.database().ref('boats').off('value', this.updateBoats)
+    firebase.database().ref('boats').off('value', this.updateImages)
   }
 
   loadAboutText() {
-    firebase.database().ref('about').on('value',
-    (snapshot) => {
-      this.setState({
+    firebase.database().ref('about').on('value', this.updateAboutText)
+  }
+
+  updateAboutText(snapshot){
+    this.setState({
         aboutText: snapshot.exportVal().about
-      })
     })
   }
 
   loadBoats() {
-    firebase.database().ref('boats').on('value',
-    (snapshot) => {
-      this.setState({
-        boats: snapshot.exportVal()
-      })
+    firebase.database().ref('boats').on('value', this.updateBoats)
+  }
+
+  updateBoats(snapshot){
+    this.setState({
+      boats: snapshot.exportVal()
     })
   }
 
   loadImages() {
-    firebase.database().ref('partnerImages').on('value',
-      (snapshot) => {
-        var images = snapshot.exportVal();
+    firebase.database().ref('partnerImages').on('value', this.updateImages)
+  }
+
+  updateImages(snapshot) {
+    var images = snapshot.exportVal();
         Object.keys(images).forEach(key => {
           firebase.storage().ref('Partners').child(images[key]).getDownloadURL().then(
                 url => {
@@ -65,7 +85,6 @@ export default class About extends Component {
                 error => {alert(JSON.stringify(error))
             });
         });
-    })
   }
 
   render() {

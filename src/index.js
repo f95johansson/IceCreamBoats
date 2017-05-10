@@ -60,9 +60,9 @@ export default class IceCreamBoats extends Component {
   //   console.log('Device info: ', device);
   //
   // }
-  // componentDidMount() {
-  //   SplashScreen.hide();
-  // }
+  componentDidMount() {
+     SplashScreen.hide();
+  }
 
   render() {
     return (
