@@ -72,15 +72,14 @@ export default class BoatElements extends Component {
     const { userEmail } = this.state
     firebase.database().ref('boats').once('value', (snapshot) => { 
       let snapValue = snapshot.exportVal()
-      let owner = snapValue[name].owner
+      let owner = snapValue[name].owner;
 
       //if the boat is not claimed
-      if (owner === null) {
-        new BackGeo().start();
+      if (owner === undefined) {
+        new BackGeo().start(name);
         this.props.setBoat(name)
-        alert(userEmail)
         firebase.database().ref('boats/'+name).update({
-          owner: name,
+          owner: userEmail,
         }).then(() => {
         }, (error) => {
           console.log('error', error);
@@ -88,9 +87,9 @@ export default class BoatElements extends Component {
       }
       //else if the boat is claimed by user
       else if(owner === userEmail) {
-        new BackGeo().stop();
+        new BackGeo().stop(name);
         this.props.setBoat(name)
-        firebase.database().ref('boats/'+name).remove().update({
+        firebase.database().ref('boats/'+name).update({
           owner: null
         }).catch((error) => {
           console.log('error', error);
@@ -105,8 +104,9 @@ export default class BoatElements extends Component {
   }
 
   renderBoats() {
-    const { boats, snapValue } = this.state
-    let elements = []
+    const { boats, snapValue } = this.state;
+    let elements = [];
+    if (snapValue === undefined) {return;}
     let i = 0
     for (var boat in boats) {
       let name = boats[boat].name

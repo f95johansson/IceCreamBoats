@@ -21,6 +21,8 @@ export default class BackGeo {
   }
 
   setup() {
+    this.name = null;
+
     BackgroundGeolocation.configure({
       desiredAccuracy: 10,
       stationaryRadius: 1,
@@ -57,23 +59,23 @@ export default class BackGeo {
     });
   }
 
-  start() {
+  start(name) {
+    this.name = name;
     BackgroundGeolocation.start();
   }
 
-  stop() {
+  stop(name) {
+    this.name = null;
     BackgroundGeolocation.stop();
   }
 
   upload(location) {
     //postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
-    firebase.database().ref('owners/'+firebase.auth().currentUser.email).once((owner) => {
-      if (owner !== null) {
-        firebase.database().ref('boats/' + owner.boatName).update({
-          latitude: location.latitude,
-          longitude: location.longitude,
-        });
-      }
-    });
+    if (this.name !== null) {
+      firebase.database().ref('boats/' + this.name).update({
+        latitude: location.latitude,
+        longitude: location.longitude,
+      });
+    }
   }
 }
