@@ -66,8 +66,7 @@ export default class IceCreamBoats extends Component {
 
   render() {
     return (
-
-        <Routing />
+      <Routing />
     );
   }
 }
