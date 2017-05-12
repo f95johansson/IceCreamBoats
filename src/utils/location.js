@@ -19,12 +19,15 @@ export function getUserLocation() {
   );
 }
 
-export function uploadUserLocation(userId, latitude, longitude, time) {
+// 
+export function uploadUserLocation(userId, oneSignalUserId, latitude, longitude, 
+    time) {
   firebase.database().ref('users/'+userId).set({
     latitude: latitude,
     longitude: longitude,
     time: time,
     notified: true,
+    oneSignalUserId: oneSignalUserId,
   });
 }
 

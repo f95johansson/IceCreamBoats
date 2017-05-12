@@ -145,7 +145,7 @@ export default class MapScene extends Component {
             </View>
             ))}
             {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.Marker
+              <MapView.Marker.Animated
                 key={index}
                 coordinate={this.state.boats[boatName]}
                 title={boatName}
