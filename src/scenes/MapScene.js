@@ -21,6 +21,7 @@ import gstyles from '../style/styles';
 
 
 const boatImage = require('../../assets/map/boat.png');
+const youImage = require('../../assets/map/You.png');
 
 export default class MapScene extends Component {
 
@@ -153,6 +154,14 @@ export default class MapScene extends Component {
                 image={boatImage}
                 />
             ))}
+            <MapView.Marker
+              key={99} {/*Change this :)*/}
+              coordinate={[this.state.region.latitude,this.state.region.longitude]}
+              title={"Du"}
+              image={youImage}
+            />
+
+            
         </MapView>
 
         <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>
