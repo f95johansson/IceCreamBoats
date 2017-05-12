@@ -58,10 +58,10 @@ var styles = StyleSheet.create({
   isSendingcontainer: {
     height:35,
     alignSelf: 'center',
-    width: 220,
+    width: 210,
     overflow:'visible',
     backgroundColor: '#fff',
-    top: 35,
+    top: 20,
     flexDirection: 'column',
     //justifyContent: 'flex-end',
     alignItems: 'flex-end',
