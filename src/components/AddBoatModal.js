@@ -7,7 +7,7 @@ import gstyles from '../style/styles'
 
   export default class AddBoatModal extends Component {
 
-  componentWillMount() { //TODO: när man först trycker EDIT sedan CLAIM så öppnas modalen utan att den ska det
+  componentWillMount() {
     this.state = {
       modalVisible: false,
       name: '',
