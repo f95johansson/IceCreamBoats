@@ -22,7 +22,6 @@ export default class BackGeo {
 
   setup() {
     this.name = null;
-
     BackgroundGeolocation.configure({
       desiredAccuracy: 10,
       stationaryRadius: 1,
@@ -55,7 +54,7 @@ export default class BackGeo {
     });
 
     BackgroundGeolocation.start(() => {
-      alert('[DEBUG] BackgroundGeolocation started successfully');    
+      alert('[DEBUG] BackgroundGeolocation started successfully');
     });
   }
 
