@@ -16,6 +16,7 @@ import {
 import styles from '../style/about'
 import gstyles from '../style/styles'
 
+
 export default class About extends Component {
 
   componentWillMount() {
@@ -27,19 +28,18 @@ export default class About extends Component {
       boats: [],
       partnerImages: [],
     }
-    this.componentWillUnmount = this.componentWillUnmount.bind(this)
     this.loadBoats = this.loadBoats.bind(this);
     this.loadImages = this.loadImages.bind(this);
     this.loadAboutText = this.loadAboutText.bind(this);
     this.updateAboutText = this.updateAboutText.bind(this);
     this.updateBoats = this.updateBoats.bind(this);
-    this.updateImages = this.updateImages.bind(this)
+    this.updateImages = this.updateImages.bind(this);
 
-
-    this.loadAboutText()
-    this.loadBoats()
+    this.loadAboutText();
+    this.loadBoats();
     this.loadImages();
-    
+
+    this.isMount = true;
 
     //TODO: fixa checkbox, fixa lifecycle varningar
   }
@@ -47,6 +47,7 @@ export default class About extends Component {
     firebase.database().ref('about').off('value', this.updateAboutText)
     firebase.database().ref('boats').off('value', this.updateBoats)
     firebase.database().ref('partnerImages').off('value', this.updateImages)
+    this.isMount = false;
   }
 
   loadAboutText() {
@@ -70,6 +71,7 @@ export default class About extends Component {
   }
 
   loadImages() {
+    func = this.updateImages
     firebase.database().ref('partnerImages').on('value', this.updateImages)
   }
 
@@ -78,15 +80,14 @@ export default class About extends Component {
         Object.keys(images).forEach(key => {
           firebase.storage().ref('Partners').child(images[key]).getDownloadURL().then(
                 url => {
-                  if (!this.state.partnerImages.includes(url)) {
+                  if (this.isMount && !this.state.partnerImages.includes(url)) {
                     this.setState({partnerImages: [...this.state.partnerImages, url]});
                   }
                 },
-                error => {alert(JSON.stringify(error))
-            });
+          error => {console.log('About load image error: ', error)})
         });
-  }
-
+    }
+  
   render() {
     return (
       <ScrollView>
@@ -116,17 +117,13 @@ export default class About extends Component {
             {this.state.coWorkers}
           </Text>
 
-          <View style={{flex:1,
-                        flexWrap:'wrap',
-                        flexDirection: 'row',
-                        alignItems:'center',
-                        justifyContent: 'center'}}>
-            {this.state.partnerImages.map(image => {console.log(image); return <Image key={image} source={{uri: image, width: 110, height: 110}} style={{margin:10}}/>})}
+          <View style={styles.logoView}>
+            {this.state.partnerImages.map(image => <Image key={image} source={{uri: image, width: 110, height: 110}} style={styles.logoImage}/>)}
           </View>
 
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
-        <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
+        <Text style={styles.adminLogin}>Admin login</Text>
         </TouchableHighlight>
       </ScrollView>
     )

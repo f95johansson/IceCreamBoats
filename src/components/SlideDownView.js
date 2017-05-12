@@ -166,8 +166,8 @@ export default class SlideDownView extends Component {
         this.props.onSlideFinished(true);
       } else {
         containerHeight = this.state.containerMaximumHeight;
-        this.props.onSlideFinished(false);
-      }
+          this.props.onSlideFinished(false);
+        }
     } else if (dy > 0) { // move up
       containerHeight = this.state.containerMaximumHeight;
       this.props.onSlideFinished(false);
