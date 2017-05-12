@@ -42,7 +42,7 @@ var styles = StyleSheet.create({
     padding: 7,
     height:35,
     alignSelf: 'center',
-    width: 220,
+    width: 210,
     overflow:'hidden',
     borderRadius:50,
     backgroundColor: '#EA591C',
@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 5,
     elevation: 2,
-    top: 35,
+    top: 20,
 
   },
 
