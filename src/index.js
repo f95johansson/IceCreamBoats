@@ -11,6 +11,7 @@ import {
 import Routing from './navigation/Routing';
 
 import OneSignal from 'react-native-onesignal'; // Import package from node modules
+import {saveUserId} from './utils/userId';
 
 // Initialize Firebase
 var config = {
@@ -57,8 +58,7 @@ export default class IceCreamBoats extends Component {
   }
 
   onIds(device) {
-    console.log('Device info: ', device);
-
+    saveUserId(device.userId);
   }
   componentDidMount() {
     SplashScreen.hide();

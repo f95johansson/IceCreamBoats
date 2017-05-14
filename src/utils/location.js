@@ -45,7 +45,12 @@ export function deleteUserLocation(userId) {
  firebase.database().ref('users/'+userId).remove();
 }
 export function getUserTimeStamp(userId) {
-  var ref = firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-  return snapshot.exportVal();
+
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+    resolve(snapshot.exportVal().time);
+  }).catch((err) => {
+    console.log(err)
+  });
   });
 }
