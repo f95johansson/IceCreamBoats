@@ -20,7 +20,7 @@ import styles from '../style/mapscene';
 import gstyles from '../style/styles';
 
 
-const boatImage = require('../../assets/map/boat.png');
+const boatImage = require('../../assets/map/boat2.png');
 
 export default class MapScene extends Component {
 
@@ -37,8 +37,8 @@ export default class MapScene extends Component {
       },
       boats: {},
       region: {
-        latitude: 0,
-        longitude: 0,
+        latitude: 57.886567,
+        longitude: 11.585426,
         latitudeDelta: 0.0500,
         longitudeDelta: 0.0500
       },
