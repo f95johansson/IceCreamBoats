@@ -7,7 +7,7 @@ import gstyles from '../style/styles'
 
   export default class AddBoatModal extends Component {
 
-  componentWillMount() { //TODO: när man först trycker EDIT sedan CLAIM så öppnas modalen utan att den ska det
+  componentWillMount() {
     this.state = {
       modalVisible: false,
       name: '',
@@ -24,22 +24,23 @@ import gstyles from '../style/styles'
   }
 
   loadFirebaseData(ownerName) {
-    let snapValue
-    firebase.database().ref('boats').once('value', (snapshot) => { snapValue = snapshot.exportVal()} )
+    firebase.database().ref('boats').once('value', (snapshot) => {
+      let snapValue = snapshot.exportVal()
+      
+      let name = snapValue[ownerName].name
+      let phone = snapValue[ownerName].phone
+      let region = snapValue[ownerName].region
+      let fromTo = snapValue[ownerName].fromTo
 
-    let name = snapValue[ownerName].name
-    let phone = snapValue[ownerName].phone
-    let region = snapValue[ownerName].region
-    let fromTo = snapValue[ownerName].fromTo
-
-    this.setState({
-      name,
-      phone,
-      region,
-      fromTo
+      this.setState({
+        name,
+        phone,
+        region,
+        fromTo
+      })
+      this.setModalVisible(true)
+      this.props.clearState()
     })
-    this.setModalVisible(true)
-    this.props.clearState()
   }
 
   setModalVisible(visible) {

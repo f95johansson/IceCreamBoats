@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import MapView from 'react-native-maps';
 import SplashScreen from 'react-native-splash-screen';
 import {
   StyleSheet,
@@ -28,13 +27,16 @@ export default class IceCreamBoats extends Component {
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('registered', this.onRegistered);
+
     OneSignal.addEventListener('ids', this.onIds);
+
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener('received', this.onReceived);
     OneSignal.removeEventListener('opened', this.onOpened);
     OneSignal.removeEventListener('registered', this.onRegistered);
+
     OneSignal.removeEventListener('ids', this.onIds);
 
   }
@@ -49,7 +51,6 @@ export default class IceCreamBoats extends Component {
     console.log('Data: ', openResult.notification.payload.additionalData);
     console.log('isActive: ', openResult.notification.isAppInFocus);
     console.log('openResult: ', openResult);
-
   }
 
   onRegistered(notifData) {
@@ -60,14 +61,14 @@ export default class IceCreamBoats extends Component {
   onIds(device) {
     saveUserId(device.userId);
   }
+
   componentDidMount() {
     SplashScreen.hide();
   }
 
   render() {
     return (
-
-        <Routing />
+      <Routing />
     );
   }
 }

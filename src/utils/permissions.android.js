@@ -21,40 +21,16 @@ export function granted() {
     });
 }
 
-/*
-async function requestLocationPermission() {
-  alert('4')
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        'title': 'We know were you are this summer',
-        'message': 'OooooOOOoooOOOoooohhh'
-      }
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (err) {
-    console.warn(err);
-    return false;
-  }
-}*/
-
 function requestLocationPermission2() {
   return new Promise((resolve, reject) => PermissionsAndroid.request(
     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     {
-      'title': 'We know were you are this summer',
-      'message': 'OooooOOOoooOOOoooohhh'
+      'title': 'Glassbåtarna',
+      'message': 'Vi behöver veta din position för att se var du är'
     }
   ).then((granted) => {
-    alert('4: '+granted)
     resolve(granted === PermissionsAndroid.RESULTS.GRANTED);
   }).catch((err) => {
-    alert('5: '+err)
     reject(err);
   }));
 }

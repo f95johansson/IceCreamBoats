@@ -16,6 +16,7 @@ import {
 import styles from '../style/about'
 import gstyles from '../style/styles'
 
+
 export default class About extends Component {
 
   componentWillMount() {
@@ -27,47 +28,66 @@ export default class About extends Component {
       boats: [],
       partnerImages: [],
     }
-    this.loadAboutText()
-    this.loadBoats()
+    this.loadBoats = this.loadBoats.bind(this);
+    this.loadImages = this.loadImages.bind(this);
+    this.loadAboutText = this.loadAboutText.bind(this);
+    this.updateAboutText = this.updateAboutText.bind(this);
+    this.updateBoats = this.updateBoats.bind(this);
+    this.updateImages = this.updateImages.bind(this);
+
+    this.loadAboutText();
+    this.loadBoats();
     this.loadImages();
+
+    this.isMount = true;
+
     //TODO: fixa checkbox, fixa lifecycle varningar
+  }
+  componentWillUnmount(){
+    firebase.database().ref('about').off('value', this.updateAboutText)
+    firebase.database().ref('boats').off('value', this.updateBoats)
+    firebase.database().ref('partnerImages').off('value', this.updateImages)
+    this.isMount = false;
   }
 
   loadAboutText() {
-    firebase.database().ref('about').on('value',
-    (snapshot) => {
-      this.setState({
+    firebase.database().ref('about').on('value', this.updateAboutText)
+  }
+
+  updateAboutText(snapshot){
+    this.setState({
         aboutText: snapshot.exportVal().about
-      })
     })
   }
 
   loadBoats() {
-    firebase.database().ref('boats').on('value',
-    (snapshot) => {
-      this.setState({
-        boats: snapshot.exportVal()
-      })
+    firebase.database().ref('boats').on('value', this.updateBoats)
+  }
+
+  updateBoats(snapshot){
+    this.setState({
+      boats: snapshot.exportVal()
     })
   }
 
   loadImages() {
-    firebase.database().ref('partnerImages').on('value',
-      (snapshot) => {
-        var images = snapshot.exportVal();
+    func = this.updateImages
+    firebase.database().ref('partnerImages').on('value', this.updateImages)
+  }
+
+  updateImages(snapshot) {
+    var images = snapshot.exportVal();
         Object.keys(images).forEach(key => {
           firebase.storage().ref('Partners').child(images[key]).getDownloadURL().then(
                 url => {
-                  if (!this.state.partnerImages.includes(url)) {
+                  if (this.isMount && !this.state.partnerImages.includes(url)) {
                     this.setState({partnerImages: [...this.state.partnerImages, url]});
                   }
                 },
-                error => {alert(JSON.stringify(error))
-            });
+          error => {console.log('About load image error: ', error)})
         });
-    })
-  }
-
+    }
+  
   render() {
     return (
       <ScrollView>
@@ -97,17 +117,13 @@ export default class About extends Component {
             {this.state.coWorkers}
           </Text>
 
-          <View style={{flex:1,
-                        flexWrap:'wrap',
-                        flexDirection: 'row',
-                        alignItems:'center',
-                        justifyContent: 'center'}}>
-            {this.state.partnerImages.map(image => {console.log(image); return <Image key={image} source={{uri: image, width: 110, height: 110}} style={{margin:10}}/>})}
+          <View style={styles.logoView}>
+            {this.state.partnerImages.map(image => <Image key={image} source={{uri: image, width: 110, height: 110}} style={styles.logoImage}/>)}
           </View>
 
         <TouchableHighlight
           onPress={() => this.props.openAdmin()}>
-        <Text style={{paddingLeft: 50, fontWeight:'bold', fontStyle:'italic'}}>Admin</Text>
+        <Text style={styles.adminLogin}>Admin login</Text>
         </TouchableHighlight>
       </ScrollView>
     )

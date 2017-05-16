@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import Button from 'react-native-button';
+import OneSignal from 'react-native-onesignal';
 import * as Animatable from 'react-native-animatable';
 import {
   View,
@@ -19,6 +20,7 @@ import gstyles from '../style/styles';
 import {getUserId} from '../utils/userId';
 
 
+import {postToArea,postNotification} from '../utils/notifications';
 
 export default class Overlay extends Component {
 
@@ -28,6 +30,7 @@ export default class Overlay extends Component {
     this.state = {id: '', appstate: AppState.currentState, openModal: false,
       isDown: '180deg', hours: 3, minutes: 59, seconds: 59,
        timeleft: 14399, isSendingPos: false};
+
     this.sendPosition = this.sendPosition.bind(this);
     this.quitSending = this.quitSending.bind(this);
     this.onSlideFinished = this.onSlideFinished.bind(this);
@@ -37,18 +40,20 @@ export default class Overlay extends Component {
   }
   componentWillMount() {
 
+    OneSignal.addEventListener('ids', this.onIds.bind(this));
+
     clearInterval(this.timer);
     this.timer = 0;
 
-    console.log("helloooooooooooooo");
+    //console.log("helloooooooooooooo");
     getUserId((userID) => {
-      console.log("inside getuserid");
+      //console.log("inside getuserid");
 
       location.getUserTimeStamp(userID).then((timestamp) => {
         var userid = userID;
-        console.log("inside timestamp" + userid);
+        //console.log("inside timestamp" + userid);
         var time = new Date().getTime();
-        console.log(timestamp);
+        //console.log(timestamp);
 
 
         var timediff = time-timestamp;
@@ -145,6 +150,18 @@ export default class Overlay extends Component {
     }
     this.setState({appstate: nextAppState});
   }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onIds(device) {
+    this.setState ({
+      oneSignalDevice : device
+    })
+    console.log('Onsignal device info: ', this.state.oneSignalDevice);
+  }
+
 
   sendPosition() {
     // to be implemented

@@ -42,7 +42,7 @@ var styles = StyleSheet.create({
     padding: 7,
     height:35,
     alignSelf: 'center',
-    width: 220,
+    width: 210,
     overflow:'hidden',
     borderRadius:50,
     backgroundColor: '#EA591C',
@@ -75,7 +75,7 @@ var styles = StyleSheet.create({
   isSendingcontainer: {
     height:80,
     alignSelf: 'center',
-    width: 220,
+    width: 210,
     overflow:'visible',
     backgroundColor: '#fff',
     top: 20,

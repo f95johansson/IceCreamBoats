@@ -14,6 +14,29 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import styles from '../style/menu'
 
 export default class Menu extends Component {
+
+  componentWillMount() {
+    this.state = {
+      imgUrl: ''
+    }
+    //TODO: componentWillUnmount
+    this.loadImage()
+  }
+
+  loadImage() {
+    var storage = firebase.storage()
+    var storageRef = storage.ref()
+    var imagesRef = storageRef.child('Utbud/utbud.png')
+
+      imagesRef.getDownloadURL().then((url) => {
+        this.setState({
+          imgUrl: url
+        })
+    }).catch(function(error) {
+      console.log('errrr (Menu.js)', error);
+    })
+  }
+
   render() {
     return (
       <View
@@ -28,9 +51,11 @@ export default class Menu extends Component {
           imageWidth={Dimensions.get('window').width}
           imageHeight={Dimensions.get('window').height-100}
           longPressTime={100}>
-          <Image
+
+          {this.state.imgUrl ?
+            <Image
             style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.25}}
-            source={{uri:'http://freshcoast.se/wp-content/uploads/2016/06/meny_2016.jpg'}}/>
+            source={{uri: this.state.imgUrl }}/>:[]}
         </ImageZoom>
       </View>
     )
