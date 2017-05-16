@@ -107,11 +107,12 @@ export default class BoatElements extends Component {
     const { boats, snapValue } = this.state;
     let elements = [];
     if (snapValue === undefined) {return;}
+
     let i = 0
     for (var boat in boats) {
       let name = boats[boat].name
-      let isOut = snapValue[name].isOut
-      let owner = snapValue[name].owner
+      let isOut = boats[boat].isOut
+      let owner = boats[boat].owner
 
       var checkbox = isOut ?
         require('../../assets/admin/checked/checked.png'):

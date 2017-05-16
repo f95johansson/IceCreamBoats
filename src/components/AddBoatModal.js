@@ -8,6 +8,8 @@ import gstyles from '../style/styles'
   export default class AddBoatModal extends Component {
 
   componentWillMount() {
+    this.closeModal = this.closeModal.bind(this)
+
     this.state = {
       modalVisible: false,
       name: '',
@@ -50,7 +52,7 @@ import gstyles from '../style/styles'
   uploadData() {
     const { name, phone, region, fromTo } = this.state
     let longitude = 1.2323
-    let latitude = 2.2323 //TODO
+    let latitude = 2.2323 // TODO: What to do Alfred?
 
     firebase.database().ref('boats/' + name).set({
       name,
@@ -61,10 +63,16 @@ import gstyles from '../style/styles'
       longitude,
       fromTo
     }).then(() => {
+      this.setState({});
       this.setModalVisible(false)
     }, (error) => {
       console.log('error', error);
     })
+  }
+
+  closeModal() {
+    this.setState({});
+    this.setModalVisible(false);
   }
 
   render() {
@@ -79,7 +87,7 @@ import gstyles from '../style/styles'
          <View style={gstyles.view}>
           <View>
             <Button
-              onPress={()=>{ this.setModalVisible(!this.state.modalVisible) }}
+              onPress={this.closeModal}
               title="Stäng"
               color="#e41e13"/>
 

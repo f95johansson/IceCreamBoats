@@ -65,8 +65,9 @@ export default class About extends Component {
   }
 
   updateBoats(snapshot){
+    let boats = snapshot.exportVal();
     this.setState({
-      boats: snapshot.exportVal()
+      boats: boats === null ? {} : boats
     })
   }
 

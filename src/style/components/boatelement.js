@@ -26,6 +26,10 @@ var styles = StyleSheet.create({
     height: 23,
     paddingRight: 20
   },
+  trashicon:{
+
+  },
+  
 });
 
 export default styles
