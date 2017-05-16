@@ -55,8 +55,25 @@ var styles = StyleSheet.create({
 
   },
 
-  isSendingcontainer: {
+  visibleButton: {
+    position: 'absolute',
+  	justifyContent: 'center',
+    padding: 7,
     height:35,
+    width: 100,
+    overflow:'hidden',
+    borderRadius:50,
+    backgroundColor: '#FFF',
+    shadowColor: '#888',
+    shadowOffset:{width: -5, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    elevation: 2,
+    top: 0
+  },
+
+  isSendingcontainer: {
+    height:80,
     alignSelf: 'center',
     width: 210,
     overflow:'visible',
@@ -64,23 +81,27 @@ var styles = StyleSheet.create({
     top: 20,
     flexDirection: 'column',
     //justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    paddingVertical: 7
+    alignItems: 'flex-start',
+    paddingVertical: 0
 
   },
 
   sendingPosTimer: {
-    width: 70,
+
+    height: 40,
+    width: 110,
     alignSelf: 'center',
     color: '#EA591C',
-    fontSize: 19,
-    fontWeight: 'bold'
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   sendingQuitText: {
+    alignSelf: 'center',
+    textAlign: 'center',
     color: '#777777',
     fontSize: 16,
-    top: -22,
-    left: -10,
+    top: -5,
     fontWeight: '600',
     textDecorationLine: 'underline'
   },
@@ -89,6 +110,21 @@ var styles = StyleSheet.create({
   	color: '#FFFFFF',
     alignSelf:'center',
     fontSize: 16
+  },
+
+  blackbuttonText: {
+  	color: '#bbbbbb',
+    alignSelf:'center',
+    fontSize: 16,
+    fontWeight: '400'
+  },
+
+  activebuttonText: {
+
+  	color: '#EA591C',
+    alignSelf:'center',
+    fontSize: 16,
+    fontWeight: 'bold'
   },
 
   questionmark: {

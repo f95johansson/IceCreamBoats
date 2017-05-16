@@ -19,15 +19,15 @@ export function getUserLocation() {
   );
 }
 
-// 
-export function uploadUserLocation(userId, oneSignalUserId, latitude, longitude, 
+//
+export function uploadUserLocation(userId, latitude, longitude,
     time) {
   firebase.database().ref('users/'+userId).set({
     latitude: latitude,
     longitude: longitude,
     time: time,
     notified: true,
-    oneSignalUserId: oneSignalUserId,
+    
   });
 }
 
@@ -46,4 +46,14 @@ export function uploadBoatLocation(name, latitude, longitude) {
 
 export function deleteUserLocation(userId) {
  firebase.database().ref('users/'+userId).remove();
+}
+export function getUserTimeStamp(userId) {
+
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+    resolve(snapshot.exportVal().time);
+  }).catch((err) => {
+    console.log(err)
+  });
+  });
 }
