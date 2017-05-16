@@ -10,6 +10,7 @@ import {
 import Routing from './navigation/Routing';
 
 import OneSignal from 'react-native-onesignal'; // Import package from node modules
+import {saveUserId} from './utils/userId';
 
 // Initialize Firebase
 var config = {
@@ -26,16 +27,23 @@ export default class IceCreamBoats extends Component {
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('registered', this.onRegistered);
+
+    OneSignal.addEventListener('ids', this.onIds);
+
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener('received', this.onReceived);
     OneSignal.removeEventListener('opened', this.onOpened);
     OneSignal.removeEventListener('registered', this.onRegistered);
+
+    OneSignal.removeEventListener('ids', this.onIds);
+
   }
 
   onReceived(notification) {
     console.log("Notification received: ", notification);
+
   }
 
   onOpened(openResult) {
@@ -47,8 +55,15 @@ export default class IceCreamBoats extends Component {
 
   onRegistered(notifData) {
     console.log("Device had been registered for push notifications!", notifData);
+
   }
-  
+
+  onIds(device) {
+
+    //console.log(device.userId+ " userid in onIds");
+    saveUserId(device.userId);
+  }
+
   componentDidMount() {
     SplashScreen.hide();
   }
