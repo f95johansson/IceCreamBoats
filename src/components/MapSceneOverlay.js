@@ -40,20 +40,15 @@ export default class Overlay extends Component {
   }
   componentWillMount() {
 
-    OneSignal.addEventListener('ids', this.onIds.bind(this));
-
     clearInterval(this.timer);
     this.timer = 0;
 
-    //console.log("helloooooooooooooo");
     getUserId((userID) => {
-      //console.log("inside getuserid");
 
+      console.log(userID);
       location.getUserTimeStamp(userID).then((timestamp) => {
         var userid = userID;
-        //console.log("inside timestamp" + userid);
         var time = new Date().getTime();
-        //console.log(timestamp);
 
 
         var timediff = time-timestamp;
@@ -67,7 +62,7 @@ export default class Overlay extends Component {
              minutes: 59, seconds: 59,
              timeleft: 14399});
              console.log("if statement in usertimestampfunc");
-            //this.startTimer();
+
         }
         else if ((timediff) < (14399000)) {
 
@@ -86,6 +81,7 @@ export default class Overlay extends Component {
              minutes: 59, seconds: 59, timeleft: 14399 })
         }
       }).catch((error) => {
+        console.log("tyvarr error");
         alert(JSON.stringify(error));
       });
     });
@@ -94,11 +90,6 @@ export default class Overlay extends Component {
 
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
-
-    /*
-    console.log("did mount");
-    this.setState({isSendingPos: true});
-    */
   }
 
   componentWillUnmount() {
@@ -155,24 +146,19 @@ export default class Overlay extends Component {
     OneSignal.removeEventListener('ids', this.onIds);
   }
 
-  onIds(device) {
-    this.setState ({
-      oneSignalDevice : device
-    })
-    console.log('Onsignal device info: ', this.state.oneSignalDevice);
-  }
-
-
   sendPosition() {
     // to be implemented
     var time = new Date().getTime();
     this.setState({isSendingPos: true});
 
     getUserId(function(userID) {
+      console.log(userID + "send position");
       location.getUserLocation().then((position) => {
+        console.log("position: ",position);
         location.uploadUserLocation(userID, position.coords.latitude, position.coords.longitude, time);
       }).catch((error) => {
-        alert(JSON.stringify(error));
+
+        alert("hello"+JSON.stringify(error));
       });
     });
     this.startTimer();

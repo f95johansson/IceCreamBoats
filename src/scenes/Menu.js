@@ -1,7 +1,7 @@
 //import Image from 'react-native-transformable-image';
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import MapView from 'react-native-maps';
+//import MapView from 'react-native-maps';
 import {
   Dimensions,
   StyleSheet,

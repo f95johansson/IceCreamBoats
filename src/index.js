@@ -59,6 +59,8 @@ export default class IceCreamBoats extends Component {
   }
 
   onIds(device) {
+
+    //console.log(device.userId+ " userid in onIds");
     saveUserId(device.userId);
   }
 
