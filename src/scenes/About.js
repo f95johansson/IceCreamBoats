@@ -41,7 +41,6 @@ export default class About extends Component {
 
     this.isMount = true;
 
-    //TODO: fixa checkbox, fixa lifecycle varningar
   }
   componentWillUnmount(){
     firebase.database().ref('about').off('value', this.updateAboutText)

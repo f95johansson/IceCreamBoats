@@ -15,22 +15,28 @@ import styles from '../style/menu'
 export default class Menu extends Component {
 
   componentWillMount() {
+    this.isMount = true;
     this.state = {
       imgUrl: ''
     }
-    //TODO: componentWillUnmount
     this.loadImage()
+    
+  }
+  componentWillUnmount(){
+    this.isMount = false;
   }
 
   loadImage() {
     var storage = firebase.storage()
     var storageRef = storage.ref()
     var imagesRef = storageRef.child('Utbud/utbud.png')
-
-      imagesRef.getDownloadURL().then((url) => {
+    imagesRef.getDownloadURL().then((url) => {
+      if(this.isMount){
         this.setState({
           imgUrl: url
         })
+      }
+      
     }).catch(function(error) {
       console.log('errrr (Menu.js)', error);
     })
