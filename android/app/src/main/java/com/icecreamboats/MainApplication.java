@@ -7,7 +7,6 @@ import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.marianhello.react.BackgroundGeolocationPackage;
-import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -30,7 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new ReactNativeOneSignalPackage(),
-          new SplashScreenReactPackage(),
           new MapsPackage(),
           new BackgroundGeolocationPackage()
       );
