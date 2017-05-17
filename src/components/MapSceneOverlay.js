@@ -232,7 +232,7 @@ export default class Overlay extends Component {
         }>
         {
           this.state.isSendingPos ?
-
+          //TODO: change button to view on these two.
           <Button containerStyle={styles.visibleButton}>
                     <Text style={styles.activebuttonText}>Synlig</Text>
           </Button>

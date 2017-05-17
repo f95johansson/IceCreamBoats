@@ -63,13 +63,13 @@ var styles = StyleSheet.create({
     width: 100,
     overflow:'hidden',
     borderRadius:50,
-    backgroundColor: '#FFF',
+    backgroundColor: '#EEE',
     shadowColor: '#888',
     shadowOffset:{width: -5, height: 0},
     shadowOpacity: 1,
     shadowRadius: 5,
     elevation: 2,
-    top: 0
+    top: 15,
   },
 
   isSendingcontainer: {
@@ -87,7 +87,6 @@ var styles = StyleSheet.create({
   },
 
   sendingPosTimer: {
-
     height: 40,
     width: 110,
     alignSelf: 'center',
@@ -120,7 +119,6 @@ var styles = StyleSheet.create({
   },
 
   activebuttonText: {
-
   	color: '#EA591C',
     alignSelf:'center',
     fontSize: 16,
