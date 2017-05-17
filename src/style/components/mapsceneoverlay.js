@@ -60,11 +60,7 @@ var styles = StyleSheet.create({
     height:35,
     width: 100,
     borderRadius:50,
-    backgroundColor: '#FFF',
-    shadowColor: '#888',
-    shadowOffset:{width: -5, height: 0},
-    shadowOpacity: 1,
-    shadowRadius: 5,
+    backgroundColor: 'transparent',
     top: 15,
   },
 

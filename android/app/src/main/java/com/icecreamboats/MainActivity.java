@@ -3,7 +3,6 @@ package com.icecreamboats;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 
-import com.cboy.rn.splashscreen.SplashScreen;
 public class MainActivity extends ReactActivity {
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -15,7 +14,6 @@ public class MainActivity extends ReactActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this, true);  // here
         super.onCreate(savedInstanceState);
     }
 }

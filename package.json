@@ -17,10 +17,8 @@
     "react-native-communications": "^2.2.1",
     "react-native-image-pan-zoom": "^1.1.12",
     "react-native-mauron85-background-geolocation": "^0.2.0-alpha.7",
-    "react-native-maps":"0.15", 
     "react-native-onesignal": "^3.0.3",
     "react-native-simple-modal": "^5.0.0",
-    "react-native-splash-screen": "^2.0.0",
     "react-native-tabs": "^1.0.9",
     "react-native-transformable-image": "0.0.18"
   },

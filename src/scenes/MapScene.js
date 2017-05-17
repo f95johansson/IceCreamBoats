@@ -65,19 +65,20 @@ export default class MapScene extends Component {
     });
   }
 
-  onMapPress(e) {
-    var coordinate = e.nativeEvent.coordinate;
-    this.setState({
-      id: this.state.id+1,
-      markers: [
-        ...this.state.markers,
-        {
-          coordinate: coordinate,
-          key: this.state.id+1,
-        },
-      ]
-    });
-  }
+  //For further development. If you want to add pins to map
+  // onMapPress(e) {
+  //   var coordinate = e.nativeEvent.coordinate;
+  //   this.setState({
+  //     id: this.state.id+1,
+  //     markers: [
+  //       ...this.state.markers,
+  //       {
+  //         coordinate: coordinate,
+  //         key: this.state.id+1,
+  //       },
+  //     ]
+  //   });
+  // }
 
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats);
@@ -125,14 +126,12 @@ export default class MapScene extends Component {
 
 
   render() {
-    //TODO: kunna ta bort en popup genom att klicka på den. Dock så funkar inte onPress för tillfället
     return (
       <View style={styles.MapScene} >
         <MapView
           provider={this.props.provider}
           style={styles.map}
-          initialRegion={this.state.region}
-          onPress={(e) => this.onMapPress(e)}>
+          initialRegion={this.state.region}>
             {this.state.markers.map(marker => (
             <View key={marker.key}>
               <MapView.Marker
@@ -141,7 +140,6 @@ export default class MapScene extends Component {
                 title={this.state.boatInfo.name}
                 description={'Tele: '+this.state.boatInfo.phone}
                 />
-              <MapView.Callout tooltip={true} onPress={() => console.log('CLICKED!', 123)}/>
             </View>
             ))}
             {Object.keys(this.state.boats).map((boatName, index) => (
