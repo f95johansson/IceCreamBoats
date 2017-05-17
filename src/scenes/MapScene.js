@@ -21,6 +21,7 @@ import gstyles from '../style/styles';
 
 
 const boatImage = require('../../assets/map/boat2.png');
+const mapPosition = require('../../assets/map/MapPosition.png');
 
 export default class MapScene extends Component {
 
@@ -36,6 +37,10 @@ export default class MapScene extends Component {
         phone: ''
       },
       boats: {},
+      LatLng: {
+        latitude: 57.886567,
+        longitude: 11.585426,
+      },
       region: {
         latitude: 57.886567,
         longitude: 11.585426,
@@ -53,6 +58,10 @@ export default class MapScene extends Component {
     location.getUserLocation().then((position) => {
         let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude };
         this.setState({
+          LatLng: {
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
+          },
           region: {
             latitude: locationData.latitude,
             longitude: locationData.longitude,
@@ -126,12 +135,14 @@ export default class MapScene extends Component {
 
 
   render() {
+    console.log('this.state.LatLng', this.state.LatLng);
     return (
       <View style={styles.MapScene} >
         <MapView
           provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}>
+
             {this.state.markers.map(marker => (
             <View key={marker.key}>
               <MapView.Marker
@@ -142,15 +153,24 @@ export default class MapScene extends Component {
                 />
             </View>
             ))}
+
             {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.Marker.Animated
-                key={index}
-                coordinate={this.state.boats[boatName]}
-                title={boatName}
-                description={'Tele: '+this.state.boats[boatName].phone}
-                image={boatImage}
+                  <MapView.Marker.Animated
+                    key={index}
+                    coordinate={this.state.boats[boatName]}
+                    title={boatName}
+                    description={'Tele: '+this.state.boats[boatName].phone}
+                    image={boatImage}
+                    />
+                ))}
+
+              <MapView.Marker
+                title={'Din nuvarande position'}
+                key={'key'}
+                coordinate={this.state.LatLng}
+                image={mapPosition}
                 />
-            ))}
+
         </MapView>
 
         <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>
