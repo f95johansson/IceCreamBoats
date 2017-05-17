@@ -61,11 +61,7 @@ var styles = StyleSheet.create({
     width: 100,
     borderRadius:50,
     backgroundColor: '#EEE',
-    shadowColor: '#888',
-    shadowOffset:{width: -5, height: 0},
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    top: 15,
+    top: 0,
   },
 
   isSendingcontainer: {
