@@ -87,16 +87,13 @@ export default class About extends Component {
           error => {console.log('About load image error: ', error)})
         });
     }
-  
+
   render() {
     return (
       <ScrollView>
          <Image source={require('../../assets/info/InfoImage.jpg')} style={{flex: 1, width: null, height: 180}} resizeMode="stretch" />
           <Text style={styles.titleText}>
             {this.state.AboutTitle}
-          </Text>
-          <Text style={styles.miniTitle}>
-            {this.state.MiniTitle}
           </Text>
           <Text style={styles.baseText}>
             {this.state.aboutText}
@@ -113,7 +110,7 @@ export default class About extends Component {
                       phone= {this.state.boats[name].phone}
               />)}
           </View>
-          <Text style={styles.titleText}>
+          <Text style={styles.titleTextNotBold}>
             {this.state.coWorkers}
           </Text>
 

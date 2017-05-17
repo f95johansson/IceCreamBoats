@@ -7,11 +7,11 @@ var styles = StyleSheet.create({
   view: {
     margin: 22,
   },
-
   textInput: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1
+    borderWidth: 1,
+
   },
 });
 
