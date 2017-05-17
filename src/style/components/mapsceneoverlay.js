@@ -43,16 +43,14 @@ var styles = StyleSheet.create({
     height:35,
     alignSelf: 'center',
     width: 210,
-    overflow:'hidden',
     borderRadius:50,
     backgroundColor: '#EA591C',
     shadowColor: '#888',
-    shadowOffset:{width: 5, height: 5},
+    shadowOffset:{width: 0, height: 2},
     shadowOpacity: 1,
-    shadowRadius: 5,
+    shadowRadius: 2,
     elevation: 2,
     top: 20,
-
   },
 
   visibleButton: {
@@ -61,14 +59,12 @@ var styles = StyleSheet.create({
     padding: 7,
     height:35,
     width: 100,
-    overflow:'hidden',
     borderRadius:50,
     backgroundColor: '#EEE',
     shadowColor: '#888',
     shadowOffset:{width: -5, height: 0},
     shadowOpacity: 1,
     shadowRadius: 5,
-    elevation: 2,
     top: 15,
   },
 
@@ -80,10 +76,8 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff',
     top: 20,
     flexDirection: 'column',
-    //justifyContent: 'flex-end',
     alignItems: 'flex-start',
     paddingVertical: 0
-
   },
 
   sendingPosTimer: {
@@ -130,17 +124,21 @@ var styles = StyleSheet.create({
     height:30,
     width: 30,
     elevation: 5,
-    overflow:'hidden',
     backgroundColor: '#FEFEFE',
     padding: 2,
     right: 25,
     top: 82.5,
     position: 'absolute',
+    shadowColor: '#888',
+    shadowOffset:{width: 0, height: 2},
+    shadowOpacity: 1,
+    shadowRadius: 2,
   },
 
   questionmarkButton: {
   	fontSize: 19,
     color: '#777777',
+    backgroundColor: 'transparent'
   },
 });
 

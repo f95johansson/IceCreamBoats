@@ -9,10 +9,10 @@ import {
 import Communications from 'react-native-communications';
 
 export default function Aboat(props){
+  //Alfred removed boat icon
 	return(
 		<View style={{padding: 20}}>
 	        <View style={{flexWrap:'wrap', flexDirection:'row'}}>
-	            <Image source={require('../../assets/info/boat.png')} style={{height: 13, width: 30, top: 5, marginRight: 10}}/>
 	            <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt {props.index}</Text>
 	            <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>{props.out? 'Ute nu!': 'I hamn'}</Text>
 	        </View>
