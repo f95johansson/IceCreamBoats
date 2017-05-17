@@ -86,7 +86,6 @@ export default class Menu extends Component {
   }
 
   render() {
-    console.log('editBoateditBoat', this.state.editBoat)
     return (
       <View style={{padding: 25}}>
         <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
