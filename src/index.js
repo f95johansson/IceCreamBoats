@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import SplashScreen from 'react-native-splash-screen';
 import {
   StyleSheet,
   Text,
@@ -65,7 +64,6 @@ export default class IceCreamBoats extends Component {
   }
 
   componentDidMount() {
-    SplashScreen.hide();
   }
 
   render() {
