@@ -94,7 +94,6 @@ export default class Menu extends Component {
   }
 
   render() {
-    console.log('editBoateditBoat', this.state.editBoat)
     return (
       <ScrollView>
       <View style={{padding: 25}}>

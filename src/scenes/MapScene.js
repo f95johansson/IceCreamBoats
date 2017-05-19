@@ -21,6 +21,7 @@ import gstyles from '../style/styles';
 
 
 const boatImage = require('../../assets/map/boat2.png');
+const mapPosition = require('../../assets/map/MapPosition.png');
 
 export default class MapScene extends Component {
 
@@ -36,6 +37,11 @@ export default class MapScene extends Component {
         phone: ''
       },
       boats: {},
+      users: {},
+      LatLng: {
+        latitude: 57.886567,
+        longitude: 11.585426,
+      },
       region: {
         latitude: 57.886567,
         longitude: 11.585426,
@@ -46,22 +52,27 @@ export default class MapScene extends Component {
       id: 0
     };
     this.updateBoats = this.updateBoats.bind(this);
+    this.updateUsers = this.updateUsers.bind(this);
     this.onInfoModalChange = this.onInfoModalChange.bind(this);
   }
 
   getUserLocation() {
     location.getUserLocation().then((position) => {
-        let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-        this.setState({
-          region: {
-            latitude: locationData.latitude,
-            longitude: locationData.longitude,
-            latitudeDelta: 0.0500,
-            longitudeDelta: 0.0500
-          }
-        });
+      let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+      this.setState({
+        LatLng: {
+          latitude: locationData.latitude,
+          longitude: locationData.longitude,
+        },
+        region: {
+          latitude: locationData.latitude,
+          longitude: locationData.longitude,
+          latitudeDelta: 0.0500,
+          longitudeDelta: 0.0500
+        }
+      });
     }).catch((error) => {
-        console.log('ERRRR', error);
+      console.log('ERRRR', error);
     });
   }
 
@@ -82,17 +93,19 @@ export default class MapScene extends Component {
 
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats);
+    firebase.database().ref('users').on('value', this.updateUsers);
 
     //Identify user
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ userEmail: user.email }, () => this.getBoatInfo());
+        this.setState({ userEmail: user.email, admin: user ? true : false }, () => this.getBoatInfo());
       }
-    });
+    })
   }
 
   componentWillUnmount() {
-   firebase.database().ref('boats').off('value', this.updateBoats);
+    firebase.database().ref('boats').off('value', this.updateBoats);
+    firebase.database().ref('users').off('value', this.updateBoats);
   }
 
   updateBoats(snapshot) {
@@ -104,6 +117,15 @@ export default class MapScene extends Component {
     }
   }
 
+  updateUsers(snapshot) {
+    var users = snapshot.exportVal();
+    if (users === null) {
+      this.setState({users: {}})
+    } else {
+      this.setState({users})
+    }
+  }
+
   getBoatInfo() {
     let userEmail = this.state.userEmail;
     ref = firebase.database().ref('boats');
@@ -111,37 +133,39 @@ export default class MapScene extends Component {
     ref.once('value', (snapshot) => {
       snapshot.forEach( (childSnapshot) => {
         if (childSnapshot.val().owner==userEmail) {
-            this.setState({
-              boatInfo: {
-                name: childSnapshot.val().name,
-                phone: childSnapshot.val().phone }
+          this.setState({
+            boatInfo: {
+              name: childSnapshot.val().name,
+              phone: childSnapshot.val().phone }
             });
-        }
+          }
+        });
       });
-    });
-  }
-  onInfoModalChange(openModal) {
-    this.setState({openModal: openModal});
-  }
+    }
 
+    onInfoModalChange(openModal) {
+      this.setState({openModal: openModal});
+    }
 
-  render() {
-    return (
-      <View style={styles.MapScene} >
-        <MapView
-          provider={this.props.provider}
-          style={styles.map}
-          initialRegion={this.state.region}>
+    render() {
+      return (
+        <View style={styles.MapScene} >
+          <MapView
+            provider={this.props.provider}
+            style={styles.map}
+            initialRegion={this.state.region}>
+
             {this.state.markers.map(marker => (
-            <View key={marker.key}>
-              <MapView.Marker
-                draggable
-                coordinate={marker.coordinate}
-                title={this.state.boatInfo.name}
-                description={'Tele: '+this.state.boatInfo.phone}
-                />
-            </View>
+              <View key={marker.key}>
+                <MapView.Marker
+                  draggable
+                  coordinate={marker.coordinate}
+                  title={this.state.boatInfo.name}
+                  description={'Tele: '+this.state.boatInfo.phone}
+                  />
+              </View>
             ))}
+
             {Object.keys(this.state.boats).map((boatName, index) => (
               <MapView.Marker.Animated
                 key={index}
@@ -151,15 +175,33 @@ export default class MapScene extends Component {
                 image={boatImage}
                 />
             ))}
-        </MapView>
 
-        <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>
+            {/*If admin, show all users*/}
+            {this.state.admin ? Object.keys(this.state.users).map((user, index) => (
+              <MapView.Marker.Animated
+                key={index}
+                coordinate={this.state.users[user]}
+                image={mapPosition}
+                />
+            )):[]}
 
-        <InfoModal
-          offset={this.state.offset}
-          openModal={this.state.openModal}
-          onInfoModalChange={this.onInfoModalChange}/>
-      </View>
-    );
+            {/*If not admin, show own position*/}
+            {this.state.admin? [] : <MapView.Marker
+              title={'Din nuvarande position'}
+              key={'key'}
+              coordinate={this.state.LatLng}
+              image={mapPosition}
+              />}
+
+          </MapView>
+
+          <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>
+
+          <InfoModal
+            offset={this.state.offset}
+            openModal={this.state.openModal}
+            onInfoModalChange={this.onInfoModalChange}/>
+        </View>
+      );
+    }
   }
-}
