@@ -22,9 +22,15 @@ import {getUserId} from '../utils/userId';
 
 import {postToArea,postNotification} from '../utils/notifications';
 
+
+const visibleTimeInHours = 4;
+const visibleTimeInSeconds = visibleTimeInHours*60*60;
+const visibleTimeInMilliseconds = visibleTimeInSeconds*1000;
+
+
 export default class Overlay extends Component {
 
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.timer = 0;
     this.state = {id: '', appstate: AppState.currentState, openModal: false,
@@ -37,15 +43,22 @@ export default class Overlay extends Component {
     this.startTimer = this.startTimer.bind(this);
     this.tickTimer = this.tickTimer.bind(this);
 
-  }
+  }*/
   componentWillMount() {
+    this.timer = null;
+    this.state = {id: '', appstate: AppState.currentState, openModal: false,
+      isDown: '180deg', isSendingPos: false};
+    this.setSecondsLeftOnTimer(visibleTimeInSeconds);
 
+    this.sendPosition = this.sendPosition.bind(this);
+    this.quitSending = this.quitSending.bind(this);
+    this.onSlideFinished = this.onSlideFinished.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.tickTimer = this.tickTimer.bind(this);
     clearInterval(this.timer);
-    this.timer = 0;
 
     getUserId((userID) => {
 
-      console.log(userID);
       location.getUserTimeStamp(userID).then((timestamp) => {
         var userid = userID;
         var time = new Date().getTime();
@@ -53,36 +66,27 @@ export default class Overlay extends Component {
 
         var timediff = time-timestamp;
 
-        var timeRemaining = Math.floor(14399 - ((timediff)/1000));
-        console.log(timeRemaining);
+        var timeRemaining = Math.floor(visibleTimeInSeconds - ((timediff)/1000));
         //TODO: make it easier to set the time
-        if ((timediff) > (14399000)) {
+        if ((timediff) > (visibleTimeInMilliseconds)) {
           this.setState({id: userid, appstate: AppState.currentState,
-            openModal: false, isDown: '180deg', isSendingPos: false, hours: 3,
-             minutes: 59, seconds: 59,
-             timeleft: 14399});
-             console.log("if statement in usertimestampfunc");
+            openModal: false, isDown: '180deg', isSendingPos: false, timeleft: visibleTimeInSeconds});
 
         }
-        else if ((timediff) < (14399000)) {
+        else if ((timediff) < (visibleTimeInMilliseconds)) {
 
-          console.log("if else 1 statement in usertimestampfunc");
 
           this.setState({appstate: AppState.currentState, openModal: false,
             isDown: '180deg', isSendingPos: true, timeleft: timeRemaining});
 
-            console.log("will mount");
             this.startTimer();
         }
         else {
-          console.log("else statement in usertimestampfunc");
           this.setState({id: userid, appstate: AppState.currentState,
-            openModal: false, isDown: '180deg', isSendingPos: false, hours: 3,
-             minutes: 59, seconds: 59, timeleft: 14399 })
+            openModal: false, isDown: '180deg', isSendingPos: false, timeleft: visibleTimeInSeconds })
         }
       }).catch((error) => {
-        console.log("tyvarr error");
-        alert(JSON.stringify(error));
+        console.log("Error on getting userID for timer: ", error);
       });
     });
 
@@ -98,40 +102,29 @@ export default class Overlay extends Component {
 
   _handleAppStateChange = (nextAppState) => {
     if (this.state.appstate.match(/inactive|background/) && nextAppState === 'active') {
-      console.log('App has come to the foreground!');
-      console.log(this.state.isSendingPos);
 
       clearInterval(this.timer);
-      this.timer = 0;
+      this.timer = null;
+
       getUserId((userID) =>  {
         location.getUserTimeStamp(userID).then((timestamp) => {
           var time = new Date().getTime();
-
           var timeDiff = (time - timestamp);
-          var timeRemaining = Math.floor(14399 - ((timeDiff)/1000));
-          console.log("before timediff"+ timeDiff);
+          var timeRemaining = Math.floor(visibleTimeInSeconds - ((timeDiff)/1000));
           //TODO: make it easier to set the time
-          if ((timeDiff) > (14399000)) {
-            console.log("foreground if");
+          if ((timeDiff) > (visibleTimeInMilliseconds)) {
             location.deleteUserLocation(userID);
-
-            this.setState({isSendingPos: false, timeleft: 14399});
+            this.setState({isSendingPos: false, timeleft: visibleTimeInSeconds});
 
           }
-          else if ((timeDiff) < (14399000)) {
-            console.log("foreground else if");
+          else if ((timeDiff) < (visibleTimeInMilliseconds)) {
             this.setState({isSendingPos: true, timeleft: timeRemaining });
             this.startTimer();
           }
           else {
-
-            console.log("foreground else");
-            this.setState({isSendingPos: false, hours: 3,
-             minutes: 59, seconds: 59,
-             timeleft: 14399 });
+            this.setState({isSendingPos: false, timeleft: visibleTimeInSeconds });
           }
         }).catch((error) => {
-          console.log("errrrorrrr");
           alert(JSON.stringify(error));
         });
       });
@@ -144,6 +137,7 @@ export default class Overlay extends Component {
 
   componentWillUnmount() {
     OneSignal.removeEventListener('ids', this.onIds);
+    clearInterval(this.timer)
   }
 
   sendPosition() {
@@ -152,9 +146,7 @@ export default class Overlay extends Component {
     this.setState({isSendingPos: true});
 
     getUserId(function(userID) {
-      console.log(userID + "send position");
       location.getUserLocation().then((position) => {
-        console.log("position: ",position);
         location.uploadUserLocation(userID, position.coords.latitude, position.coords.longitude, time);
       }).catch((error) => {
 
@@ -174,11 +166,9 @@ export default class Overlay extends Component {
       getUserId((userID) => {
         location.deleteUserLocation(userID);
       });
-        this.setState({isSendingPos: false, hours: 3, minutes: 59, seconds: 59,
-          timeleft: 14399});
-          clearInterval(this.timer);
-          this.timer = 0;
-
+      this.setState({isSendingPos: false, timeleft: visibleTimeInSeconds});
+      clearInterval(this.timer);
+      this.timer = null;
   }
 
   onSlideFinished(isDown) {
@@ -187,27 +177,36 @@ export default class Overlay extends Component {
   }
 
   startTimer() {
-    if (this.timer == 0) {
+    if (this.timer === null) {
       this.timer = setInterval(this.tickTimer, 1000);
     }
   }
 
   tickTimer() {
     let timeLeft = this.state.timeleft - 1;
-    let hourdivisor = 60*60;
-
-    let hoursleft = Math.floor(timeLeft / (hourdivisor));
-    let minutesleft = Math.floor((timeLeft / 60)-(hoursleft*60));
-    let secondsleft = Math.floor(timeLeft - (minutesleft*60)- (hoursleft*hourdivisor));
-
-    this.setState({hours: hoursleft, minutes: minutesleft, seconds: secondsleft,
-    timeleft: timeLeft });
+    this.setSecondsLeftOnTimer(timeLeft);
 
     if (timeLeft == 0) {
       clearInterval(this.timer);
       this.quitSending();
     }
 
+  }
+
+  setSecondsLeftOnTimer(seconds) {
+    this.setState({timeleft: seconds});
+  }
+
+  formatSeconds(seconds) {
+    console.log(seconds)
+
+    let hourdivisor = 60*60;
+
+    let hoursleft = Math.floor(seconds / (hourdivisor));
+    let minutesleft = Math.floor((seconds / 60)-(hoursleft*60));
+    let secondsleft = Math.floor(seconds - (minutesleft*60)- (hoursleft*hourdivisor));
+
+    return stringPad(hoursleft, 2, '0')+':'+stringPad(minutesleft, 2, '0')+':'+stringPad(secondsleft, 2, '0');
   }
 
   render() {
@@ -248,8 +247,7 @@ export default class Overlay extends Component {
           { this.state.isSendingPos ?
 
             <View style={styles.isSendingcontainer}>
-              <Text style={styles.sendingPosTimer}>0{this.state.hours}:{
-                  this.state.minutes}:{this.state.seconds}</Text>
+              <Text style={styles.sendingPosTimer}>{this.formatSeconds(this.state.timeleft)} </Text>
               <Text onPress={this.quitSending} style={styles.sendingQuitText}>Avbryt</Text>
             </View>
             :
@@ -266,4 +264,12 @@ export default class Overlay extends Component {
         </SlideDownView>
     );
   }
+}
+
+
+function stringPad(number, width, paddingChar) {
+  number = number + '';
+  number = number || '0';
+  paddingChar = paddingChar + '';
+  return number.length >= width ? number : new Array(width - number.length + 1).join(paddingChar) + number;
 }
