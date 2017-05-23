@@ -9,7 +9,7 @@ import gstyles from '../style/styles'
 
   componentWillMount() {
     this.closeModal = this.closeModal.bind(this)
-
+    this.isMount = true;
     this.state = {
       modalVisible: false,
       name: '',
@@ -27,21 +27,23 @@ import gstyles from '../style/styles'
 
   loadFirebaseData(ownerName) {
     firebase.database().ref('boats').once('value', (snapshot) => {
-      let snapValue = snapshot.exportVal()
-      
-      let name = snapValue[ownerName].name
-      let phone = snapValue[ownerName].phone
-      let region = snapValue[ownerName].region
-      let fromTo = snapValue[ownerName].fromTo
+      if (this.isMount){
+        let snapValue = snapshot.exportVal()
+        
+        let name = snapValue[ownerName].name
+        let phone = snapValue[ownerName].phone
+        let region = snapValue[ownerName].region
+        let fromTo = snapValue[ownerName].fromTo
 
-      this.setState({
-        name,
-        phone,
-        region,
-        fromTo
-      })
-      this.setModalVisible(true)
-      this.props.clearState()
+        this.setState({
+          name,
+          phone,
+          region,
+          fromTo
+        })
+        this.setModalVisible(true)
+        this.props.clearState()
+      } 
     })
   }
 
@@ -63,14 +65,17 @@ import gstyles from '../style/styles'
       longitude,
       fromTo
     }).then(() => {
-      this.setState({});
+      if(this.isMount){
+        this.setState({});
       this.setModalVisible(false)
+      }
     }, (error) => {
       console.log('error', error);
     })
   }
 
   closeModal() {
+    this.isMount = false;
     this.setState({});
     this.setModalVisible(false);
   }

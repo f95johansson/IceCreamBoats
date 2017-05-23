@@ -52,15 +52,15 @@ export default class BackGeo {
     BackgroundGeolocation.on('error', (error) => {
       alert('[ERROR] BackgroundGeolocation error:'+JSON.stringify(error));
     });
-
-    BackgroundGeolocation.start(() => {
-      alert('Båt vald. Position updateras nu i bakgrunden');
-    });
   }
 
   start(name) {
     this.name = name;
-    BackgroundGeolocation.start();
+    console.log('----1')
+    BackgroundGeolocation.start(() => {
+      alert('Båt vald. Position updateras nu i bakgrunden');
+    });
+    console.log('----2')
   }
 
   stop(name) {

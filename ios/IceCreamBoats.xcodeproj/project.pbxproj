@@ -1163,6 +1163,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.freshcoast.icecreamboats;
 				PRODUCT_NAME = IceCreamBoats;
+				PROVISIONING_PROFILE = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1183,6 +1184,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.freshcoast.icecreamboats;
 				PRODUCT_NAME = IceCreamBoats;
+				PROVISIONING_PROFILE = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
