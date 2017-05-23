@@ -69,7 +69,7 @@ export default class BackGeo {
   }
 
   upload(location) {
-    //postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
+    postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
     if (this.name !== null) {
       firebase.database().ref('boats/' + this.name).update({
         latitude: location.latitude,
