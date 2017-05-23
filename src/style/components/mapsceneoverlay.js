@@ -60,8 +60,8 @@ var styles = StyleSheet.create({
     height:35,
     width: 100,
     borderRadius:50,
-    backgroundColor: '#EEE',
-    top: 0,
+    backgroundColor: 'transparent',
+    top: 15,
   },
 
   isSendingcontainer: {

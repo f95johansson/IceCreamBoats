@@ -16,12 +16,12 @@ import styles from '../style/components/boatelement'
 export default class BoatElements extends Component {
 
   componentWillMount() {
+    this.isMounted = true;
     this.state = {
       boats: {},
       aboutText: '',
       userEmail: ''
     }
-
     this.updateBoats = this.updateBoats.bind(this)
     this.identifyUser()
     firebase.database().ref('boats').on('value', this.updateBoats)
@@ -37,6 +37,7 @@ export default class BoatElements extends Component {
 
   componentWillUnmount() {
     firebase.database().ref('boats').off('value', this.updateBoats);
+    this.isMounted = false;
   }
 
   identifyUser(){

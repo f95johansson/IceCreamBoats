@@ -13,12 +13,14 @@ import {
   Button,
   TextInput,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } from 'react-native';
 
 export default class Menu extends Component {
 
   componentWillMount() {
+    this.isMount = true;
     this.state = {
       showTextInput: false,
       inputText: '',
@@ -31,12 +33,18 @@ export default class Menu extends Component {
     this.loadAboutText()
   }
 
+  componentWillUnmount(){
+    this.isMount = false;
+  }
+
   loadAboutText() {
     firebase.database().ref('about').on('value',
     (snapshot) => {
-      this.setState({
-        aboutText: snapshot.exportVal().about
-      })
+      if(this.isMount){
+        this.setState({
+          aboutText: snapshot.exportVal().about
+        })
+      }
     })
   }
 
@@ -46,20 +54,20 @@ export default class Menu extends Component {
 
   renderAbout() {
     return (
-            <View style={{paddingTop: 30}}>
-              <Text style={{textAlign: 'center', paddingBottom: 10}}>Här kan du ändra "Om oss"</Text>
-              <TextInput
-                multiline={true}
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                onChangeText={(aboutText) => this.setState({aboutText})}
-                value={this.state.aboutText}
-                />
-              <Button
-                onPress={ this.uploadAbout.bind(this) }
-                title="Ladda upp text"
-                color="#e41e13"/>
-            </View>
-          )
+      <View style={{paddingTop: 30}}>
+        <Text style={{textAlign: 'center', paddingBottom: 10}}>Här kan du ändra "Om oss"</Text>
+        <TextInput
+          multiline={true}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(aboutText) => this.setState({aboutText})}
+          value={this.state.aboutText}
+          />
+        <Button
+          onPress={ this.uploadAbout.bind(this) }
+          title="Ladda upp text"
+          color="#e41e13"/>
+      </View>
+    )
   }
 
   uploadAbout() {
@@ -86,8 +94,8 @@ export default class Menu extends Component {
   }
 
   render() {
-    console.log('editBoateditBoat', this.state.editBoat)
     return (
+      <ScrollView>
       <View style={{padding: 25}}>
         <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
 
@@ -104,8 +112,8 @@ export default class Menu extends Component {
             <AddPositionModal getBoat={this.state.name}/>
           </View>
         :[]}
-
       </View>
+      </ScrollView>
     )
   }
 }
