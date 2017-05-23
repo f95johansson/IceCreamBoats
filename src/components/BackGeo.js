@@ -54,7 +54,7 @@ export default class BackGeo {
     });
 
     BackgroundGeolocation.start(() => {
-      alert('[DEBUG] BackgroundGeolocation started successfully');
+      alert('Båt vald. Position updateras nu i bakgrunden');
     });
   }
 
