@@ -5,7 +5,7 @@ import {
   Text
 } from 'react-native';
 import Modal from 'react-native-simple-modal';
-import styles from '../style/components/infomodal'
+import styles from '../style/components/infomodal';
 
 export default function InfoModal(props) {
   return (

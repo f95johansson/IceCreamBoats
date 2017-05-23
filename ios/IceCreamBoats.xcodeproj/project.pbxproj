@@ -40,7 +40,7 @@
 		94D4383C419C40B992BE29B3 /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FEF9CC61A04705AD1EE645 /* libRCTOneSignal.a */; };
 		BBB85E0B1EC5EBC4001C7D71 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB85E0A1EC5EBBB001C7D71 /* libRCTBackgroundGeolocation.a */; };
 		BBB85E0D1EC5EDBA001C7D71 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB85E0C1EC5EDBA001C7D71 /* libsqlite3.tbd */; };
-		C5B32240CF664FE584741AE7 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9339E7B139345BBB870F8DD /* libAirMaps.a */; };
+		DDC3207E1ED3211500FB513A /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC3207D1ED320FF00FB513A /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,13 +233,6 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		BBB85DE81EC5EADA001C7D71 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E1839A6EC25345CFA62A437D /* AirMaps.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
-			remoteInfo = AirMaps;
-		};
 		BBB85E091EC5EBBB001C7D71 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BBB85E051EC5EBBB001C7D71 /* RCTBackgroundGeolocation.xcodeproj */;
@@ -260,6 +253,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
+		};
+		DDC3207C1ED320FF00FB513A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDC320781ED320FF00FB513A /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -294,9 +294,8 @@
 		BBB85E051EC5EBBB001C7D71 /* RCTBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		BBB85E0C1EC5EDBA001C7D71 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C10A5B218BE7497B84724868 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
-		C9339E7B139345BBB870F8DD /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		D4FEF9CC61A04705AD1EE645 /* libRCTOneSignal.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOneSignal.a; sourceTree = "<group>"; };
-		E1839A6EC25345CFA62A437D /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		DDC320781ED320FF00FB513A /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,7 +324,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				C5B32240CF664FE584741AE7 /* libAirMaps.a in Frameworks */,
+				DDC3207E1ED3211500FB513A /* libAirMaps.a in Frameworks */,
 				94D4383C419C40B992BE29B3 /* libRCTOneSignal.a in Frameworks */,
 				0A2D1DFDEC7B41C09BD7F8D9 /* libSplashScreen.a in Frameworks */,
 			);
@@ -483,6 +482,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DDC320781ED320FF00FB513A /* AirMaps.xcodeproj */,
 				BBB85E051EC5EBBB001C7D71 /* RCTBackgroundGeolocation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -495,7 +495,6 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				E1839A6EC25345CFA62A437D /* AirMaps.xcodeproj */,
 				4ED04CB11661482EA03F52CD /* RCTOneSignal.xcodeproj */,
 				C10A5B218BE7497B84724868 /* SplashScreen.xcodeproj */,
 			);
@@ -544,14 +543,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BBB85DE51EC5EADA001C7D71 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BBB85DE91EC5EADA001C7D71 /* libAirMaps.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		BBB85E061EC5EBBB001C7D71 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,6 +563,14 @@
 			isa = PBXGroup;
 			children = (
 				BBE87FA01EC5DF7D0083DE0D /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDC320791ED320FF00FB513A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDC3207D1ED320FF00FB513A /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -658,14 +657,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 610;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = "Fresh Coast";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = JK76749Y4G;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = P5HQ72QCYM;
+						DevelopmentTeam = JK76749Y4G;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -691,8 +691,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BBB85DE51EC5EADA001C7D71 /* Products */;
-					ProjectRef = E1839A6EC25345CFA62A437D /* AirMaps.xcodeproj */;
+					ProductGroup = DDC320791ED320FF00FB513A /* Products */;
+					ProjectRef = DDC320781ED320FF00FB513A /* AirMaps.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -937,13 +937,6 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BBB85DE91EC5EADA001C7D71 /* libAirMaps.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAirMaps.a;
-			remoteRef = BBB85DE81EC5EADA001C7D71 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		BBB85E0A1EC5EBBB001C7D71 /* libRCTBackgroundGeolocation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -963,6 +956,13 @@
 			fileType = archive.ar;
 			path = libSplashScreen.a;
 			remoteRef = BBE87F9F1EC5DF7D0083DE0D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DDC3207D1ED320FF00FB513A /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = DDC3207C1ED320FF00FB513A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1099,6 +1099,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = JK76749Y4G;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1126,6 +1127,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = JK76749Y4G;
 				INFOPLIST_FILE = IceCreamBoatsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1150,14 +1152,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = P5HQ72QCYM;
+				DEVELOPMENT_TEAM = JK76749Y4G;
 				INFOPLIST_FILE = IceCreamBoats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = se.freshcoast.icecreamboats;
 				PRODUCT_NAME = IceCreamBoats;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1168,14 +1172,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P5HQ72QCYM;
+				DEVELOPMENT_TEAM = JK76749Y4G;
 				INFOPLIST_FILE = IceCreamBoats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = se.freshcoast.icecreamboats;
 				PRODUCT_NAME = IceCreamBoats;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
