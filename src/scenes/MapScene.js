@@ -27,7 +27,6 @@ export default class MapScene extends Component {
 
   constructor(props) {
     super(props);
-    this.getUserLocation();
 
     this.state = {
       openModal: false,
@@ -51,6 +50,8 @@ export default class MapScene extends Component {
       markers: [],
       id: 0
     };
+
+    this.getUserLocation();
     this.updateBoats = this.updateBoats.bind(this);
     this.updateUsers = this.updateUsers.bind(this);
     this.onInfoModalChange = this.onInfoModalChange.bind(this);
@@ -94,13 +95,14 @@ export default class MapScene extends Component {
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats);
     firebase.database().ref('users').on('value', this.updateUsers);
+    this.getUserLocation();
 
     //Identify user
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ userEmail: user.email, admin: user ? true : false }, () => this.getBoatInfo());
       }
-    })
+    });
   }
 
   componentWillUnmount() {
@@ -116,13 +118,12 @@ export default class MapScene extends Component {
       this.setState({boats: boats});
     }
   }
-
   updateUsers(snapshot) {
     var users = snapshot.exportVal();
     if (users === null) {
-      this.setState({users: {}})
+      this.setState({users: {}});
     } else {
-      this.setState({users})
+      this.setState({users});
     }
   }
 
@@ -153,7 +154,7 @@ export default class MapScene extends Component {
           <MapView
             provider={this.props.provider}
             style={styles.map}
-            initialRegion={this.state.region}>
+            region={this.state.region}>
 
             {this.state.markers.map(marker => (
               <View key={marker.key}>
@@ -171,8 +172,7 @@ export default class MapScene extends Component {
                 key={index}
                 coordinate={this.state.boats[boatName]}
                 title={boatName}
-                description={'Tele: '+this.state.boats[boatName].phone}
-                >
+                description={'Tele: '+this.state.boats[boatName].phone}>
                   <Image source={boatImage} style={styles.boatImage}/>
                 </MapView.Marker>
             ))}
@@ -181,18 +181,16 @@ export default class MapScene extends Component {
             {this.state.admin ? Object.keys(this.state.users).map((user, index) => (
               <MapView.Marker
                 key={index}
-                coordinate={this.state.users[user]}
-                >
+                coordinate={this.state.users[user]}>
                   <Image source={mapPosition} style={styles.meImage}/>
                 </MapView.Marker>
             )):[]}
 
             {/*If not admin, show own position*/}
             {this.state.admin? [] : <MapView.Marker
-              title={'Din nuvarande position'}
-              key={'key'}
-              coordinate={this.state.LatLng}
-              >
+              title="Din nuvarande position"
+              key="user-position"
+              coordinate={this.state.LatLng}>
                 <Image source={mapPosition} style={styles.meImage}/>
             </MapView.Marker>
             }
