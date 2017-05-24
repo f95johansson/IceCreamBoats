@@ -20,7 +20,7 @@ export default class Menu extends Component {
       imgUrl: ''
     }
     this.loadImage()
-    
+
   }
   componentWillUnmount(){
     this.isMount = false;
@@ -31,12 +31,11 @@ export default class Menu extends Component {
     var storageRef = storage.ref()
     var imagesRef = storageRef.child('Utbud/utbud.png')
     imagesRef.getDownloadURL().then((url) => {
+      if (!url) { return }
       if(this.isMount){
-        this.setState({
-          imgUrl: url
-        })
+        this.setState({ imgUrl: url })
       }
-      
+
     }).catch(function(error) {
       console.log('errrr (Menu.js)', error);
     })

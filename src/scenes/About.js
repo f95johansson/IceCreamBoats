@@ -80,6 +80,7 @@ export default class About extends Component {
         Object.keys(images).forEach(key => {
           firebase.storage().ref('Partners').child(images[key]).getDownloadURL().then(
                 url => {
+                  if (!url) { return }
                   if (this.isMount && !this.state.partnerImages.includes(url)) {
                     this.setState({partnerImages: [...this.state.partnerImages, url]});
                   }
