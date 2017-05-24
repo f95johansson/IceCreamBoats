@@ -150,7 +150,7 @@ export default class Overlay extends Component {
         location.uploadUserLocation(userID, position.coords.latitude, position.coords.longitude, time);
       }).catch((error) => {
 
-        alert("hello"+JSON.stringify(error));
+        console.log('Error: ', error);
       });
     });
     this.startTimer();

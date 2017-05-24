@@ -16,7 +16,7 @@ export default class AdminLogin extends Component {
   componentWillMount() {
     this.state = {
       email: 'icecreamboats2017@gmail.com',
-      password: 'pass2017',
+      password: '',
       signedIn: false,
       message: ''
     }

@@ -79,12 +79,44 @@ export default class BoatElements extends Component {
       if (owner === undefined) {
         new BackGeo().start(name);
         this.props.setBoat(name)
-        firebase.database().ref('boats/'+name).update({
-          owner: userEmail,
-        }).then(() => {
-        }, (error) => {
-          console.log('error', error);
-        })
+
+        /* TODO Only one boat should be claimed
+        var updateOwners = {};
+        for (var boatName in this.state.boats) {
+          
+          updateOwners[boatName] = this.state.boats[boatName];
+          if (boatName === name) {
+            firebase.database().ref('boats/'+boatName)
+              .update({
+                owner: userEmail
+              })
+              .then(() => {
+              }, (error) => {
+                console.log('error', error);
+              })
+          } else {
+            firebase.database().ref('boats/'+boatName)
+              .update({
+                owner: userEmail
+              })
+              .then(() => {
+              }, (error) => {
+                console.log('error', error);
+              })
+          }
+        }
+        */
+
+        firebase.database().ref('boats/'+name)
+          .update({
+            owner: userEmail
+          })
+          .then(() => {
+          }, (error) => {
+            console.log('error', error);
+          })
+
+
       }
       //else if the boat is claimed by user
       else if(owner === userEmail) {
