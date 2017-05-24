@@ -66,9 +66,11 @@ function postToUsersInArea (message, users, longitude, latitude, radius) {
 // Loops through all the users in the firebase and filters them based on time
 // signature as well as post a notification ot them
 export function postToArea (message, longitude, latitude, radius) {
-  firebase.database().ref('users').once('value', (snapshot =>
-    postToUsersInArea (message, snapshot.exportVal(), longitude, latitude, radius)
-    )
-  )
-  
+  firebase.database().ref('users')
+    .once('value', snapshot => {
+      var users = snapshot.exportVal();
+      if (users !== null) {
+        postToUsersInArea (message, users, longitude, latitude, radius)
+      }
+    });
 }
