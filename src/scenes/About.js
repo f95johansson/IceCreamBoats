@@ -105,7 +105,7 @@ export default class About extends Component {
               <Aboat  key={index}
                       index= {index+1}
                       name=  {this.state.boats[name].name}
-                      out=   {this.state.boats[name].isOut}
+                      out=   {this.state.boats[name].owner !== undefined}
                       region={this.state.boats[name].region}
                       fromTo={this.state.boats[name].fromTo}
                       phone= {this.state.boats[name].phone}

@@ -15,8 +15,8 @@ var styles = StyleSheet.create({
   	width: 45,
   },
   meImage: {
-    height: 30,
-    width: 30
+    height: 20,
+    width: 20
   }
 });
 

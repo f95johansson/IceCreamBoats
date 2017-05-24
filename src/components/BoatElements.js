@@ -56,26 +56,9 @@ export default class BoatElements extends Component {
     this.setState({boats: snapshot.exportVal()})
   }
 
-  isOut(name) {
-    firebase.database().ref('boats').once('value', (snapshot) => {
-      let snapValue = snapshot.exportVal()
-      let isOut = snapValue[name].isOut
-      snapValue[name].isOut = !isOut
-      if(this.isMount){
-        this.setState({ snapValue })
-      }
-      firebase.database().ref('boats/' + name).update({
-        isOut: isOut ? false : true,
-      }).then(() => {
-        //this.setModalVisible(false)
-      }, (error) => {
-        console.log('error', error);
-      })
-    })
-  }
+ 
 
   claimBoat(name) {
-    this.isOut(name);
     const { userEmail } = this.state
     firebase.database().ref('boats').once('value', (snapshot) => {
       let snapValue = snapshot.exportVal()

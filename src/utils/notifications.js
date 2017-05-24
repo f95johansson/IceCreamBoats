@@ -8,12 +8,11 @@ TIME_THRESHOLD = 14400
 // message should be a string, posts a notification to a single user.
 // userId should be a oneSignal device userId
 export function postNotification (message, userId) {
-  console.log('I am in postNotification')
   try {
     contents = {
-      'en': message,
-    }
-    OneSignal.postNotification(contents, [], userId);
+      'en': message
+    };
+    OneSignal.postNotification(contents, {}, userId);
   } catch(e) {
     console.log ("ERROR, COULD NOT SEND NOTIFICATION: " + e)
   }
@@ -47,11 +46,20 @@ function inTime (userTimeSignature, allowedTimeThreshold) {
 function postToUsersInArea (message, users, longitude, latitude, radius) {
   //Filter users to check if they're within the right time and longitude 
   //latitude
-  
-  Object.keys(users).filter(u => inTime(users[u].time, TIME_THRESHOLD)).filter(u =>
-    inArea(radius,longitude,latitude, users[u].longitude, users[u].latitude)).map(u =>
-      postNotification(message,users[u].oneSignalUserId)
-    )
+
+  Object.keys(users).forEach(userId => {
+    var user = users[userId];
+    if (inTime(user.time, TIME_THRESHOLD)) {
+      if (inArea(radius, longitude, latitude, user.longitude, user.latitude)) {
+        if (user.notified === false) {
+          firebase.database().ref('users/'+userId).update({notified: true});
+          postNotification(message, userId);
+        }
+      }
+    } else {
+      firebase.database().ref('users/'+userId).remove();
+    }
+  });
 }
 
 

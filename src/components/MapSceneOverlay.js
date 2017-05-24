@@ -24,7 +24,7 @@ import {getUserId} from '../utils/userId';
 import {postToArea,postNotification} from '../utils/notifications';
 
 
-const visibleTimeInHours = 4;
+const visibleTimeInHours = 20/60/60;
 const visibleTimeInSeconds = visibleTimeInHours*60*60;
 const visibleTimeInMilliseconds = visibleTimeInSeconds*1000;
 
