@@ -100,14 +100,14 @@ export default class BoatElements extends Component {
           owner: null
         }).catch((error) => {
           console.log('error', error);
-        })
+        });
       }
-      this.loadFirebaseData()
-    })
+      this.loadFirebaseData();
+    });
   }
 
   editBoat(name) {
-    this.props.editBoat(name)
+    this.props.editBoat(name);
   }
 
   renderBoats() {
