@@ -59,7 +59,6 @@ export default class BackGeo {
     BackgroundGeolocation.start(() => {
       alert('Båt vald. Position updateras nu i bakgrunden');
     });
-    console.log(name);
   }
 
   stop(name) {

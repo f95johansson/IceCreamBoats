@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import * as location from '../utils/location'; 
+import * as location from '../utils/location';
 import {
   Text,
   View,
@@ -47,7 +47,7 @@ export default class BoatElements extends Component {
       if (user) {
         if (this.isMount){
           this.setState({ userEmail: user.email })
-        } 
+        }
       }
     })
   }
@@ -57,7 +57,7 @@ export default class BoatElements extends Component {
   }
 
   isOut(name) {
-    firebase.database().ref('boats').once('value', (snapshot) => { 
+    firebase.database().ref('boats').once('value', (snapshot) => {
       let snapValue = snapshot.exportVal()
       let isOut = snapValue[name].isOut
       snapValue[name].isOut = !isOut
@@ -77,13 +77,15 @@ export default class BoatElements extends Component {
   claimBoat(name) {
     this.isOut(name);
     const { userEmail } = this.state
-    firebase.database().ref('boats').once('value', (snapshot) => { 
+    firebase.database().ref('boats').once('value', (snapshot) => {
       let snapValue = snapshot.exportVal()
       let owner = snapValue[name].owner;
 
       //if the boat is not claimed
       if (owner === undefined) {
         new BackGeo().start(name);
+        console.log('Start1', name);
+        
         this.props.setBoat(name)
         firebase.database().ref('boats/'+name).update({
           owner: userEmail,
