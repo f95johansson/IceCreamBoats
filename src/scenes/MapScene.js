@@ -167,18 +167,19 @@ export default class MapScene extends Component {
             ))}
 
             {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.Marker.Animated
+              <MapView.Marker
                 key={index}
                 coordinate={this.state.boats[boatName]}
                 title={boatName}
                 description={'Tele: '+this.state.boats[boatName].phone}
-                image={boatImage}
-                />
+                >
+                  <Image source={boatImage} style={styles.boatImage}/>
+                </MapView.Marker>
             ))}
 
             {/*If admin, show all users*/}
             {this.state.admin ? Object.keys(this.state.users).map((user, index) => (
-              <MapView.Marker.Animated
+              <MapView.Marker
                 key={index}
                 coordinate={this.state.users[user]}
                 image={mapPosition}
