@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import * as location from '../utils/location'; 
+import * as location from '../utils/location';
 import {
   Text,
   View,
@@ -16,7 +16,7 @@ import styles from '../style/components/boatelement'
 export default class BoatElements extends Component {
 
   componentWillMount() {
-    this.isMounted = true;
+    this.isMount = true;
     this.state = {
       boats: {},
       aboutText: '',
@@ -31,19 +31,23 @@ export default class BoatElements extends Component {
   loadFirebaseData() {
     firebase.database().ref('boats').once('value', (snapshot) => {
       let snapValue = snapshot.exportVal()
-      this.setState({ snapValue })
+      if (this.isMount){
+        this.setState({ snapValue })
+      }
     })
   }
 
   componentWillUnmount() {
     firebase.database().ref('boats').off('value', this.updateBoats);
-    this.isMounted = false;
+    this.isMount = false;
   }
 
   identifyUser(){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ userEmail: user.email })
+        if (this.isMount){
+          this.setState({ userEmail: user.email })
+        }
       }
     })
   }
@@ -52,32 +56,19 @@ export default class BoatElements extends Component {
     this.setState({boats: snapshot.exportVal()})
   }
 
-  isOut(name) {
-    firebase.database().ref('boats').once('value', (snapshot) => { 
-      let snapValue = snapshot.exportVal()
-      let isOut = snapValue[name].isOut
-      snapValue[name].isOut = !isOut
-      this.setState({ snapValue })
-
-      firebase.database().ref('boats/' + name).update({
-        isOut: isOut ? false : true,
-      }).then(() => {
-        //this.setModalVisible(false)
-      }, (error) => {
-        console.log('error', error);
-      })
-    })
-  }
+ 
 
   claimBoat(name) {
     const { userEmail } = this.state
-    firebase.database().ref('boats').once('value', (snapshot) => { 
+    firebase.database().ref('boats').once('value', (snapshot) => {
       let snapValue = snapshot.exportVal()
       let owner = snapValue[name].owner;
 
       //if the boat is not claimed
       if (owner === undefined) {
         new BackGeo().start(name);
+        console.log('Start1', name);
+        
         this.props.setBoat(name)
 
         /* TODO Only one boat should be claimed
@@ -126,14 +117,14 @@ export default class BoatElements extends Component {
           owner: null
         }).catch((error) => {
           console.log('error', error);
-        })
+        });
       }
-      this.loadFirebaseData()
-    })
+      this.loadFirebaseData();
+    });
   }
 
   editBoat(name) {
-    this.props.editBoat(name)
+    this.props.editBoat(name);
   }
 
   renderBoats() {
@@ -160,14 +151,6 @@ export default class BoatElements extends Component {
           <Text key={i+1} style={styles.nameColor}>{name} </Text>
 
           <View style={styles.iconsRow}>
-            <TouchableOpacity style={styles.icons} onPress={this.isOut.bind(this, name)}>
-              <Image
-                key={i+4}
-                style={styles.icon}
-                source={checkbox}
-                />
-            </TouchableOpacity>
-
             <TouchableOpacity style={styles.icons} onPress={this.claimBoat.bind(this, name)}>
               <Image
                 key={i+6}

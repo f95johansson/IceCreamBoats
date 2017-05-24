@@ -17,13 +17,14 @@ import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
 import styles from '../style/components/mapsceneoverlay';
 import gstyles from '../style/styles';
+import {askForNotificationPermition} from '../utils/notifications';
 import {getUserId} from '../utils/userId';
 
 
 import {postToArea,postNotification} from '../utils/notifications';
 
 
-const visibleTimeInHours = 4;
+const visibleTimeInHours = 20/60/60;
 const visibleTimeInSeconds = visibleTimeInHours*60*60;
 const visibleTimeInMilliseconds = visibleTimeInSeconds*1000;
 
@@ -141,10 +142,9 @@ export default class Overlay extends Component {
   }
 
   sendPosition() {
-    // to be implemented
     var time = new Date().getTime();
     this.setState({isSendingPos: true});
-
+    askForNotificationPermition();
     getUserId(function(userID) {
       location.getUserLocation().then((position) => {
         location.uploadUserLocation(userID, position.coords.latitude, position.coords.longitude, time);

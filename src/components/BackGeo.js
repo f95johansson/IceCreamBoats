@@ -23,7 +23,7 @@ export default class BackGeo {
   setup() {
     this.name = null;
     BackgroundGeolocation.configure({
-      desiredAccuracy: 10,
+      desiredAccuracy: 100,
       stationaryRadius: 1,
       distanceFilter: 50,
       locationTimeout: 30,
@@ -52,15 +52,13 @@ export default class BackGeo {
     BackgroundGeolocation.on('error', (error) => {
       alert('[ERROR] BackgroundGeolocation error:'+JSON.stringify(error));
     });
-
-    BackgroundGeolocation.start(() => {
-      alert('Båt vald. Position updateras nu i bakgrunden');
-    });
   }
 
   start(name) {
     this.name = name;
-    BackgroundGeolocation.start();
+    BackgroundGeolocation.start(() => {
+      alert('Båt vald. Position updateras nu i bakgrunden');
+    });
   }
 
   stop(name) {

@@ -10,7 +10,11 @@ var styles = StyleSheet.create({
     margin: 30,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#888',
+    shadowOffset:{width: 0, height: 2},
+    shadowOpacity: 1,
+    shadowRadius: 2,
   },
   modalHeader:{
   	fontSize: 22, 

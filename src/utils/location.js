@@ -26,7 +26,7 @@ export function uploadUserLocation(userId, latitude, longitude,
     latitude: latitude,
     longitude: longitude,
     time: time,
-    notified: true,
+    notified: false,
     
   });
 }

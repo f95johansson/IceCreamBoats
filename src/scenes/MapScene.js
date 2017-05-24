@@ -21,7 +21,7 @@ import gstyles from '../style/styles';
 
 
 const boatImage = require('../../assets/map/boat2.png');
-const mapPosition = require('../../assets/map/MapPosition.png');
+const mapPosition = require('../../assets/map/mapposition.png');
 
 export default class MapScene extends Component {
 
@@ -167,22 +167,24 @@ export default class MapScene extends Component {
             ))}
 
             {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.Marker.Animated
+              <MapView.Marker
                 key={index}
                 coordinate={this.state.boats[boatName]}
                 title={boatName}
                 description={'Tele: '+this.state.boats[boatName].phone}
-                image={boatImage}
-                />
+                >
+                  <Image source={boatImage} style={styles.boatImage}/>
+                </MapView.Marker>
             ))}
 
             {/*If admin, show all users*/}
             {this.state.admin ? Object.keys(this.state.users).map((user, index) => (
-              <MapView.Marker.Animated
+              <MapView.Marker
                 key={index}
                 coordinate={this.state.users[user]}
-                image={mapPosition}
-                />
+                >
+                  <Image source={mapPosition} style={styles.meImage}/>
+                </MapView.Marker>
             )):[]}
 
             {/*If not admin, show own position*/}
@@ -190,9 +192,10 @@ export default class MapScene extends Component {
               title={'Din nuvarande position'}
               key={'key'}
               coordinate={this.state.LatLng}
-              image={mapPosition}
-              />}
-
+              >
+                <Image source={mapPosition} style={styles.meImage}/>
+            </MapView.Marker>
+            }
           </MapView>
 
           <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>

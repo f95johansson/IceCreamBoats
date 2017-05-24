@@ -14,6 +14,7 @@ import gstyles from '../style/styles'
 export default class AdminLogin extends Component {
 
   componentWillMount() {
+    this.isMount = true;
     this.state = {
       email: 'icecreamboats2017@gmail.com',
       password: '',
@@ -25,18 +26,22 @@ export default class AdminLogin extends Component {
       if (user) {
         this.props.isLoggedIn(true)
         // User is signed in.
-        this.setState({
-          signedIn: true,
-          message: 'Användare '+user.email+' är inloggad',
-        })
-
+        if(this.isMount){
+          this.setState({
+            signedIn: true,
+            message: 'Användare '+user.email+' är inloggad',
+          })
+        }
       } else {
         this.props.isLoggedIn(false)
         // No user is signed in.
         console.log('not logged in')
-        this.setState({
-          message: 'Ingen användare är inloggad'
-        })
+        if(this.isMount){
+          this.setState({
+            message: 'Ingen användare är inloggad'
+          })
+        }
+        
       }
     })
   }
@@ -63,19 +68,24 @@ export default class AdminLogin extends Component {
     const email = this.state.email
     const pass = this.state.password
 
-    if (log=='login') {
+    if (log==='login') {
       const promise = firebase.auth().signInWithEmailAndPassword(email, pass)
-
       promise.catch((e) => {
         console.log('e.message', e.message);
-        this.setState({
-          message: e.message
-        })
+        if(this.isMount){
+          this.setState({
+            message: e.message
+          })
+        }
+        
       })
-    } else if (log=='logout') {
-      this.setState({
-        signedIn: false
-      });
+    } else if (log==='logout') {
+      if(this.isMount){
+        this.setState({
+          signedIn: false
+        });
+        this.isMount = false;
+      }
       const promise = firebase.auth().signOut()
       promise.catch( (e) => {console.log(e.message)})
     }
@@ -88,9 +98,9 @@ export default class AdminLogin extends Component {
 
         {this.state.signedIn ?
           <Button
-          onPress={this.handleSubmit.bind(this, 'logout')}
-          title="Logga ut"
-          color="#e41e13"/> :
+            onPress={this.handleSubmit.bind(this, 'logout')}
+            title="Logga ut"
+            color="#e41e13"/> :
           <Button
             onPress={this.handleSubmit.bind(this, 'login')}
             title="Logga in "

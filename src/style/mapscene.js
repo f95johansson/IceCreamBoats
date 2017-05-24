@@ -10,6 +10,14 @@ var styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
   },
+  boatImage: {
+  	height: 40,
+  	width: 45,
+  },
+  meImage: {
+    height: 20,
+    width: 20
+  }
 });
 
 export default styles
