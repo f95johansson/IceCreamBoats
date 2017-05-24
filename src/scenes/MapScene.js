@@ -182,8 +182,9 @@ export default class MapScene extends Component {
               <MapView.Marker
                 key={index}
                 coordinate={this.state.users[user]}
-                image={mapPosition}
-                />
+                >
+                  <Image source={mapPosition} style={styles.meImage}/>
+                </MapView.Marker>
             )):[]}
 
             {/*If not admin, show own position*/}
@@ -191,9 +192,10 @@ export default class MapScene extends Component {
               title={'Din nuvarande position'}
               key={'key'}
               coordinate={this.state.LatLng}
-              image={mapPosition}
-              />}
-
+              >
+                <Image source={mapPosition} style={styles.meImage}/>
+            </MapView.Marker>
+            }
           </MapView>
 
           <MapSceneOverlay onInfoModalChange={this.onInfoModalChange}/>

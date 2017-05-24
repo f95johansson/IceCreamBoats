@@ -19,6 +19,17 @@ export function postNotification (message, userId) {
   }
 }
 
+export function askForNotificationPermition(){
+  var permissions = {
+    alert: true,
+    badge: true,
+    sound: true
+  }
+  OneSignal.requestPermissions(permissions);
+  OneSignal.registerForPushNotifications();
+  
+}
+
 //Check if the given user latitude and longitude is within the radius of the
 //boat's longitude and latitude
 function inArea (radius, boatLong, boatLat, userLong, userLat) {

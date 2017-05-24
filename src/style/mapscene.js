@@ -13,6 +13,10 @@ var styles = StyleSheet.create({
   boatImage: {
   	height: 40,
   	width: 45,
+  },
+  meImage: {
+    height: 30,
+    width: 30
   }
 });
 
