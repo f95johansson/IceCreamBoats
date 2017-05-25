@@ -17,7 +17,7 @@ export default class AdminLogin extends Component {
     this.isMount = true;
     this.state = {
       email: 'icecreamboats2017@gmail.com',
-      password: 'imageneverythinggeometri',
+      password: '',
       signedIn: false,
       message: ''
     }
