@@ -104,7 +104,8 @@ export default class Routing extends Component {
         <View 
         style={[styles.Scene, 
           this.state.page === SCENE_NAMES.MAP ? 
-          {}: {width: 0, height: 0, flex: 0, paddingBottom: 0},
+          {}: {/*width: 0, height: 0, flex: 0, paddingBottom: 0*/
+               position: 'absolute'},
         ]}>
           {this.state.routes[SCENE_NAMES.MAP].scene}
         </View>
