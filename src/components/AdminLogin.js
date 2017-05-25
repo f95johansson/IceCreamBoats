@@ -17,35 +17,27 @@ export default class AdminLogin extends Component {
     this.isMount = true;
     this.state = {
       email: 'icecreamboats2017@gmail.com',
-      password: '',
+      password: 'imageneverythinggeometri',
       signedIn: false,
       message: ''
     }
 
-    firebase.auth().onAuthStateChanged( (user) => {
-      if (user) {
-        this.props.isLoggedIn(true)
-        // User is signed in.
-        if(this.isMount){
-          this.setState({
-            message: 'Användare '+user.email+' är inloggad',
-          })
-        }
-      } else {
-        this.props.isLoggedIn(false)
-        // No user is signed in.
-        console.log('not logged in')
-        if(this.isMount){
-          this.setState({
-            message: 'Ingen användare är inloggad'
-          })
-        }
-      }
-    })
+    this.checkLoginStatus()
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ signedIn: nextProps.isLoggedInBool })
+  }
+
+  checkLoginStatus() {
+    firebase.auth().onAuthStateChanged( (user) => {
+      if (user) {
+        this.props.isLoggedIn(true)
+        this.setState({ message: '' })
+      } else {
+        this.props.isLoggedIn(false)
+      }
+    })
   }
 
   renderLogin(){
@@ -71,24 +63,22 @@ export default class AdminLogin extends Component {
     const pass = this.state.password
 
     if (log==='login') {
-      this.props.isLoggedIn(true)
       const promise = firebase.auth().signInWithEmailAndPassword(email, pass)
       promise.catch((e) => {
-        console.log('e.message', e.message);
+        this.setState({ message: e.message })
         if(this.isMount){
-          this.setState({
-            message: e.message
-          })
+          this.checkLoginStatus()
         }
       })
     } else if (log==='logout') {
-      this.props.isLoggedIn(false)
-
       if(this.isMount){
         this.isMount = false;
       }
       const promise = firebase.auth().signOut()
-      promise.catch( (e) => {console.log(e.message)})
+      promise.catch((e) => {
+        this.checkLoginStatus()
+        console.log(e.message)
+      })
     }
   }
 
@@ -102,10 +92,15 @@ export default class AdminLogin extends Component {
             onPress={this.handleSubmit.bind(this, 'logout')}
             title="Logga ut"
             color="#e41e13"/> :
+          <View>
           <Button
             onPress={this.handleSubmit.bind(this, 'login')}
             title="Logga in "
-            color="#e41e13"/>}
+            color="#e41e13"/>
+          <Text style={{textAlign: 'center', color: 'red', paddingTop: 20}}>
+            {this.state.message}
+          </Text>
+        </View>}
           </View>
         )
       }
