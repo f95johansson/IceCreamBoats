@@ -24,7 +24,7 @@ export default class Menu extends Component {
       showTextInput: false,
       inputText: '',
       showAddboat: false,
-      isLoggedIn: false,
+      isLoggedInBool: false,
       name: '',
       editBoat: ''
     }
@@ -48,7 +48,7 @@ export default class Menu extends Component {
   }
 
   isLoggedIn(status) {
-    this.setState({ isLoggedIn: status })
+    this.setState({ isLoggedInBool: status })
   }
 
   renderAbout() {
@@ -104,9 +104,12 @@ export default class Menu extends Component {
             firebase.auth().currentUser.email}
         </Text>
 
-        <AdminLogin isLoggedIn={this.isLoggedIn.bind(this)}/>
+        <AdminLogin
+          isLoggedIn={this.isLoggedIn.bind(this)}
+          isLoggedInBool={this.state.isLoggedInBool}
+          />
 
-        {this.state.isLoggedIn ?
+        {this.state.isLoggedInBool ?
           <View>
             <BoatElements
               setBoat={this.setBoat.bind(this)}

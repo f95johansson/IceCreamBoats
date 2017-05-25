@@ -21,7 +21,7 @@ import gstyles from '../style/styles';
 
 
 const boatImage = require('../../assets/map/boat2.png');
-const mapPosition = require('../../assets/map/mapposition.png');
+const mapPosition = require('../../assets/map/MapPosition.png');
 
 export default class MapScene extends Component {
 
