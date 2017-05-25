@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import * as firebase from 'firebase';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
 import { postToArea } from '../utils/notifications';
@@ -24,23 +24,37 @@ export default class BackGeo {
     this.name = null;
     this.phone = null;
 
-    BackgroundGeolocation.configure({
-      desiredAccuracy: 10,
-      stationaryRadius: 1,
-      distanceFilter: 10,
-      locationTimeout: 30,
-      notificationTitle: 'Background tracking',
-      notificationText: 'enabled',
-      debug: false,
-      startOnBoot: false,
-      stopOnTerminate: false,
-      locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
-      interval: 10000,
-      fastestInterval: 5000,
-      activitiesInterval: 10000,
-      saveBatteryOnBackground: false,
-      stopOnStillActivity: false
-    });
+    if (Platform.OS === 'android') {
+      BackgroundGeolocation.configure({
+        desiredAccuracy: 10,
+        stationaryRadius: 1,
+        distanceFilter: 10,
+        locationTimeout: 30,
+        notificationTitle: 'Du är en nu båt',
+        notificationText: 'Din position kommer uppdateras i bakgrunden',
+        debug: false,
+        startOnBoot: false,
+        stopOnTerminate: false,
+        locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
+        interval: 10000,
+        fastestInterval: 5000,
+        activitiesInterval: 10000,
+        saveBatteryOnBackground: false,
+        stopOnStillActivity: false
+      });
+    } else {
+      BackgroundGeolocation.configure({
+        desiredAccuracy: 10,
+        stationaryRadius: 50,
+        distanceFilter: 50,
+        activityType: 'Fitness', //iOS, type of navigation activity, 4 = otherNavigation eg boat.
+        debug: true,
+        stopOnTerminate: false,
+        interval: 10000,
+        saveBatteryOnBackground: false,
+        url: 'http://130.239.183.41:7777/save_coords'
+      });
+    }
 
     BackgroundGeolocation.on('location', (location) => {
       //handle your locations here
