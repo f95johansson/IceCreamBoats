@@ -22,6 +22,8 @@ export default class BackGeo {
 
   setup() {
     this.name = null;
+    this.phone = null;
+
     if (Platform.OS === 'android') {
       BackgroundGeolocation.configure({
         desiredAccuracy: 10,
@@ -53,7 +55,6 @@ export default class BackGeo {
         url: 'http://130.239.183.41:7777/save_coords'
       });
     }
-    
 
     BackgroundGeolocation.on('location', (location) => {
       //handle your locations here
@@ -72,6 +73,14 @@ export default class BackGeo {
 
   start(name) {
     this.name = name;
+
+    firebase.database().ref('boats/'+name).once('value', snapshot => {
+      var boats = snapshot.exportVal();
+      if (boats !== null) {
+        this.phone = boats.phone;
+      }
+    });
+
     BackgroundGeolocation.start(() => {
       alert('Båt vald. Position updateras nu i bakgrunden');
     });
@@ -79,16 +88,24 @@ export default class BackGeo {
 
   stop(name) {
     this.name = null;
+    this.phone = null;
+
     BackgroundGeolocation.stop();
   }
 
   upload(location) {
-    postToArea('Här kommer glassen', location.latitude, location.longitude, 0.000001818511515079166);
+
     if (this.name !== null) {
       firebase.database().ref('boats/' + this.name).update({
         latitude: location.latitude,
         longitude: location.longitude,
       });
+
+      if (this.phone !== null) {
+        postToArea('En glassbåt är i närheten. Ring '+this.name+' på '+this.phone+' om du inte ser båten inom en liten stund', location.latitude, location.longitude);
+      } else {
+        postToArea('En glassbåt är i närheten', location.latitude, location.longitude);
+      }
     }
   }
 }
