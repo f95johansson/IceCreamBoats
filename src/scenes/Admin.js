@@ -25,7 +25,7 @@ export default class Menu extends Component {
       showTextInput: false,
       inputText: '',
       showAddboat: false,
-      isLoggedIn: false,
+      isLoggedInBool: false,
       name: '',
       editBoat: ''
     }
@@ -49,7 +49,7 @@ export default class Menu extends Component {
   }
 
   isLoggedIn(status) {
-    this.setState({ isLoggedIn: status })
+    this.setState({ isLoggedInBool: status })
   }
 
   renderAbout() {
@@ -99,9 +99,12 @@ export default class Menu extends Component {
       <View style={{padding: 25}}>
         <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
 
-        <AdminLogin isLoggedIn={this.isLoggedIn.bind(this)}/>
+        <AdminLogin
+          isLoggedIn={this.isLoggedIn.bind(this)}
+          isLoggedInBool={this.state.isLoggedInBool}
+          />
 
-        {this.state.isLoggedIn ?
+        {this.state.isLoggedInBool ?
           <View>
             <BoatElements
               setBoat={this.setBoat.bind(this)}

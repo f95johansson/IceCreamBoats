@@ -55,8 +55,7 @@ var styles = StyleSheet.create({
     margin: 10,
   },
   adminLogin:{
-    fontWeight:'bold',
-    fontStyle:'italic',
+    fontSize: 12,
     alignSelf: 'center',
   },
 

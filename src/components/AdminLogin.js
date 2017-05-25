@@ -28,7 +28,6 @@ export default class AdminLogin extends Component {
         // User is signed in.
         if(this.isMount){
           this.setState({
-            signedIn: true,
             message: 'Användare '+user.email+' är inloggad',
           })
         }
@@ -41,9 +40,12 @@ export default class AdminLogin extends Component {
             message: 'Ingen användare är inloggad'
           })
         }
-        
       }
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ signedIn: nextProps.isLoggedInBool })
   }
 
   renderLogin(){
@@ -69,6 +71,7 @@ export default class AdminLogin extends Component {
     const pass = this.state.password
 
     if (log==='login') {
+      this.props.isLoggedIn(true)
       const promise = firebase.auth().signInWithEmailAndPassword(email, pass)
       promise.catch((e) => {
         console.log('e.message', e.message);
@@ -77,13 +80,11 @@ export default class AdminLogin extends Component {
             message: e.message
           })
         }
-        
       })
     } else if (log==='logout') {
+      this.props.isLoggedIn(false)
+
       if(this.isMount){
-        this.setState({
-          signedIn: false
-        });
         this.isMount = false;
       }
       const promise = firebase.auth().signOut()
