@@ -173,13 +173,12 @@ export default class MapScene extends Component {
             provider={this.props.provider}
             style={styles.map}
             initialRegion={this.state.region}
-            region={this.state.region}
+            region={null}
             onRegionChange={this.onRegionChange} >
 
             {this.state.markers.map(marker => (
               <View key={marker.key}>
                 <MapView.Marker
-                  draggable
                   coordinate={marker.coordinate}
                   title={this.state.boatInfo.name}
                   description={'Tele: '+this.state.boatInfo.phone}

@@ -3,7 +3,8 @@ import * as firebase from 'firebase';
 import * as permissions from './permissions';
 
 // Time treshold for users to cutoff in seconds, 14400 seconds = 4 hours
-TIME_THRESHOLD = 14400
+const TIME_THRESHOLD = 14400;
+const RADIUS = 2000; //m
 
 // message should be a string, posts a notification to a single user.
 // userId should be a oneSignal device userId
@@ -31,9 +32,8 @@ export function askForNotificationPermition(){
 
 //Check if the given user latitude and longitude is within the radius of the
 //boat's longitude and latitude
-function inArea (radius, boatLong, boatLat, userLong, userLat) {
-  // Check if satisfied (c_x - x)^2 + (c_y - y)^2 < r^2
-  return (((userLong - boatLong)^2 + (userLat - boatLat)^2) < radius^2)
+function inArea(radius, boatLat, boatLong, userLat, userLong) {
+  return differenceInLatitudeLongitude(userLat, userLong, boatLat, boatLong) < radius;
 }
 
 //Check if the given time signature is within the allowed time threshold
@@ -43,14 +43,14 @@ function inTime (userTimeSignature, allowedTimeThreshold) {
   return userTimeSignature > allowedTime
 }
 
-function postToUsersInArea (message, users, longitude, latitude, radius) {
+function postToUsersInArea (message, users, latitude, longitude, radius=RADIUS) {
   //Filter users to check if they're within the right time and longitude 
   //latitude
 
   Object.keys(users).forEach(userId => {
     var user = users[userId];
     if (inTime(user.time, TIME_THRESHOLD)) {
-      if (inArea(radius, longitude, latitude, user.longitude, user.latitude)) {
+      if (inArea(radius, latitude, longitude, user.latitude, user.longitude)) {
         if (user.notified === false) {
           firebase.database().ref('users/'+userId).update({notified: true});
           postNotification(message, userId);
@@ -65,12 +65,27 @@ function postToUsersInArea (message, users, longitude, latitude, radius) {
 
 // Loops through all the users in the firebase and filters them based on time
 // signature as well as post a notification ot them
-export function postToArea (message, longitude, latitude, radius) {
+export function postToArea (message, latitude, longitude) {
   firebase.database().ref('users')
     .once('value', snapshot => {
       var users = snapshot.exportVal();
       if (users !== null) {
-        postToUsersInArea (message, users, longitude, latitude, radius)
+        postToUsersInArea (message, users, latitude, longitude, RADIUS);
       }
     });
+}
+
+/**
+ * Haversine formula, dinstance in latitude and longitude
+ */ 
+function differenceInLatitudeLongitude(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d * 1000; // meters
 }
