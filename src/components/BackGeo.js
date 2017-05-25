@@ -25,7 +25,7 @@ export default class BackGeo {
     BackgroundGeolocation.configure({
       desiredAccuracy: 10,
       stationaryRadius: 1,
-      distanceFilter: 50,
+      distanceFilter: 10,
       locationTimeout: 30,
       notificationTitle: 'Background tracking',
       notificationText: 'enabled',
@@ -36,6 +36,7 @@ export default class BackGeo {
       interval: 10000,
       fastestInterval: 5000,
       activitiesInterval: 10000,
+      saveBatteryOnBackground: false,
       stopOnStillActivity: false
     });
 
