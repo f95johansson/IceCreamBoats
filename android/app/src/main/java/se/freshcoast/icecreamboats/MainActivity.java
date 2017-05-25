@@ -1,4 +1,4 @@
-package com.icecreamboats;
+package se.freshcoast.icecreamboats;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;

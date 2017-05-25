@@ -142,7 +142,7 @@ export default class BoatElements extends Component {
         require('../../assets/admin/checked/checked.png'):
         require('../../assets/admin/unchecked/unchecked.png')
 
-      var boatclaim = owner ?
+      var boatclaim = owner === this.state.userEmail ?
         require('../../assets/admin/claimedBoat/claimedBoat.png'):
         require('../../assets/admin/claimBoat/claimBoat.png')
 

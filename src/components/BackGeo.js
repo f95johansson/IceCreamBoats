@@ -23,7 +23,7 @@ export default class BackGeo {
   setup() {
     this.name = null;
     BackgroundGeolocation.configure({
-      desiredAccuracy: 100,
+      desiredAccuracy: 10,
       stationaryRadius: 1,
       distanceFilter: 50,
       locationTimeout: 30,
