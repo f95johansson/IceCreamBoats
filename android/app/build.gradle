@@ -94,7 +94,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.icecreamboats"
+        applicationId "se.freshcoast.icecreamboats"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -107,6 +107,16 @@ android {
             onesignal_app_id:"f189b8e0-82a9-48e0-970a-95f0fe957916",
             onesignal_google_project_number: "REMOTE"]
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('ICECREAMBOATS_RELEASE_STORE_FILE')) {
+                storeFile file(ICECREAMBOATS_RELEASE_STORE_FILE)
+                storePassword ICECREAMBOATS_RELEASE_STORE_PASSWORD
+                keyAlias ICECREAMBOATS_RELEASE_KEY_ALIAS
+                keyPassword ICECREAMBOATS_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
     splits {
         abi {
             reset()
@@ -118,6 +128,7 @@ android {
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
 

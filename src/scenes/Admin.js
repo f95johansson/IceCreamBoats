@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import MapView from 'react-native-maps';
 import BoatElements from '../components/BoatElements'
 import AdminLogin from '../components/AdminLogin'
 import AddBoatModal from '../components/AddBoatModal'
@@ -97,7 +96,13 @@ export default class Menu extends Component {
     return (
       <ScrollView>
       <View style={{padding: 25}}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Admin</Text>
+        <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
+          Admin
+        </Text>
+        <Text style={{fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>
+          {firebase.auth().currentUser !== null && 
+            firebase.auth().currentUser.email}
+        </Text>
 
         <AdminLogin
           isLoggedIn={this.isLoggedIn.bind(this)}

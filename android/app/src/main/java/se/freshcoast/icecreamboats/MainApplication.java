@@ -1,4 +1,4 @@
-package com.icecreamboats;
+package se.freshcoast.icecreamboats;
 
 import android.app.Application;
 import android.util.Log;

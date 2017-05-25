@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">IceCreamBoats</string>
-    <string name="account_type">com.icecreamboats</string>
-    <string name="content_authority">com.icecreamboats</string>
+    <string name="app_name">Glassbåtarna</string>
+    <string name="account_type">se.freshcoast.icecreamboats</string>
+    <string name="content_authority">se.freshcoast.icecreamboats</string>
 </resources>

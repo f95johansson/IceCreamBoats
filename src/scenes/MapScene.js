@@ -55,23 +55,33 @@ export default class MapScene extends Component {
     this.updateBoats = this.updateBoats.bind(this);
     this.updateUsers = this.updateUsers.bind(this);
     this.onInfoModalChange = this.onInfoModalChange.bind(this);
+    this.onRegionChange = this.onRegionChange.bind(this);
+    this.setMounted = this.setMounted.bind(this);
+
+    this.isMount = true;
+  }
+
+  setMounted(mounted) {
+    this.isMount = mounted;
   }
 
   getUserLocation() {
     location.getUserLocation().then((position) => {
       let locationData = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-      this.setState({
-        LatLng: {
-          latitude: locationData.latitude,
-          longitude: locationData.longitude,
-        },
-        region: {
-          latitude: locationData.latitude,
-          longitude: locationData.longitude,
-          latitudeDelta: 0.0500,
-          longitudeDelta: 0.0500
-        }
-      });
+      if (this.isMount) {
+        this.setState({
+          LatLng: {
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
+          },
+          region: {
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
+            latitudeDelta: 0.0500,
+            longitudeDelta: 0.0500
+          }
+        });
+      }
     }).catch((error) => {
       console.log('ERRRR', error);
     });
@@ -97,6 +107,8 @@ export default class MapScene extends Component {
     firebase.database().ref('users').on('value', this.updateUsers);
     this.getUserLocation();
 
+    this.isMount = true;
+
     //Identify user
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -108,6 +120,8 @@ export default class MapScene extends Component {
   componentWillUnmount() {
     firebase.database().ref('boats').off('value', this.updateBoats);
     firebase.database().ref('users').off('value', this.updateBoats);
+
+    this.isMount = false;
   }
 
   updateBoats(snapshot) {
@@ -133,7 +147,7 @@ export default class MapScene extends Component {
 
     ref.once('value', (snapshot) => {
       snapshot.forEach( (childSnapshot) => {
-        if (childSnapshot.val().owner==userEmail) {
+        if (childSnapshot.val().owner === userEmail) {
           this.setState({
             boatInfo: {
               name: childSnapshot.val().name,
@@ -148,13 +162,19 @@ export default class MapScene extends Component {
       this.setState({openModal: openModal});
     }
 
+    onRegionChange(region) {
+      this.setState({region: region});
+    }
+
     render() {
       return (
         <View style={styles.MapScene} >
           <MapView
             provider={this.props.provider}
             style={styles.map}
-            region={this.state.region}>
+            initialRegion={this.state.region}
+            region={this.state.region}
+            onRegionChange={this.onRegionChange} >
 
             {this.state.markers.map(marker => (
               <View key={marker.key}>

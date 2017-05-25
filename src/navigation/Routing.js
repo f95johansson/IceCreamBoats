@@ -77,47 +77,6 @@ export default class Routing extends Component {
     this.setAndroidBackPressButton();
   }
 
-  // constructor(props) {
-  //   super(props);
-  //   this.openAdmin = this.openAdmin.bind(this);
-  //
-  //   this.state = {
-  //     page: SCENE_NAMES.MAP,
-  //     routes :{
-  //       [SCENE_NAMES.INFO]: {
-  //         scene: <About openAdmin={this.openAdmin} />,
-  //         title: SCENE_NAMES.INFO,
-  //         index: INDEX.ABOUT,
-  //         iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'),
-  //         icon: require('../../assets/tabbar/info/info.png'),
-  //       },
-  //       [SCENE_NAMES.MAP]: {
-  //         scene: <MapScene />,
-  //         title: SCENE_NAMES.MAP,
-  //         index: INDEX.MAP,
-  //         iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'),
-  //         icon: require('../../assets/tabbar/map/map.png'),
-  //       },
-  //       [SCENE_NAMES.MENU]: {
-  //         scene: <Menu />,
-  //         title: SCENE_NAMES.MENU,
-  //         index: INDEX.MENU,
-  //         iconSelected: require('../../assets/tabbar/menuSelected/menuSelected.png'),
-  //         icon: require('../../assets/tabbar/menu/menu.png'),
-  //       },
-  //       [SCENE_NAMES.ADMIN]: {
-  //         scene: <Admin />,
-  //         title: SCENE_NAMES.ADMIN,
-  //         index: INDEX.ADMIN,
-  //         iconSelected: require('../../assets/tabbar/infoSelected/infoSelected.png'),
-  //         icon: require('../../assets/tabbar/info/info.png'),
-  //       },
-  //     },
-  //   };
-  //
-  //   this.setAndroidBackPressButton();
-  // }
-
   setAndroidBackPressButton() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       if (this.state.page !== SCENE_NAMES.MAP) {
@@ -133,7 +92,7 @@ export default class Routing extends Component {
   }
 
   changeView(newPage) {
-    this.setState({page: newPage.props.name})
+    this.setState({page: newPage.props.name});
   }
 
   render() {
