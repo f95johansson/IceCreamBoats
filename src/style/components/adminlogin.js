@@ -6,7 +6,10 @@ var styles = StyleSheet.create({
   textInput:{
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1
+    borderWidth: 1,
+    paddingLeft: 5,
+    borderRadius: 3,
+    marginBottom: 5
   },
 
 });
