@@ -96,11 +96,8 @@ export default class Menu extends Component {
     return (
       <ScrollView>
       <View style={{padding: 25}}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-          Admin
-        </Text>
         <Text style={{fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>
-          {firebase.auth().currentUser !== null && 
+          {firebase.auth().currentUser !== null &&
             firebase.auth().currentUser.email}
         </Text>
 

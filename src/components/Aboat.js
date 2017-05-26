@@ -12,9 +12,12 @@ export default function Aboat(props){
   //Alfred removed boat icon
 	return(
 		<View style={{padding: 20}}>
-	        <View style={{flexWrap:'wrap', flexDirection:'row'}}>
-	            <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10,}}>Båt {props.index}</Text>
-	            <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>{props.out? 'Ute nu!': 'I hamn'}</Text>
+	        <View style={{flexWrap:'wrap', flexDirection:'row', marginBottom: 8}}>
+	            <Text style={{fontWeight: 'bold', fontSize: 16, marginRight: 10}}>Båt {props.index}</Text>
+
+	            {props.out?
+                <Text style={{fontWeight: 'bold', fontSize: 16, color:'#EA591C'}}>Ute nu!</Text>:
+                <Text style={{color: 'grey', alignSelf:'center', fontSize: 16, fontWeight: '400'}}>I hamn</Text>}
 	        </View>
 	            <Text style={{fontStyle: 'italic'}}>{props.region}</Text>
 	            <Text style={{fontStyle: 'italic'}}>{props.fromTo}</Text>
