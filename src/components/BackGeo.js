@@ -47,8 +47,8 @@ export default class BackGeo {
         desiredAccuracy: 10,
         stationaryRadius: 50,
         distanceFilter: 50,
-        activityType: 'Fitness', //iOS, type of navigation activity, 4 = otherNavigation eg boat.
-        debug: true,
+        activityType: 'Fitness',
+        debug: false,
         stopOnTerminate: false,
         interval: 10000,
         saveBatteryOnBackground: false,
@@ -72,8 +72,8 @@ export default class BackGeo {
   }
 
   start(name) {
+    
     this.name = name;
-
     firebase.database().ref('boats/'+name).once('value', snapshot => {
       var boats = snapshot.exportVal();
       if (boats !== null) {
