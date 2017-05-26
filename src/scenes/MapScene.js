@@ -100,7 +100,15 @@ export default class MapScene extends Component {
   //       },
   //     ]
   //   });
-  // }
+  // }            {this.state.markers.map(marker => (
+  //          <View key={marker.key}>
+  //            <MapView.Marker
+  //              coordinate={marker.coordinate}
+  //              title={this.state.boatInfo.name}
+  //              description={'Tele: '+this.state.boatInfo.phone}
+  //              />
+  //          </View>
+  //        ))}
 
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats);
@@ -176,15 +184,7 @@ export default class MapScene extends Component {
             region={null}
             onRegionChange={this.onRegionChange} >
 
-            {this.state.markers.map(marker => (
-              <View key={marker.key}>
-                <MapView.Marker
-                  coordinate={marker.coordinate}
-                  title={this.state.boatInfo.name}
-                  description={'Tele: '+this.state.boatInfo.phone}
-                  />
-              </View>
-            ))}
+
 
             {Object.keys(this.state.boats).map((boatName, index) => (
               <MapView.Marker
