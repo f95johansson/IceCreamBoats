@@ -24,37 +24,23 @@ export default class BackGeo {
     this.name = null;
     this.phone = null;
 
-    if (Platform.OS === 'android') {
-      BackgroundGeolocation.configure({
-        desiredAccuracy: 10,
-        stationaryRadius: 1,
-        distanceFilter: 10,
-        locationTimeout: 30,
-        notificationTitle: 'Du är en nu båt',
-        notificationText: 'Din position kommer uppdateras i bakgrunden',
-        debug: false,
-        startOnBoot: false,
-        stopOnTerminate: false,
-        locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
-        interval: 10000,
-        fastestInterval: 5000,
-        activitiesInterval: 10000,
-        saveBatteryOnBackground: false,
-        stopOnStillActivity: false
-      });
-    } else {
-      BackgroundGeolocation.configure({
-        desiredAccuracy: 10,
-        stationaryRadius: 50,
-        distanceFilter: 50,
-        activityType: 'Fitness', //iOS, type of navigation activity, 4 = otherNavigation eg boat.
-        debug: true,
-        stopOnTerminate: false,
-        interval: 10000,
-        saveBatteryOnBackground: false,
-        url: 'http://130.239.183.41:7777/save_coords'
-      });
-    }
+    BackgroundGeolocation.configure({
+      desiredAccuracy: 10,
+      stationaryRadius: 1,
+      distanceFilter: 10,
+      locationTimeout: 30,
+      notificationTitle: 'Du är en nu båt',
+      notificationText: 'Din position kommer uppdateras i bakgrunden',
+      debug: false,
+      startOnBoot: false,
+      stopOnTerminate: false,
+      locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
+      interval: 10000,
+      fastestInterval: 5000,
+      activitiesInterval: 10000,
+      saveBatteryOnBackground: false,
+      stopOnStillActivity: false
+    });
 
     BackgroundGeolocation.on('location', (location) => {
       //handle your locations here
@@ -72,8 +58,8 @@ export default class BackGeo {
   }
 
   start(name) {
+    
     this.name = name;
-
     firebase.database().ref('boats/'+name).once('value', snapshot => {
       var boats = snapshot.exportVal();
       if (boats !== null) {

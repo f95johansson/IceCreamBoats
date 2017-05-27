@@ -16,8 +16,8 @@ export default class AdminLogin extends Component {
   componentWillMount() {
     this.isMount = true;
     this.state = {
-      email: 'icecreamboats2017@gmail.com',
-      password: 'imageneverythinggeometri',
+      email: '',
+      password: '',
       signedIn: false,
       message: ''
     }
@@ -43,12 +43,14 @@ export default class AdminLogin extends Component {
   renderLogin(){
     return (
       <View>
-        <Text>Logga in</Text>
+        <Text style={{alignSelf:'center', margin: 6}}>E-post</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email}
           />
+
+        <Text style={{alignSelf:'center', margin: 6}}>Lösenord</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(text) => this.setState({password: text})}

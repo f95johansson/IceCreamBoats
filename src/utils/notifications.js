@@ -43,7 +43,7 @@ function inTime (userTimeSignature, allowedTimeThreshold) {
   return userTimeSignature > allowedTime
 }
 
-function postToUsersInArea (message, users, latitude, longitude, radius=RADIUS) {
+function postToUsersInArea (message, users, latitude, longitude, radius=RADIUS, resolve) {
   //Filter users to check if they're within the right time and longitude 
   //latitude
 
@@ -52,7 +52,11 @@ function postToUsersInArea (message, users, latitude, longitude, radius=RADIUS) 
     if (inTime(user.time, TIME_THRESHOLD)) {
       if (inArea(radius, latitude, longitude, user.latitude, user.longitude)) {
         if (user.notified === false) {
-          firebase.database().ref('users/'+userId).update({notified: true});
+          firebase.database().ref('users/'+userId).update({notified: true}).then(() => {
+            resolve();
+          }).catch(() => {
+            reject();
+          });
           postNotification(message, userId);
         }
       }
@@ -66,13 +70,16 @@ function postToUsersInArea (message, users, latitude, longitude, radius=RADIUS) 
 // Loops through all the users in the firebase and filters them based on time
 // signature as well as post a notification ot them
 export function postToArea (message, latitude, longitude) {
-  firebase.database().ref('users')
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('users')
     .once('value', snapshot => {
       var users = snapshot.exportVal();
       if (users !== null) {
-        postToUsersInArea (message, users, latitude, longitude, RADIUS);
+        postToUsersInArea (message, users, latitude, longitude, RADIUS, resolve);
       }
     });
+  });
+  
 }
 
 /**
