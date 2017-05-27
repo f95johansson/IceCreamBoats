@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import Communications from 'react-native-communications';
-import Aboat from '../components/Aboat'
+import Aboat from '../components/Aboat';
 import {
   Dimensions,
   StyleSheet,
@@ -10,10 +10,11 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  TouchableHighlight
+  TouchableHighlight,
+  Linking
 } from 'react-native';
-import styles from '../style/about'
-import gstyles from '../style/styles'
+import styles from '../style/about';
+import gstyles from '../style/styles';
 
 
 export default class About extends Component {
@@ -118,11 +119,29 @@ export default class About extends Component {
             {this.state.partnerImages.map(image => <Image key={image} source={{uri: image, width: 110, height: 110}} style={styles.logoImage}/>)}
           </View>
 
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => this.props.openAdmin()}>
         <Text style={styles.adminLogin}>Admin login</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => openURL('http://freshcoast.se/privacypolicy/')}>
+          <Text style={styles.privacyPolicy}>
+            Sekretesspolicy
+          </Text>
+        </TouchableOpacity>
+
+
       </ScrollView>
     )
   }
+}
+
+
+function openURL(url) {
+  Linking.canOpenURL(url).then(supported => {
+    if (supported) {
+      Linking.openURL(url);
+    }
+  }); 
 }
