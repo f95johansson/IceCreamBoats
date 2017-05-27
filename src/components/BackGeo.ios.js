@@ -31,13 +31,9 @@ export default class BackGeo {
 
     this.config = {
       enableHighAccuracy: true,
-      distanceFilter: 50,
-      /*
-      timeout (ms), 
-      maximumAge (ms), 
-      enableHighAccuracy (bool), 
-      distanceFilter(m)
-      */
+      distanceFilter: 10,
+      timeOut: 20000,
+      maximumAge: 1000, 
     };
   }
 
@@ -76,9 +72,5 @@ export default class BackGeo {
         postToArea('En glassbåt är i närheten', location.coords.latitude, location.coords.longitude);
       }
     }
-
-  
- 
-  
   }
 }
