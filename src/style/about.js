@@ -58,7 +58,11 @@ var styles = StyleSheet.create({
     fontSize: 12,
     alignSelf: 'center',
   },
-
+  privacyPolicy:{
+    fontSize: 12,
+    alignSelf: 'center',
+    marginTop: 12,
+  },
   });
 
 export default styles
