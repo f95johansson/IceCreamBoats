@@ -1,6 +1,6 @@
 {
   "name": "IceCreamBoats",
-  "version": "1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -9,9 +9,9 @@
   "dependencies": {
     "firebase": "^3.6.10",
     "randomstring": "^1.1.5",
-    "react": "15.4.2",
+    "react": "16.0.0-alpha.3",
     "react-motion": "^0.4.7",
-    "react-native": "^0.41.2",
+    "react-native": "0.43.1",    
     "react-native-animatable": "^1.1.1",
     "react-native-button": "^1.8.2",
     "react-native-communications": "^2.2.1",
