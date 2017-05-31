@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import Communications from 'react-native-communications';
+import Hr from 'react-native-hr';
 import Aboat from '../components/Aboat';
 import {
   Dimensions,
@@ -11,11 +12,13 @@ import {
   Image,
   TouchableOpacity,
   TouchableHighlight,
-  Linking
+  Linking,
+
 } from 'react-native';
 import styles from '../style/about';
 import gstyles from '../style/styles';
 
+let privacypolicy = 'http://freshcoast.se/privacypolicy/';
 
 export default class About extends Component {
 
@@ -99,7 +102,6 @@ export default class About extends Component {
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
-
           <View style={styles.boatView}>
             {Object.keys(this.state.boats).map((name, index) =>
               <Aboat  key={index}
@@ -111,12 +113,12 @@ export default class About extends Component {
                       phone= {this.state.boats[name].phone}
               />)}
           </View>
+          
           <Text style={styles.titleTextNotBold}>
             {this.state.coWorkers}
           </Text>
-
           <View style={styles.logoView}>
-            {this.state.partnerImages.map(image => <Image key={image} source={{uri: image, width: 110, height: 110}} style={styles.logoImage}/>)}
+            {this.state.partnerImages.map(image => <Image key={image} source={{uri: image, width: 90, height: 90}} style={styles.logoImage}/>)}
           </View>
 
         <TouchableOpacity
@@ -125,13 +127,11 @@ export default class About extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => openURL('http://freshcoast.se/privacypolicy/')}>
+          onPress={() => openURL(privacypolicy)}>
           <Text style={styles.privacyPolicy}>
             Sekretesspolicy
           </Text>
         </TouchableOpacity>
-
-
       </ScrollView>
     )
   }

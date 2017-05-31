@@ -13,8 +13,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   titleTextNotBold: {
-    paddingTop: 20,
-    paddingBottom: 20,
+    marginTop: 10,
     fontSize: 25,
     color: '#EA591C',
     textAlign: 'center',
@@ -26,7 +25,7 @@ var styles = StyleSheet.create({
   },
 
   baseText: {
-    textAlign: 'left',
+    textAlign: 'center',
     paddingLeft: 32,
     paddingRight: 32,
     fontSize: 16,
@@ -55,6 +54,7 @@ var styles = StyleSheet.create({
     margin: 10,
   },
   adminLogin:{
+    marginTop: 50,
     fontSize: 12,
     alignSelf: 'center',
   },
@@ -63,6 +63,6 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 12,
   },
-  });
+});
 
 export default styles
