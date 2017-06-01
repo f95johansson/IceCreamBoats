@@ -48,7 +48,7 @@ export default class Routing extends Component {
           iconWhite: require('../../assets/tabbar/infoWhite/infoWhite.png'),
         },
         [SCENE_NAMES.MAP]: {
-          scene: <MapScene />,
+          scene: null,
           title: SCENE_NAMES.MAP,
           index: INDEX.MAP,
           iconSelected: require('../../assets/tabbar/mapSelected/mapSelected.png'),
@@ -107,7 +107,7 @@ export default class Routing extends Component {
           {}: {/*width: 0, height: 0, flex: 0, paddingBottom: 0*/
                position: 'absolute'},
         ]}>
-          {this.state.routes[SCENE_NAMES.MAP].scene}
+          <MapScene mounted={this.state.page === SCENE_NAMES.MAP} />
         </View>
         { this.state.page === SCENE_NAMES.MAP ?
             <View></View> :

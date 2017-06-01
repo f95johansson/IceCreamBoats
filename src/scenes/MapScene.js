@@ -16,6 +16,7 @@ import MapSceneOverlay from '../components/MapSceneOverlay';
 import InfoModal from '../components/InfoModal';
 import {generate} from '../utils/randomstring';
 import * as location from '../utils/location';
+import flattenStyle from 'flattenStyle';
 import styles from '../style/mapscene';
 import gstyles from '../style/styles';
 
@@ -27,7 +28,7 @@ export default class MapScene extends Component {
 
   constructor(props) {
     super(props);
-
+    this.isMount = true;
     this.state = {
       openModal: false,
       userEmail: '',
@@ -51,6 +52,8 @@ export default class MapScene extends Component {
       id: 0
     };
 
+    this.regionSet = false;
+    this.userPositionSet = false;
     this.getUserLocation();
     this.updateBoats = this.updateBoats.bind(this);
     this.updateUsers = this.updateUsers.bind(this);
@@ -58,7 +61,6 @@ export default class MapScene extends Component {
     this.onRegionChange = this.onRegionChange.bind(this);
     this.setMounted = this.setMounted.bind(this);
 
-    this.isMount = true;
   }
 
   setMounted(mounted) {
@@ -81,46 +83,31 @@ export default class MapScene extends Component {
             longitudeDelta: 0.0500
           }
         });
+        this.regionSet = true;
       }
     }).catch((error) => {
       console.log('ERRRR', error);
     });
   }
 
-  //For further development. If you want to add pins to map
-  // onMapPress(e) {
-  //   var coordinate = e.nativeEvent.coordinate;
-  //   this.setState({
-  //     id: this.state.id+1,
-  //     markers: [
-  //       ...this.state.markers,
-  //       {
-  //         coordinate: coordinate,
-  //         key: this.state.id+1,
-  //       },
-  //     ]
-  //   });
-  // }            {this.state.markers.map(marker => (
-  //          <View key={marker.key}>
-  //            <MapView.Marker
-  //              coordinate={marker.coordinate}
-  //              title={this.state.boatInfo.name}
-  //              description={'Tele: '+this.state.boatInfo.phone}
-  //              />
-  //          </View>
-  //        ))}
-
   componentWillMount() {
     firebase.database().ref('boats').on('value', this.updateBoats);
     firebase.database().ref('users').on('value', this.updateUsers);
+
     this.getUserLocation();
-
     this.isMount = true;
-
     //Identify user
+    this.authStateChanged();
+  }
+
+  authStateChanged(){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ userEmail: user.email, admin: user ? true : false }, () => this.getBoatInfo());
+        this.setState({userEmail: user.email, admin: true}, () => this.getBoatInfo());
+      }
+      else {
+        console.log('Loggade ut.');
+        this.setState({admin: false});
       }
     });
   }
@@ -131,6 +118,8 @@ export default class MapScene extends Component {
 
     this.isMount = false;
   }
+  
+
 
   updateBoats(snapshot) {
     var boats = snapshot.exportVal();
@@ -173,28 +162,37 @@ export default class MapScene extends Component {
     onRegionChange(region) {
       this.setState({region: region});
     }
+    initialRegionSet() {
+      if(this.props.mounted === true && (this.regionSet === false || this.userPositionSet === false)){
+        if (this.userPositionSet === true) { 
+          this.regionSet = true;
+        }
+        return this.state.region;
+      } else {
+        return null;
+      }
+    }
 
     render() {
+      console.log(this.state.region);
       return (
         <View style={styles.MapScene} >
           <MapView
             provider={this.props.provider}
             style={styles.map}
             initialRegion={this.state.region}
-            region={null}
+            region={this.initialRegionSet()}
             onRegionChange={this.onRegionChange} >
 
-
-
-            {Object.keys(this.state.boats).map((boatName, index) => (
-              <MapView.Marker
+            {Object.keys(this.state.boats).map((boatName, index) => {
+              return(this.state.boats[boatName].owner ? <MapView.Marker
                 key={index}
                 coordinate={this.state.boats[boatName]}
                 title={boatName}
                 description={'Tele: '+this.state.boats[boatName].phone}>
                   <Image source={boatImage} style={styles.boatImage}/>
-                </MapView.Marker>
-            ))}
+                </MapView.Marker> : []
+            )})}
 
             {/*If admin, show all users*/}
             {this.state.admin ? Object.keys(this.state.users).map((user, index) => (

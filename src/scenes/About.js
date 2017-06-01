@@ -28,6 +28,7 @@ export default class About extends Component {
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
       MiniTitle: 'Skepp ohoj!',
       coWorkers: 'Sambarbetsparters',
+      callBoats: 'Ring Båtarna',
       boats: [],
       partnerImages: [],
     }
@@ -102,6 +103,11 @@ export default class About extends Component {
           <Text style={styles.baseText}>
             {this.state.aboutText}
           </Text>
+
+          <Text style={styles.titleTextNotBold}>
+            {this.state.callBoats}
+          </Text>
+
           <View style={styles.boatView}>
             {Object.keys(this.state.boats).map((name, index) =>
               <Aboat  key={index}

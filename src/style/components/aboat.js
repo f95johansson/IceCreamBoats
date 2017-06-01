@@ -19,6 +19,7 @@ var styles = StyleSheet.create({
     flexWrap:'wrap', 
     flexDirection:'row', 
     marginBottom: 8,
+    alignSelf: 'center',
   },
 
   boatNr: {
@@ -42,18 +43,21 @@ var styles = StyleSheet.create({
 
   text: {
     fontStyle: 'italic',
+    alignSelf: 'center',
   },
 
   boatName: {
     fontStyle: 'italic', 
     fontWeight:'bold', 
     paddingTop: 11, 
-    paddingBottom: 5
+    paddingBottom: 5,
+    alignSelf: 'center'
   },
 
   phone: {
     flexWrap:'wrap', 
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
 
   phoneImage: {
