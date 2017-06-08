@@ -46,6 +46,7 @@ export default class BackGeo {
     });
     alert('Båt vald. Position updateras nu i bakgrunden');
     this.watchID = navigator.geolocation.watchPosition(this.upload, error => console.log(error), this.config);
+    console.log(this.watchID);
   }
 
   stop(name) {
