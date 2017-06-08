@@ -5,6 +5,8 @@ import { postToArea } from '../utils/notifications';
 
 let instance = null; // singleton
 
+const TIMEOUT_TIME = 30*1000; //ms
+
 export default class BackGeo {
 
   constructor() {
@@ -26,6 +28,7 @@ export default class BackGeo {
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.upload = this.upload.bind(this);
+    this.timeOut = 0;
     
 
     this.config = {
@@ -46,6 +49,7 @@ export default class BackGeo {
     });
     alert('Båt vald. Position updateras nu i bakgrunden');
     this.watchID = navigator.geolocation.watchPosition(this.upload, error => console.log(error), this.config);
+    console.log(this.watchID);
   }
 
   stop(name) {
@@ -55,20 +59,28 @@ export default class BackGeo {
   }
 
   upload(location) {
-    if (this.name !== null && this.isSending === false) {
+    alert('LOCATION: \nLongitude: '+location.coords.longitude+'\nLatitude: '+location.coords.latitude);
+    
+    if (this.name !== null) {// && this.isSending === false) {
+      var currentTime = new Date().getTime();
       this.isSending = true;
+
       firebase.database().ref('boats/' + this.name).update({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       });
+      
+      if (currentTime - this.timeOut > TIMEOUT_TIME) {
+        this.timeOut = new Date().getTime();
 
-      if (this.phone !== null) {
-        postToArea('En glassbåt är i närheten. Ring '+this.name+' på '+this.phone+' om du inte ser båten inom en liten stund', location.coords.latitude, location.coords.longitude)
+        var message = this.phone === null ? 
+            'En glassbåt är i närheten' : 
+            'En glassbåt är i närheten. Ring '+this.name+' på '+this.phone+' om du inte ser båten inom en liten stund';
+
+        postToArea(message, location.coords.latitude, location.coords.longitude)
           .then(() => {
             this.isSending = false;
           });
-      } else {
-        postToArea('En glassbåt är i närheten', location.coords.latitude, location.coords.longitude);
       }
     }
   }
