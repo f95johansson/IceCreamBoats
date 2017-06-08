@@ -174,7 +174,6 @@ export default class MapScene extends Component {
     }
 
     render() {
-      console.log(this.state.region);
       return (
         <View style={styles.MapScene} >
           <MapView

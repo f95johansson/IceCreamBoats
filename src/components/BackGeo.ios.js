@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Platform } from 'react-native';
 import * as firebase from 'firebase';
-import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
 import { postToArea } from '../utils/notifications';
 
 let instance = null; // singleton
