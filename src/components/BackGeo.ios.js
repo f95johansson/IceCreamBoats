@@ -58,9 +58,7 @@ export default class BackGeo {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  upload(location) {
-    alert('LOCATION: \nLongitude: '+location.coords.longitude+'\nLatitude: '+location.coords.latitude);
-    
+  upload(location) {    
     if (this.name !== null) {// && this.isSending === false) {
       var currentTime = new Date().getTime();
       this.isSending = true;
