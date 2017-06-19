@@ -23,6 +23,7 @@ import gstyles from '../style/styles';
 
 const boatImage = require('../../assets/map/boat2.png');
 const mapPosition = require('../../assets/map/MapPosition.png');
+const notifiedPosition = require('../../assets/map/notifiedposition.png');
 
 export default class MapScene extends Component {
 
@@ -148,12 +149,13 @@ export default class MapScene extends Component {
           this.setState({
             boatInfo: {
               name: childSnapshot.val().name,
-              phone: childSnapshot.val().phone }
-            });
-          }
-        });
+              phone: childSnapshot.val().phone
+            }
+          });
+        }
       });
-    }
+    });
+  }
 
     onInfoModalChange(openModal) {
       this.setState({openModal: openModal});
@@ -198,7 +200,11 @@ export default class MapScene extends Component {
               <MapView.Marker
                 key={index}
                 coordinate={this.state.users[user]}>
-                  <Image source={mapPosition} style={styles.meImage}/>
+                  {this.state.users[user].notified ? 
+                    <Image source={notifiedPosition} style={styles.meImage}/> :
+                    <Image source={mapPosition} style={styles.meImage}/> 
+                    
+                  }
                 </MapView.Marker>
             )):[]}
 

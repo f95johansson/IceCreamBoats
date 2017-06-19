@@ -1,6 +1,7 @@
 //import Image from 'react-native-transformable-image';
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import resolveAssetSource from 'resolveAssetSource';
 import {
   Dimensions,
   StyleSheet,
@@ -12,21 +13,23 @@ import {
 import ImageZoom from 'react-native-image-pan-zoom';
 import styles from '../style/menu'
 
+let menuImage = require('../../assets/menu/utbud.png');
+
 export default class Menu extends Component {
 
   componentWillMount() {
     this.isMount = true;
     this.state = {
-      imgUrl: ''
-    }
-    this.loadImage()
+      imgUrl: '../../assets/menu/utbud.png'
+    };
+    /*this.loadImage()*/ //for database storage.
 
   }
   componentWillUnmount(){
     this.isMount = false;
   }
 
-  loadImage() {
+  /*loadImage() {
     var storage = firebase.storage()
     var storageRef = storage.ref()
     var imagesRef = storageRef.child('Utbud/utbud.png')
@@ -39,6 +42,10 @@ export default class Menu extends Component {
     }).catch(function(error) {
       console.log('errrr (Menu.js)', error);
     })
+  }*/
+  calcImageHeight(){
+    var source = resolveAssetSource(menuImage);
+    return Dimensions.get('window').width/source.width*source.height;
   }
 
   render() {
@@ -55,11 +62,12 @@ export default class Menu extends Component {
           imageWidth={Dimensions.get('window').width}
           imageHeight={Dimensions.get('window').height-100}
           longPressTime={100}>
-
-          {this.state.imgUrl ?
+          
+            <Image source={menuImage} style={{flex: 1, width: null, height: this.calcImageHeight()}} resizeMode="stretch"/>
+            {/*this.state.imgUrl ?
             <Image
             style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.5}}
-            source={{uri: this.state.imgUrl }}/>:[]}
+            source={{uri: this.state.imgUrl }}/>:[]*/}
         </ImageZoom>
       </View>
     )
