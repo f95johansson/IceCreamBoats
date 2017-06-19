@@ -6,6 +6,7 @@ import { postToArea } from '../utils/notifications';
 let instance = null; // singleton
 
 const TIMEOUT_TIME = 30*1000; //ms
+const TIMEOUT_LOCATION = 5*1000; //ms
 
 export default class BackGeo {
 
@@ -29,6 +30,7 @@ export default class BackGeo {
     this.stop = this.stop.bind(this);
     this.upload = this.upload.bind(this);
     this.timeOut = 0;
+    this.locationTimeOut = 0;
     
 
     this.config = {
@@ -63,10 +65,13 @@ export default class BackGeo {
       var currentTime = new Date().getTime();
       this.isSending = true;
 
-      firebase.database().ref('boats/' + this.name).update({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
+      if(currentTime - this.locationTimeOut > TIMEOUT_LOCATION){
+        this.locationTimeOut = new Date().getTime;
+        firebase.database().ref('boats/' + this.name).update({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      }
       
       if (currentTime - this.timeOut > TIMEOUT_TIME) {
         this.timeOut = new Date().getTime();

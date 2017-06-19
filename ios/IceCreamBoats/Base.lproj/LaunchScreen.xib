@@ -12,18 +12,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="370" height="659"/>
+            <rect key="frame" x="0.0" y="0.0" width="317" height="565"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="freshcoast-logo.png" highlightedImage="freshcoast-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="UNj-h0-pJZ">
-                    <rect key="frame" x="92" y="205" width="187" height="150"/>
+                    <rect key="frame" x="85" y="197" width="215" height="171"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="223" y="319.5"/>
+            <point key="canvasLocation" x="196.5" y="272.5"/>
         </view>
     </objects>
     <resources>

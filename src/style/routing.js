@@ -11,7 +11,7 @@ var styles = StyleSheet.create ({
     backgroundColor: '#FFFFFF',  
   },
   MenuBackground: {
-    backgroundColor: '#8ed2de',
+    backgroundColor: '#8ADBE6',
   },
   Routing: {
     flex: 1,

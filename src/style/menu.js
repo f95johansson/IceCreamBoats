@@ -6,7 +6,7 @@ var styles = StyleSheet.create({
 
   //Menu.js
   background: {
-    backgroundColor: '#8ed2de'
+    backgroundColor: '#8ADBE6'
   }
 
 });

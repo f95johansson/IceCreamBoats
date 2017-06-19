@@ -27,6 +27,7 @@
 		94D4383C419C40B992BE29B3 /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4FEF9CC61A04705AD1EE645 /* libRCTOneSignal.a */; };
 		BBB85E0B1EC5EBC4001C7D71 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB85E0A1EC5EBBB001C7D71 /* libRCTBackgroundGeolocation.a */; };
 		BBB85E0D1EC5EDBA001C7D71 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB85E0C1EC5EDBA001C7D71 /* libsqlite3.tbd */; };
+		DD5999DA1EEB27B600196DF8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		DD66BAF01EE97B0600BA819B /* freshcoast-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DD66BAEF1EE97B0600BA819B /* freshcoast-logo.png */; };
 		DDC3207E1ED3211500FB513A /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC3207D1ED320FF00FB513A /* libAirMaps.a */; };
 /* End PBXBuildFile section */
@@ -867,6 +868,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD5999DA1EEB27B600196DF8 /* Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				DD66BAF01EE97B0600BA819B /* freshcoast-logo.png in Resources */,

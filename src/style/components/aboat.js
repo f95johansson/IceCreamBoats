@@ -3,23 +3,29 @@ import { StyleSheet } from 'react-native';
 
 var styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
     padding: 15,
     borderRadius: 5,
     shadowColor: '#888',
     shadowOffset:{width: 0, height: 2},
     shadowOpacity: 1,
     shadowRadius: 2,
-    margin: 13,
+    margin: 6,
     elevation: 5,
-    marginBottom:20,
+    marginTop: 10,
+    marginBottom:10,
+    width: 145,
+    maxWidth: 170,
+  },
+
+  boldtext: {
+    fontWeight: 'bold',
   },
 
   info: {
     flexWrap:'wrap', 
     flexDirection:'row', 
     marginBottom: 8,
-    alignSelf: 'center',
+
   },
 
   boatNr: {
@@ -42,8 +48,8 @@ var styles = StyleSheet.create({
   },
 
   text: {
-    fontStyle: 'italic',
-    alignSelf: 'center',
+    paddingBottom: 5,
+    fontSize: 11,
   },
 
   boatName: {
@@ -55,9 +61,10 @@ var styles = StyleSheet.create({
   },
 
   phone: {
+    marginTop: 5,
     flexWrap:'wrap', 
     flexDirection: 'row',
-    alignSelf: 'center',
+
   },
 
   phoneImage: {

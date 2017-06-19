@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import Communications from 'react-native-communications';
 import Hr from 'react-native-hr';
 import Aboat from '../components/Aboat';
+import resolveAssetSource from 'resolveAssetSource';
 import {
   Dimensions,
   StyleSheet,
@@ -13,12 +14,15 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Linking,
+  StatusBar
 
 } from 'react-native';
 import styles from '../style/about';
 import gstyles from '../style/styles';
 
 let privacypolicy = 'http://freshcoast.se/privacypolicy/';
+let infoImage = require('../../assets/info/BoatInfoImage.png');
+
 
 export default class About extends Component {
 
@@ -38,19 +42,20 @@ export default class About extends Component {
     this.updateAboutText = this.updateAboutText.bind(this);
     this.updateBoats = this.updateBoats.bind(this);
     this.updateImages = this.updateImages.bind(this);
+    this.calcImageHeight = this.calcImageHeight.bind(this);
 
     this.loadAboutText();
     this.loadBoats();
     this.loadImages();
 
     this.isMount = true;
-
   }
   componentWillUnmount(){
     firebase.database().ref('about').off('value', this.updateAboutText)
     firebase.database().ref('boats').off('value', this.updateBoats)
     firebase.database().ref('partnerImages').off('value', this.updateImages)
     this.isMount = false;
+
   }
 
   loadAboutText() {
@@ -81,22 +86,30 @@ export default class About extends Component {
 
   updateImages(snapshot) {
     var images = snapshot.exportVal();
-        Object.keys(images).forEach(key => {
-          firebase.storage().ref('Partners').child(images[key]).getDownloadURL().then(
-                url => {
-                  if (!url) { return }
-                  if (this.isMount && !this.state.partnerImages.includes(url)) {
-                    this.setState({partnerImages: [...this.state.partnerImages, url]});
-                  }
-                },
-          error => {console.log('About load image error: ', error)})
-        });
-    }
+      Object.keys(images).forEach(key => {
+        firebase.storage().ref('Partners').child(images[key]).getDownloadURL().then(
+              url => {
+                if (!url) { return }
+                if (this.isMount && !this.state.partnerImages.includes(url)) {
+                  this.setState({partnerImages: [...this.state.partnerImages, url]});
+                }
+              },
+        error => {console.log('About load image error: ', error)})
+      });
+  }
+
+  calcImageHeight(){
+    var source = resolveAssetSource(infoImage);
+    return Dimensions.get('window').width/source.width*source.height;
+  }
 
   render() {
     return (
       <ScrollView>
-         <Image source={require('../../assets/info/InfoImage.jpg')} style={{flex: 1, width: null, height: 180}} resizeMode="stretch" />
+      <StatusBar
+         barStyle="dark-content"
+       />
+         <Image source={infoImage} style={{flex: 1, width: null, height: this.calcImageHeight()}} resizeMode="stretch" />
           <Text style={styles.titleText}>
             {this.state.AboutTitle}
           </Text>

@@ -46,7 +46,7 @@ export default class Menu extends Component {
       <View
         style={styles.background}>
         <StatusBar
-          backgroundColor={'#8ed2de'}
+          backgroundColor={'#8ADBE6'}
           barStyle="light-content"
         />
         <ImageZoom
@@ -58,7 +58,7 @@ export default class Menu extends Component {
 
           {this.state.imgUrl ?
             <Image
-            style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.25}}
+            style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.5}}
             source={{uri: this.state.imgUrl }}/>:[]}
         </ImageZoom>
       </View>
