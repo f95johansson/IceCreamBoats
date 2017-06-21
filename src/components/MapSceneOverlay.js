@@ -31,20 +31,7 @@ const visibleTimeInMilliseconds = visibleTimeInSeconds*1000;
 
 export default class Overlay extends Component {
 
-  /*constructor(props) {
-    super(props);
-    this.timer = 0;
-    this.state = {id: '', appstate: AppState.currentState, openModal: false,
-      isDown: '180deg', hours: 3, minutes: 59, seconds: 59,
-       timeleft: 14399, isSendingPos: false};
 
-    this.sendPosition = this.sendPosition.bind(this);
-    this.quitSending = this.quitSending.bind(this);
-    this.onSlideFinished = this.onSlideFinished.bind(this);
-    this.startTimer = this.startTimer.bind(this);
-    this.tickTimer = this.tickTimer.bind(this);
-
-  }*/
   componentWillMount() {
     this.timer = null;
     this.state = {id: '', appstate: AppState.currentState, openModal: false,

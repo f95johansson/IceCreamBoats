@@ -74,7 +74,7 @@ var styles = StyleSheet.create({
 
   call: {
     paddingLeft: 10, 
-    top: 2
+    top: 2,
   }
 
 

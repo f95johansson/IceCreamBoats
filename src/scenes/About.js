@@ -31,7 +31,7 @@ export default class About extends Component {
       AboutTitle: 'F R E S H   C O A S T',
       AboutText: 'FreshCoast är ett företag som bla bla bla bla bla bla bla bla',
       MiniTitle: 'Skepp ohoj!',
-      coWorkers: 'Sambarbetsparters',
+      coWorkers: 'Sambarbetspartners',
       callBoats: 'Ring Båtarna',
       boats: [],
       partnerImages: [],

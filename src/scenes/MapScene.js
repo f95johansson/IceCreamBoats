@@ -202,8 +202,7 @@ export default class MapScene extends Component {
                 coordinate={this.state.users[user]}>
                   {this.state.users[user].notified ? 
                     <Image source={notifiedPosition} style={styles.meImage}/> :
-                    <Image source={mapPosition} style={styles.meImage}/> 
-                    
+                    <Image source={mapPosition} style={styles.meImage}/>  
                   }
                 </MapView.Marker>
             )):[]}

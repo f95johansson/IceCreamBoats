@@ -17,32 +17,6 @@ let menuImage = require('../../assets/menu/utbud.png');
 
 export default class Menu extends Component {
 
-  componentWillMount() {
-    this.isMount = true;
-    this.state = {
-      imgUrl: '../../assets/menu/utbud.png'
-    };
-    /*this.loadImage()*/ //for database storage.
-
-  }
-  componentWillUnmount(){
-    this.isMount = false;
-  }
-
-  /*loadImage() {
-    var storage = firebase.storage()
-    var storageRef = storage.ref()
-    var imagesRef = storageRef.child('Utbud/utbud.png')
-    imagesRef.getDownloadURL().then((url) => {
-      if (!url) { return }
-      if(this.isMount){
-        this.setState({ imgUrl: url })
-      }
-
-    }).catch(function(error) {
-      console.log('errrr (Menu.js)', error);
-    })
-  }*/
   calcImageHeight(){
     var source = resolveAssetSource(menuImage);
     return Dimensions.get('window').width/source.width*source.height;
@@ -62,14 +36,50 @@ export default class Menu extends Component {
           imageWidth={Dimensions.get('window').width}
           imageHeight={Dimensions.get('window').height-100}
           longPressTime={100}>
-          
             <Image source={menuImage} style={{flex: 1, width: null, height: this.calcImageHeight()}} resizeMode="stretch"/>
-            {/*this.state.imgUrl ?
-            <Image
-            style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.5}}
-            source={{uri: this.state.imgUrl }}/>:[]*/}
+            
         </ImageZoom>
       </View>
     )
   }
 }
+
+
+
+
+/*
+*THIS IS FOR DATABASE STORAGE, NONE EFFICIENT AT THE MOMENT.
+*   
+*   componentWillMount() {
+*     this.isMount = true;
+*     this.state = {
+*      imgUrl: '../../assets/menu/utbud.png'
+*     };
+*     this.loadImage()
+*   }
+*   
+*   componentWillUnmount(){
+*     this.isMount = false;
+*   }
+
+*   loadImage() {
+*    var storage = firebase.storage()
+*    var storageRef = storage.ref()
+*    var imagesRef = storageRef.child('Utbud/utbud.png')
+*    imagesRef.getDownloadURL().then((url) => {
+*      if (!url) { return }
+*      if(this.isMount){
+*        this.setState({ imgUrl: url })
+*      }
+*
+*    }).catch(function(error) {
+*      console.log('errrr (Menu.js)', error);
+*    })
+*  }
+*
+*   --*render*--
+*  {this.state.imgUrl ?
+*            <Image
+*            style={{width:Dimensions.get('window').width, height:Dimensions.get('window').width * 1.5}}
+*            source={{uri: this.state.imgUrl }}/>:[]}
+*/

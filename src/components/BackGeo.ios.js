@@ -6,7 +6,7 @@ import { postToArea } from '../utils/notifications';
 let instance = null; // singleton
 
 const TIMEOUT_TIME = 30*1000; //ms
-const TIMEOUT_LOCATION = 5*1000; //ms
+const TIMEOUT_LOCATION = 3*1000; //ms
 
 export default class BackGeo {
 
