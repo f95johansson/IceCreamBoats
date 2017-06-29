@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
+import { 
+  View, 
+  Platform,
+  Dimensions 
+} from 'react-native';
 import * as firebase from 'firebase';
 import { postToArea } from '../utils/notifications';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 
 let instance = null; // singleton
+
 
 const TIMEOUT_TIME = 20*1000; //ms
 
@@ -69,12 +75,10 @@ export default class BackGeo {
       });
       
       if (currentTime - this.timeOut > TIMEOUT_TIME) {
-        alert('KORDINATER:\nLATITUDE: ' +location.coords.latitude +'\nLONGITUDE: ' +location.coords.longitude);
         this.timeOut = new Date().getTime();
         var message = this.phone === null ? 
             'En glassbåt är i närheten' : 
             'En glassbåt är i närheten. Ring '+this.name+' på '+this.phone+' om du inte ser båten inom en liten stund';
-
         postToArea(message, location.coords.latitude, location.coords.longitude)
         .then(() => {
           this.isSending = false;

@@ -17,6 +17,11 @@ target 'IceCreamBoats' do
     'RCTVibration',
     'RCTWebSocket'
   ]
+  pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
+  pod 'RNBackgroundGeolocation', :path => '../node_modules/react-native-background-geolocation'
+  pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
+
 
   #pod 'GoogleMaps'  # <~~ remove this line if you do not want to support GoogleMaps on iOS
 

@@ -28,6 +28,11 @@ export default class BoatElements extends Component {
     this.loadFirebaseData()
   }
 
+  componentWillUnmount() {
+    firebase.database().ref('boats').off('value', this.updateBoats);
+    this.isMount = false;
+  }
+
   loadFirebaseData() {
     firebase.database().ref('boats').once('value', (snapshot) => {
       let snapValue = snapshot.exportVal()
@@ -35,11 +40,6 @@ export default class BoatElements extends Component {
         this.setState({ snapValue })
       }
     })
-  }
-
-  componentWillUnmount() {
-    firebase.database().ref('boats').off('value', this.updateBoats);
-    this.isMount = false;
   }
 
   identifyUser(){
@@ -68,7 +68,6 @@ export default class BoatElements extends Component {
       if (owner === undefined) {
         new BackGeo().start(name);
         console.log('Start1', name);
-        
         this.props.setBoat(name)
 
         /* TODO Only one boat should be claimed
