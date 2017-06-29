@@ -5,8 +5,7 @@ import { postToArea } from '../utils/notifications';
 
 let instance = null; // singleton
 
-const TIMEOUT_TIME = 30*1000; //ms
-const TIMEOUT_LOCATION = 3*1000; //ms
+const TIMEOUT_TIME = 20*1000; //ms
 
 export default class BackGeo {
 
@@ -30,14 +29,13 @@ export default class BackGeo {
     this.stop = this.stop.bind(this);
     this.upload = this.upload.bind(this);
     this.timeOut = 0;
-    this.locationTimeOut = 0;
     
 
     this.config = {
       enableHighAccuracy: true,
-      distanceFilter: 10,
       timeOut: 20000,
       maximumAge: 1000, 
+      distanceFilter: 10,
     };
   }
 
@@ -60,30 +58,27 @@ export default class BackGeo {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  upload(location) {    
-    if (this.name !== null) {// && this.isSending === false) {
+  upload(location) { 
+    if (this.name !== null) {
       var currentTime = new Date().getTime();
       this.isSending = true;
 
-      if(currentTime - this.locationTimeOut > TIMEOUT_LOCATION){
-        this.locationTimeOut = new Date().getTime;
-        firebase.database().ref('boats/' + this.name).update({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        });
-      }
+      firebase.database().ref('boats/' + this.name).update({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
       
       if (currentTime - this.timeOut > TIMEOUT_TIME) {
+        alert('KORDINATER:\nLATITUDE: ' +location.coords.latitude +'\nLONGITUDE: ' +location.coords.longitude);
         this.timeOut = new Date().getTime();
-
         var message = this.phone === null ? 
             'En glassbåt är i närheten' : 
             'En glassbåt är i närheten. Ring '+this.name+' på '+this.phone+' om du inte ser båten inom en liten stund';
 
         postToArea(message, location.coords.latitude, location.coords.longitude)
-          .then(() => {
-            this.isSending = false;
-          });
+        .then(() => {
+          this.isSending = false;
+        });
       }
     }
   }

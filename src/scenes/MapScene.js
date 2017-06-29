@@ -198,6 +198,8 @@ export default class MapScene extends Component {
             {/*If admin, show all users*/}
             {this.state.admin ? Object.keys(this.state.users).map((user, index) => (
               <MapView.Marker
+                title="Intresserad Kund"
+                description={this.state.users[user].notified ? 'Notifierad.' : 'Inte notifierad.' }
                 key={index}
                 coordinate={this.state.users[user]}>
                   {this.state.users[user].notified ? 
