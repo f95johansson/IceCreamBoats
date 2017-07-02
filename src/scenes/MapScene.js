@@ -180,6 +180,7 @@ export default class MapScene extends Component {
     return (
       <View style={styles.MapScene} >
         <MapView
+          rotateEnabled={false}
           provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}
@@ -205,8 +206,12 @@ export default class MapScene extends Component {
               key={index}
               coordinate={this.state.users[user]}>
               {this.state.users[user].notified ? 
-                <Image source={notifiedPosition} style={styles.meImage}/> :
-                <Image source={mapPosition} style={styles.meImage}/>  
+                <View style={styles.userPosition}>
+                  <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={[styles.userPositionInside, {backgroundColor: '#43A047'}]}></Animatable.View>
+                </View> :
+                <View style={styles.userPosition}>
+                  <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={styles.userPositionInside}></Animatable.View>
+                </View>  
               }
               </MapView.Marker>
           )):[]}

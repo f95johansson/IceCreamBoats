@@ -14,8 +14,8 @@ var styles = StyleSheet.create({
   	width: 25,
   },
   userPosition: {
-    height: 20,
-    width: 20,
+    height: 18,
+    width: 18,
     backgroundColor: 'rgb(255, 255, 255)',
     borderRadius: 50,
     justifyContent: 'center',
@@ -26,8 +26,8 @@ var styles = StyleSheet.create({
     shadowRadius: 2,
   },
   userPositionInside: {
-    height: 13,
-    width: 13,
+    height: 11,
+    width: 11,
     backgroundColor: 'rgba(2, 136, 209, 1)',
     borderRadius: 50,
     alignSelf: 'center'

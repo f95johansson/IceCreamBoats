@@ -314,7 +314,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = IceCreamBoats/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		4ED04CB11661482EA03F52CD /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
-		9F255B190888CA8011388DEF /* libPods-IceCreamBoats.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IceCreamBoats.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3493301ED43D66000FCAD1 /* IceCreamBoats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = IceCreamBoats.entitlements; path = IceCreamBoats/IceCreamBoats.entitlements; sourceTree = "<group>"; };
 		BBB85E0C1EC5EDBA001C7D71 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C83E85B1944BFD21CE46263D /* Pods-IceCreamBoats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IceCreamBoats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IceCreamBoats/Pods-IceCreamBoats.debug.xcconfig"; sourceTree = "<group>"; };
@@ -324,8 +323,6 @@
 		DD202FBE1F055E4700778591 /* RNBackgroundGeolocation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RNBackgroundGeolocation; path = "../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation"; sourceTree = "<group>"; };
 		DD202FC01F055E6E00778591 /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = "../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation/TSLocationManager.framework"; sourceTree = "<group>"; };
 		DD202FC21F055E9200778591 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/TSBackgroundFetch.framework"; sourceTree = "<group>"; };
-		DD202FC41F0561C600778591 /* libCocoaLumberjack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaLumberjack.a; path = "Pods/../build/Debug-iphoneos/CocoaLumberjack/libCocoaLumberjack.a"; sourceTree = "<group>"; };
-		DD202FC61F0561E200778591 /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNBackgroundGeolocation.a; path = "Pods/../build/Debug-iphoneos/RNBackgroundGeolocation/libRNBackgroundGeolocation.a"; sourceTree = "<group>"; };
 		DD2DEEC31F056942008D5283 /* libRNBackgroundFetch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNBackgroundFetch.a; path = "../../../Library/Developer/Xcode/DerivedData/IceCreamBoats-cmhbvjcuptddkugtbtzczvydubqg/Build/Products/Debug-iphonesimulator/RNBackgroundFetch/libRNBackgroundFetch.a"; sourceTree = "<group>"; };
 		DD66BAEF1EE97B0600BA819B /* freshcoast-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "freshcoast-logo.png"; path = "../../../Desktop/freshcoast-logo.png"; sourceTree = "<group>"; };
 		DD8B53001F0914BA009D8961 /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNBackgroundGeolocation.a; path = "../../../Library/Developer/Xcode/DerivedData/IceCreamBoats-cmhbvjcuptddkugtbtzczvydubqg/Build/Products/Debug-iphonesimulator/RNBackgroundGeolocation/libRNBackgroundGeolocation.a"; sourceTree = "<group>"; };
@@ -493,13 +490,10 @@
 				DD8B53021F0914D1009D8961 /* libCocoaLumberjack.a */,
 				DD8B53001F0914BA009D8961 /* libRNBackgroundGeolocation.a */,
 				DD2DEEC31F056942008D5283 /* libRNBackgroundFetch.a */,
-				DD202FC61F0561E200778591 /* libRNBackgroundGeolocation.a */,
-				DD202FC41F0561C600778591 /* libCocoaLumberjack.a */,
 				DD202FC21F055E9200778591 /* TSBackgroundFetch.framework */,
 				DD202FC01F055E6E00778591 /* TSLocationManager.framework */,
 				DD202FBE1F055E4700778591 /* RNBackgroundGeolocation */,
 				BBB85E0C1EC5EDBA001C7D71 /* libsqlite3.tbd */,
-				9F255B190888CA8011388DEF /* libPods-IceCreamBoats.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
