@@ -189,13 +189,17 @@ export default class MapScene extends Component {
 
           {Object.keys(this.state.boats).map((boatName, index) => {
             return(this.state.boats[boatName].owner ? 
-              <MapView.Marker
+              /*This is not animated. Some kind of timer needs to be set before it will animate.*/
+              <MapView.Marker.Animated
               key={index}
-              coordinate={this.state.boats[boatName]}
+              coordinate= {new MapView.AnimatedRegion({
+                latitude: this.state.boats[boatName].latitude,
+                longitude: this.state.boats[boatName].longitude
+              })}
               title={boatName}
               description={'Tele: '+this.state.boats[boatName].phone}>
                 <Image source={boatImage} style={[styles.boatImage, this.getHeading(boatName)]}/>
-              </MapView.Marker> : []
+              </MapView.Marker.Animated> : []
           )})}
 
           {/*If admin, show all users*/}
