@@ -21,7 +21,7 @@ export default class BoatElements extends Component {
       boats: {},
       aboutText: '',
       userEmail: ''
-    }
+    };
     this.updateBoats = this.updateBoats.bind(this)
     this.identifyUser()
     firebase.database().ref('boats').on('value', this.updateBoats)

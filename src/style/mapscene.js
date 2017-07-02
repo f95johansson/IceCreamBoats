@@ -10,8 +10,8 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   boatImage: {
-  	height: 40,
-  	width: 45,
+  	height: 50,
+  	width: 25,
   },
   userPosition: {
     height: 20,
@@ -31,6 +31,10 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(2, 136, 209, 1)',
     borderRadius: 50,
     alignSelf: 'center'
+  },
+  meImage: {
+    height: 20,
+    width: 20,
   }
 });
 

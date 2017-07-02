@@ -26,7 +26,7 @@ const ASPECT_RATIO = width / height;
 const LATITIDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = ASPECT_RATIO * LATITIDE_DELTA;
 
-const boatImage = require('../../assets/map/boat2.png');
+const boatImage = require('../../assets/map/newboat.png');
 const mapPosition = require('../../assets/map/MapPosition.png');
 const notifiedPosition = require('../../assets/map/notifiedposition.png');
 
@@ -64,6 +64,7 @@ export default class MapScene extends Component {
     this.updateUsers = this.updateUsers.bind(this);
     this.onInfoModalChange = this.onInfoModalChange.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
+    this.getHeading = this.getHeading.bind(this);
 
     firebase.database().ref('boats').on('value', this.updateBoats);
     firebase.database().ref('users').on('value', this.updateUsers);
@@ -167,6 +168,13 @@ export default class MapScene extends Component {
       return null;
     }
   }
+  getHeading(boatName){
+    return {
+      transform:[{
+        rotate: this.state.boats[boatName].heading + "deg",
+      }]
+    };
+  }
 
   render() {
     return (
@@ -185,7 +193,7 @@ export default class MapScene extends Component {
               coordinate={this.state.boats[boatName]}
               title={boatName}
               description={'Tele: '+this.state.boats[boatName].phone}>
-                <Image source={boatImage} style={styles.boatImage}/>
+                <Image source={boatImage} style={[styles.boatImage, this.getHeading(boatName)]}/>
               </MapView.Marker> : []
           )})}
 
