@@ -14,7 +14,7 @@ let timeOut = 0;
 let phone = null;
 
 
-const TIMEOUT_TIME = 20*1000; //ms
+const TIMEOUT_TIME = 10*1000; //ms
 
 export default class BackGeo {
   constructor(props) {
@@ -28,20 +28,21 @@ export default class BackGeo {
     return instance;
   }
   setup(){
-    
-
     this.config = {
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
       stationaryRadius: 25,
       distanceFilter: 10,
+      heartbeatIntervall: 5,
       // Activity Recognition
-      stopTimeout: 1,
+      stopTimeout: 15,
       // Application config
-      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+      debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
       startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
+      preventSuspend: true,
+
       // HTTP / SQLite config
       url: 'http://yourserver.com/locations',
       batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
@@ -91,15 +92,8 @@ export default class BackGeo {
     BackgroundGeolocation.stop();
   }
 
-  componentWillUnmount() {
-    // Remove BackgroundGeolocation listeners
-    BackgroundGeolocation.un('location', this.onLocation);
-    BackgroundGeolocation.un('error', this.onError);
-    BackgroundGeolocation.un('motionchange', this.onMotionChange);
-    BackgroundGeolocation.un('activitychange', this.onActivityChange);
-    BackgroundGeolocation.un('providerchange', this.onProviderChange);
-  }
-  onLocation(location) {
+
+  onLocation(location, taskId) {
     console.log('- [js]location: ', JSON.stringify(location));
     firebase.database().ref('boats/' + boatname).update({
       latitude: location.coords.latitude,
@@ -120,6 +114,7 @@ export default class BackGeo {
         });
       }
     }
+    BackgroundGeolocation.finish(taskId);
   }
   onError(error) {
     var type = error.type;
@@ -132,8 +127,8 @@ export default class BackGeo {
   onProviderChange(provider) {
     console.log('- Location provider changed: ', provider.enabled);    
   }
-  onMotionChange(location) {
+  onMotionChange(isMoving, location, taskId) {
+    BackgroundGeolocation.finish(taskId);
     console.log('- [js]motionchanged: ', JSON.stringify(location));
-    
   }
 }

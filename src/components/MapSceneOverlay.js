@@ -103,13 +103,13 @@ export default class Overlay extends Component {
           if ((timeDiff) > (visibleTimeInMilliseconds)) {
             location.deleteUserLocation(userID);
             this.setState({isSendingPos: false, timeleft: visibleTimeInSeconds});
-
           }
           else if ((timeDiff) < (visibleTimeInMilliseconds)) {
             this.setState({isSendingPos: true, timeleft: timeRemaining });
             this.startTimer();
           }
           else {
+            location.deleteUserLocation(userID);
             this.setState({isSendingPos: false, timeleft: visibleTimeInSeconds });
           }
         }).catch((error) => {

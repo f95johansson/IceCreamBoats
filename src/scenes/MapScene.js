@@ -10,7 +10,8 @@ import {
   PanResponder,
   Dimensions,
   TouchableOpacity,
-  Image
+  Image,
+  Easing
 } from 'react-native';
 import * as firebase from 'firebase';
 import MapSceneOverlay from '../components/MapSceneOverlay';
@@ -55,7 +56,8 @@ export default class MapScene extends Component {
         longitudeDelta: 0.0421
       },
       markers: [],
-      id: 0
+      id: 0,
+      animatedCoordinates: {},
     };
     this.regionSet = false;
     this.userPositionSet = false;
@@ -120,6 +122,23 @@ export default class MapScene extends Component {
     if (boats === null) {
       this.setState({boats: {}});
     } else {
+      Object.keys(boats).map((boatName, index) => {
+        if (!this.state.animatedCoordinates[boatName]) {
+          var coords = this.state.animatedCoordinates;
+            coords[boatName] =  new MapView.AnimatedRegion({
+                latitude: boats[boatName].latitude,
+                longitude: boats[boatName].longitude,
+              });
+            this.setState({animatedCoordinates: coords});
+        } else {
+        this.state.animatedCoordinates[boatName].timing({
+            latitude: boats[boatName].latitude,
+            longitude: boats[boatName].longitude,
+            duration: 3000,
+            easing: Easing.linear,
+          }).start();
+        }
+      });
       this.setState({boats: boats});
     }
   }
@@ -192,10 +211,7 @@ export default class MapScene extends Component {
               /*This is not animated. Some kind of timer needs to be set before it will animate.*/
               <MapView.Marker.Animated
               key={index}
-              coordinate= {new MapView.AnimatedRegion({
-                latitude: this.state.boats[boatName].latitude,
-                longitude: this.state.boats[boatName].longitude
-              })}
+              coordinate= {this.state.animatedCoordinates[boatName]}
               title={boatName}
               description={'Tele: '+this.state.boats[boatName].phone}>
                 <Image source={boatImage} style={[styles.boatImage, this.getHeading(boatName)]}/>
@@ -211,7 +227,7 @@ export default class MapScene extends Component {
               coordinate={this.state.users[user]}>
               {this.state.users[user].notified ? 
                 <View style={styles.userPosition}>
-                  <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={[styles.userPositionInside, {backgroundColor: '#43A047'}]}></Animatable.View>
+                  <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={[styles.userPositionInside, {backgroundColor: '#66BB6A'}]}></Animatable.View>
                 </View> :
                 <View style={styles.userPosition}>
                   <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={styles.userPositionInside}></Animatable.View>
@@ -227,7 +243,7 @@ export default class MapScene extends Component {
               key="user-position"
               coordinate={this.state.LatLng}>
               <View style={styles.userPosition}>
-               <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={styles.userPositionInside}></Animatable.View>
+               <Animatable.View animation="pulse" easing="linear" iterationCount="infinite" style={styles.userPositionInsideUser}></Animatable.View>
               </View>
             </MapView.Marker>
           }

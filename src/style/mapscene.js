@@ -28,14 +28,21 @@ var styles = StyleSheet.create({
   userPositionInside: {
     height: 11,
     width: 11,
-    backgroundColor: 'rgba(2, 136, 209, 1)',
+    backgroundColor: '#EF5350',
     borderRadius: 50,
     alignSelf: 'center'
   },
   meImage: {
     height: 20,
     width: 20,
-  }
+  },
+  userPositionInsideUser: {
+    height: 11,
+    width: 11,
+    backgroundColor: '#2196F3',
+    borderRadius: 50,
+    alignSelf: 'center'
+  },
 });
 
 export default styles;

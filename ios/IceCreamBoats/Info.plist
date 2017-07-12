@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMotionUsageDescription</key>
-	<string>Accelerometer use increases battery efficiency by intelligently toggling location-tracking</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -21,11 +19,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.6</string>
+	<string>1.0.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>10</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>https</string>
@@ -45,12 +43,13 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires background tracking</string>
+	<string>Glassbåtarna behöver veta din position för att kunna hitta dig även när du inte använder appen.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Glassbåtarna behöver veta din position för att kunna hitta dig.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Accelerometer use increases battery efficiency by intelligently toggling location-tracking</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>audio</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>remote-notification</string>
