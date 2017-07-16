@@ -43,6 +43,9 @@ export function uploadBoatLocation(name, latitude, longitude) {
     longitude: longitude,
   });
 }
+export function deleteAllUserLocations(){
+  firebase.database().ref('users').remove();
+}
 
 export function deleteUserLocation(userId) {
  firebase.database().ref('users/'+userId).remove();

@@ -134,7 +134,7 @@ export default class MapScene extends Component {
         this.state.animatedCoordinates[boatName].timing({
             latitude: boats[boatName].latitude,
             longitude: boats[boatName].longitude,
-            duration: 3000,
+            duration: 5000,
             easing: Easing.linear,
           }).start();
         }

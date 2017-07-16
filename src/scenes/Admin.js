@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import BoatElements from '../components/BoatElements'
-import AdminLogin from '../components/AdminLogin'
-import AddBoatModal from '../components/AddBoatModal'
-import AddPositionModal from '../components/AddPositionModal'
+import BoatElements from '../components/BoatElements';
+import AdminLogin from '../components/AdminLogin';
+import AddBoatModal from '../components/AddBoatModal';
+import AddPositionModal from '../components/AddPositionModal';
+import * as location from '../utils/location';
 import {
   StyleSheet,
   Text,
@@ -114,7 +115,11 @@ export default class Menu extends Component {
 
             <AddBoatModal clearState={this.clearState.bind(this)} editBoat={this.state.editBoat}/>
             {this.renderAbout()}
-            <AddPositionModal getBoat={this.state.name}/>
+            {/*<AddPositionModal getBoat={this.state.name}/>*/}
+
+            <Button onPress={()=>{location.deleteAllUserLocations()}}
+                  title = "Ta bort alla användarpositioner"
+                  color="#e41e13"/>
           </View>
         :[]}
       </View>
