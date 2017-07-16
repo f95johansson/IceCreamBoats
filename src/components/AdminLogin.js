@@ -14,30 +14,32 @@ import gstyles from '../style/styles'
 export default class AdminLogin extends Component {
 
   componentWillMount() {
+    /*var user = firebase.auth().currentUser;
+    alert(user.email);*/
     this.isMount = true;
     this.state = {
       email: '',
       password: '',
       signedIn: false,
       message: ''
-    }
+    };
 
-    this.checkLoginStatus()
+    this.checkLoginStatus();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ signedIn: nextProps.isLoggedInBool })
+    this.setState({ signedIn: nextProps.isLoggedInBool });
   }
 
   checkLoginStatus() {
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
-        this.props.isLoggedIn(true)
-        this.setState({ message: '' })
+        this.props.isLoggedIn(true);
+        this.setState({ message: '' });
       } else {
-        this.props.isLoggedIn(false)
+        this.props.isLoggedIn(false);
       }
-    })
+    });
   }
 
   renderLogin(){
