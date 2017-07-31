@@ -68,7 +68,7 @@ export default class MapScene extends Component {
     this.onRegionChange = this.onRegionChange.bind(this);
     this.getHeading = this.getHeading.bind(this);
 
-    firebase.database().ref('boats').on('value', this.updateBoats);
+    firebase.database().ref('admins').on('value', this.updateBoats);
     firebase.database().ref('users').on('value', this.updateUsers);
 
     //Identify user
@@ -112,7 +112,7 @@ export default class MapScene extends Component {
   }
 
   componentWillUnmount() {
-    firebase.database().ref('boats').off('value', this.updateBoats);
+    firebase.database().ref('admins').off('value', this.updateBoats);
     firebase.database().ref('users').off('value', this.updateBoats);
     this.isMount = false;
   }
@@ -153,11 +153,11 @@ export default class MapScene extends Component {
 
   getBoatInfo() {
     let userEmail = this.state.userEmail;
-    ref = firebase.database().ref('boats');
+    ref = firebase.database().ref('admins');
 
     ref.once('value', (snapshot) => {
       snapshot.forEach( (childSnapshot) => {
-        if (childSnapshot.val().owner === userEmail) {
+        if (childSnapshot.val().isOut === true) {
           this.setState({
             boatInfo: {
               name: childSnapshot.val().name,
@@ -207,12 +207,12 @@ export default class MapScene extends Component {
           onRegionChange={this.onRegionChange}>
 
           {Object.keys(this.state.boats).map((boatName, index) => {
-            return(this.state.boats[boatName].owner ? 
+            return(this.state.boats[boatName].isOut ? 
               /*This is not animated. Some kind of timer needs to be set before it will animate.*/
               <MapView.Marker.Animated
               key={index}
               coordinate= {this.state.animatedCoordinates[boatName]}
-              title={boatName}
+              title={this.state.boats[boatName].name}
               description={'Tele: '+this.state.boats[boatName].phone}>
                 <Image source={boatImage} style={[styles.boatImage, this.getHeading(boatName)]}/>
               </MapView.Marker.Animated> : []

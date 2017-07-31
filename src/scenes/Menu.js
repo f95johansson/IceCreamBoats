@@ -11,7 +11,7 @@ import {
   StatusBar
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
-import styles from '../style/menu'
+import styles from '../style/menu';
 
 let menuImage = require('../../assets/menu/utbud.png');
 
@@ -37,7 +37,6 @@ export default class Menu extends Component {
           imageHeight={Dimensions.get('window').height-100}
           longPressTime={100}>
             <Image source={menuImage} style={{flex: 1, width: null, height: this.calcImageHeight()}} resizeMode="stretch"/>
-            
         </ImageZoom>
       </View>
     )

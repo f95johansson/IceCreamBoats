@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Communications from 'react-native-communications';
-import styles from '../style/components/aboat'
+import styles from '../style/components/aboat';
 
 export default function Aboat(props){
   return(

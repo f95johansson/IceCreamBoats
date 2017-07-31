@@ -6,16 +6,17 @@ import {
   View,
   Image,
   Button,
-  TextInput
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import styles from '../style/components/adminlogin'
-import gstyles from '../style/styles'
+import styles from '../style/components/adminlogin';
+import gstyles from '../style/styles';
+
+
 
 export default class AdminLogin extends Component {
 
   componentWillMount() {
-    /*var user = firebase.auth().currentUser;
-    alert(user.email);*/
     this.isMount = true;
     this.state = {
       email: '',
@@ -23,7 +24,6 @@ export default class AdminLogin extends Component {
       signedIn: false,
       message: ''
     };
-
     this.checkLoginStatus();
   }
 
@@ -54,6 +54,7 @@ export default class AdminLogin extends Component {
 
         <Text style={{alignSelf:'center', margin: 6}}>Lösenord</Text>
         <TextInput
+          secureTextEntry={true}
           style={styles.textInput}
           onChangeText={(text) => this.setState({password: text})}
           value={this.state.password}
@@ -71,10 +72,11 @@ export default class AdminLogin extends Component {
       promise.catch((e) => {
         this.setState({ message: e.message })
         if(this.isMount){
-          this.checkLoginStatus()
+          this.checkLoginStatus();
         }
       })
     } else if (log==='logout') {
+      this.setState({password:''})
       if(this.isMount){
         this.isMount = false;
       }
@@ -88,24 +90,32 @@ export default class AdminLogin extends Component {
 
   render() {
     return (
-      <View style={{paddingBottom: 20}}>
+      <View>
         {this.state.signedIn ? [] : this.renderLogin()}
 
         {this.state.signedIn ?
-          <Button
-            onPress={this.handleSubmit.bind(this, 'logout')}
-            title="Logga ut"
-            color="#e41e13"/> :
           <View>
-          <Button
-            onPress={this.handleSubmit.bind(this, 'login')}
-            title="Logga in "
-            color="#e41e13"/>
-          <Text style={{textAlign: 'center', color: 'red', paddingTop: 20}}>
-            {this.state.message}
-          </Text>
-        </View>}
+          { this.props.userloaded ?
+            <View style = {styles.logoutview}>
+              <TouchableOpacity onPress={this.handleSubmit.bind(this, 'logout')}>
+                <Image source={require('../../assets/admin/logout.png')} style={styles.logout}/>
+              </TouchableOpacity>
+            </View>
+            :
+            []
+          }
           </View>
+           :
+          <View>
+            <Button
+              onPress={this.handleSubmit.bind(this, 'login')}
+              title="Logga in "
+              color="#e41e13"/>
+            <Text style={{textAlign: 'center', color: 'red', paddingTop: 20}}>
+              {this.state.message}
+            </Text>
+          </View>}
+        </View>
         )
       }
     }

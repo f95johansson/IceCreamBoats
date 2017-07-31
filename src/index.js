@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  //StatusBar,
 } from 'react-native';
 import Routing from './navigation/Routing';
 
@@ -20,6 +19,7 @@ var config = {
   messagingSenderId: "873538806157"
 };
 firebase.initializeApp(config);
+
 
 export default class IceCreamBoats extends Component {
   componentWillMount() {
