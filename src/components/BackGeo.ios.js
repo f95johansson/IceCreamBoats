@@ -9,7 +9,8 @@ import { postToArea } from '../utils/notifications';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 
 let instance = null; // singleton
-let boatname = null;
+let userId = null;
+let name = null;
 let timeOut = 0;
 let phone = null;
 
@@ -63,22 +64,23 @@ export default class BackGeo {
   }
 
   addPhone(){
-    firebase.database().ref('boats/'+boatname).once('value', snapshot => {
-      var boats = snapshot.exportVal();
-      if (boats !== null){
-        phone = boats.phone;
+    firebase.database().ref('admins/'+userId).once('value', snapshot => {
+      var user = snapshot.exportVal();
+      if (user !== null){
+        phone = user.phone;
+        name = user.name;
       }
     });
   }
 
-  start(name) {
-    boatname = name;
+  start(id) {
+    userId = id;
     this.config();
     this.addPhone();
-    alert('Båt vald. Position updateras nu i bakgrunden');
+    alert('GPS Startad. Position updateras nu i bakgrunden');
   }
 
-  stop(name){
+  stop(){
     BackgroundGeolocation.un('location', this.onLocation);
     BackgroundGeolocation.un('heartbeat', this.onHeartbeat);
     BackgroundGeolocation.un('error', this.onError);
@@ -91,19 +93,20 @@ export default class BackGeo {
 
   onLocation(location, taskId) {
     console.log('- [js]location: ', JSON.stringify(location));
-    firebase.database().ref('boats/' + boatname).update({
+    firebase.database().ref('admins/' + userId).update({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
       heading: location.coords.heading,
     });
-    if(boatname !== null){
+
+    if(userId !== null){
       var currentTime = new Date().getTime();
       this.isSending = true;
       if (currentTime - timeOut > TIMEOUT_TIME) {
         timeOut = new Date().getTime();
         var message = this.phone === null ? 
           'En glassbåt är i närheten' : 
-          'En glassbåt är i närheten. Ring '+boatname+' på '+phone+' om du inte ser båten inom en liten stund';
+          'En glassbåt är i närheten. Ring '+name+' på '+phone+' om du inte ser båten inom en liten stund';
         postToArea(message, location.coords.latitude, location.coords.longitude)
         .then(() => {
           this.isSending = false;
@@ -129,13 +132,6 @@ export default class BackGeo {
   onMotionChange(event) {
     console.log('- [js]motionchanged: ', JSON.stringify(event.location));
     var location = event.location;
-    /*if(event.isMoving){
-      firebase.database().ref('boats/' + boatname).update({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        heading: location.coords.heading,
-      });
-    }*/
     BackgroundGeolocation.finish(event.taskId);
   }
   

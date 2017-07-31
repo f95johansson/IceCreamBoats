@@ -121,8 +121,6 @@ import gstyles from '../style/styles'
                   onChangeText={(text) => this.setState({fromTo: text})}
                   value={this.state.fromTo}
                   />
-
-
               <Button
                 onPress={()=>{ this.uploadData() }}
                 title="Ladda upp"

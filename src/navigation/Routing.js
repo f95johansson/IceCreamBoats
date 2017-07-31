@@ -113,8 +113,8 @@ export default class Routing extends Component {
             <View style={styles.Scene}>{this.state.routes[this.state.page].scene}</View>}
 
         <Tabs selected={this.state.page}
-              style={[styles.Routing,this.state.page === SCENE_NAMES.MENU ?
-      styles.MenuBackground:styles.NormalBackground]}
+              style={[styles.Routing, this.state.page === SCENE_NAMES.MENU ?
+                      styles.MenuBackground:styles.NormalBackground]}
               selectedStyle={{selected: true}}
               onSelect={el => this.changeView(el)}>
 

@@ -59,9 +59,9 @@ export default class BoatElements extends Component {
  
 
   claimBoat(name) {
-    const { userEmail } = this.state
+    const { userEmail } = this.state;
     firebase.database().ref('boats').once('value', (snapshot) => {
-      let snapValue = snapshot.exportVal()
+      let snapValue = snapshot.exportVal();
       let owner = snapValue[name].owner;
 
       //if the boat is not claimed
@@ -133,17 +133,17 @@ export default class BoatElements extends Component {
 
     let i = 0
     for (var boat in boats) {
-      let name = boats[boat].name
-      let isOut = boats[boat].isOut
-      let owner = boats[boat].owner
+      let name = boats[boat].name;
+      let isOut = boats[boat].isOut;
+      let owner = boats[boat].owner;
 
       var checkbox = isOut ?
         require('../../assets/admin/checked/checked.png'):
-        require('../../assets/admin/unchecked/unchecked.png')
+        require('../../assets/admin/unchecked/unchecked.png');
 
       var boatclaim = owner === this.state.userEmail ?
         require('../../assets/admin/claimedBoat/claimedBoat.png'):
-        require('../../assets/admin/claimBoat/claimBoat.png')
+        require('../../assets/admin/claimBoat/claimBoat.png');
 
       elements.push(
         (<View key={i} style={styles.rowElements}>

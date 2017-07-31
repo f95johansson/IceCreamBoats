@@ -33,7 +33,7 @@ export default class About extends Component {
       MiniTitle: 'Skepp ohoj!',
       coWorkers: 'Sambarbetspartners',
       callBoats: 'Ring Båtarna',
-      boats: [],
+      admins: [],
       partnerImages: [],
     }
     this.loadBoats = this.loadBoats.bind(this);
@@ -52,7 +52,7 @@ export default class About extends Component {
   }
   componentWillUnmount(){
     firebase.database().ref('about').off('value', this.updateAboutText)
-    firebase.database().ref('boats').off('value', this.updateBoats)
+    firebase.database().ref('admins').off('value', this.updateBoats)
     firebase.database().ref('partnerImages').off('value', this.updateImages)
     this.isMount = false;
 
@@ -69,13 +69,13 @@ export default class About extends Component {
   }
 
   loadBoats() {
-    firebase.database().ref('boats').on('value', this.updateBoats)
+    firebase.database().ref('admins').on('value', this.updateBoats)
   }
 
   updateBoats(snapshot){
-    let boats = snapshot.exportVal();
+    let admins = snapshot.exportVal();
     this.setState({
-      boats: boats === null ? {} : boats
+      admins: admins  === null ? {} : admins
     })
   }
 
@@ -122,15 +122,16 @@ export default class About extends Component {
           </Text>
 
           <View style={styles.boatView}>
-            {Object.keys(this.state.boats).map((name, index) =>
+            {Object.keys(this.state.admins).map((userId, index) =>
               <Aboat  key={index}
                       index= {index+1}
-                      name=  {this.state.boats[name].name}
-                      out=   {this.state.boats[name].owner !== undefined}
-                      region={this.state.boats[name].region}
-                      fromTo={this.state.boats[name].fromTo}
-                      phone= {this.state.boats[name].phone}
-              />)}
+                      name=  {this.state.admins[userId].name}
+                      out=   {this.state.admins[userId].isOut}
+                      region={this.state.admins[userId].region}
+                      fromTo={this.state.admins[userId].fromTo}
+                      phone= {this.state.admins[userId].phone}
+              />
+              )}
           </View>
           
           <Text style={styles.titleTextNotBold}>
