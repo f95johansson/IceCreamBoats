@@ -269,7 +269,7 @@ export default class Admin extends Component {
 	    						{uri: this.state.imgUrl, 
 	    						 width: this.getWidthDim(0.5)-7.5, 
 	    						 height:this.getWidthDim(0.5)-7.5}}
-	    						 style={{borderRadius: 5, marginLeft: 5, marginRight: 2.5}}
+	    						 style={{borderRadius: 10, marginLeft: 5, marginRight: 2.5}}
 	    					/> :
 	    					<Image source={noImageUrlImage} style={styles.profileImage}/>
 		    			}

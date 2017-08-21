@@ -8,6 +8,7 @@ var styles = StyleSheet.create({
    	alignItems: 'center',
     borderRadius: 10,
     elevation: 5,
+    top: 100,
     margin: 30,
     paddingLeft: 30,
     paddingRight: 30,

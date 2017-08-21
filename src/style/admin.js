@@ -47,14 +47,14 @@ var styles = StyleSheet.create({
 		marginTop: 5, 
 	},
 	profileImage:{
-		borderRadius: 5,
+		borderRadius: 10,
 		width: (winWidth/2)-7.5,
 		height: (winWidth/2)-7.5,
 		marginLeft: 5, 
 		marginRight: 2.5, 
 	},
 	gpsImage:{
-		borderRadius: 5,
+		borderRadius: 10,
 		width: (winWidth/2)-7.5, 
 		height:(winWidth/2)-7.5,
 		marginRight: 5,
@@ -68,43 +68,23 @@ var styles = StyleSheet.create({
 		margin: 2.5,
 	},
 	editProfile: {
-		borderRadius: 5,
+		borderRadius: 10,
 		width: (winWidth/3)-(10/3)*2,
 		height: (winWidth/3)-(10/3)*2,
 		margin: 2.5,
 
 	},
 	editAbout: {
-		borderRadius: 5,
+		borderRadius: 10,
 		width: (winWidth/3)-(10/3)*2,
 		height: (winWidth/3)-(10/3)*2,
 		margin: 2.5,
 	},
 	trashIcon: {
-		borderRadius: 5,
+		borderRadius: 10,
 		width: (winWidth/3)-(10/3)*2,
 		height: (winWidth/3)-(10/3)*2,
 		margin: 2.5,
-	},
-	addAdmin: {
-		borderRadius: 5,
-		width: (winWidth/3)-(10/3)*2,
-		height: (winWidth/3)-(10/3)*2,
-		margin: 2.5,
-	},
-	editAdmin: {
-		borderRadius: 5,
-		width: (winWidth/3)-(10/3)*2,
-		height: (winWidth/3)-(10/3)*2,
-		margin: 2.5,
-
-	},
-	trashAdmin: {
-		borderRadius: 5,
-		width: (winWidth/3)-(10/3)*2,
-		height: (winWidth/3)-(10/3)*2,
-		margin: 2.5,
-
 	},
 
 });
